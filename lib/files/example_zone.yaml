@@ -1,0 +1,129 @@
+#######################################################################
+# Name of this file will be the name of your zone. You should probably
+# change it before deployment
+#######################################################################
+# This is example zone without HA implemented
+#######################################################################
+# ops & common data
+##################
+# Admintools
+profile::admintools::announcements::from_email: "admin@%{hiera('pub_domain')}"
+profile::admintools::announcements::from_name: 'Example Cloud Admin'
+
+#######################################################################
+# By default Occam depolys only 'cloud' application
+#######################################################################
+profile::hiera::config::occam_apps:
+  - 'cloud'
+
+# Block devices
+root_device: '/dev/sda'
+# used on compute nodes:
+nova_block_device: '/dev/sda4'
+cinder_block_device: '/dev/sda5'
+swift_block_device: '/dev/sda6'
+# used on controller nodes:
+glance_block_device: '/dev/sda4'
+ceilometer_db_block_device: '/dev/sda6'
+
+# Puppet environement used by clients
+puppet_environment: 'testing'
+# IP address of ops node
+puppet_address: '10.100.1.10'
+# Time zone used by entire cloud
+timezone: 'America/Los_Angeles'
+# Domain name used internally
+mgmt_domain: 'example_zone.example.com'
+# Domain name used for endpoint names
+pub_domain: 'example_zone.example.com'
+# Hostname of monitoring node
+monitoring_node: 'monit1'
+# IP address of monitoring node
+monitoring_node_ip: '10.100.1.15'
+# Range and lease time for mgmt network
+# Should look like: 'first_ip,last_ip,lease_time'
+mgmt_net_dhcp_range: '10.100.1.100,10.100.1.200,12h'
+# MGMT network gateway
+mgmt_gateway: '10.100.1.1'
+# MGMT network in cidr notation
+mgmt_network: '10.100.1.0/24'
+# MGMT IP address of controller
+mgmt_ctrl_ip: '10.100.1.12'
+# Public IP address of controller
+pub_ctrl_ip: '10.101.2.11'
+# Hosts allowed to communicate with controller
+profile::openstack::controller::allowed_hosts:
+  - '127.0.0.%'
+  - '10.100.1.%'
+# Interface on controller used for public network
+mgmt_interface: 'eth0'
+# Inferface on controller used for bridging
+pub_interface: 'eth1'
+# Interface on controller used for private network
+priv_interface: 'eth5'
+# Name of certificate file located in
+# puppet/modules/profile/files/ssl/ directory
+certificate_name: 'example_zone.example.com.pem'
+# Hostname of ops node
+orchestrator: 'ops1'
+# Public network in cidr notation
+cloud_public_net_cidr: '10.101.2.0/24'
+# Public network gateway
+cloud_public_net_gateway: '10.101.2.1'
+# First IP of public IP allocation pool
+cloud_public_net_allocation_start: '10.101.2.100'
+# Last IP of public IP allocation pool
+cloud_public_net_allocation_end: '10.101.2.200'
+# Public network name
+cloud_public_net_name: 'public'
+# External dns address
+external_dns: '8.8.8.8'
+# Ops ip + 1 on last octet
+starting_ip_mgmt: 10.100.1.11
+# VM network base IP (WITHOUT last octet WITH last dot)
+vm_base: 172.20.1.
+# High availability setup (true/false)
+ha_setup: 'false'
+#### uncomment 2 following lines for ha setup
+#mysql::server::package_name: 'percona-xtradb-cluster-server-5.5'
+#mysql::client_package_name: 'percona-xtradb-cluster-client-5.5'
+
+# OccamEngine settings - begin
+reserved_vip_ips: 1
+puppet_initial_runs: 5
+
+roles:
+  ctrl:
+    :puppet_class: 'role::openstack::controller'
+    :priority: 10
+    :minimum: 1
+    :maximum: 1
+    :macs:
+      - 'aa:bb:cc:dd:ee:10'
+  monit:
+    :puppet_class: 'role::monitoring::server'
+    :priority: 20
+    :minimum: 1
+    :maximum: 1
+    :macs:
+      - 'aa:bb:cc:dd:ee:60'
+  comp:
+    :puppet_class: 'role::openstack::compute'
+    :priority: 30
+    :minimum: 3
+    :maximum: 10
+
+
+networks:
+  eth0:
+    network: 10.100.1.0
+    netmask: 255.255.255.0
+    gateway: 10.100.1.1
+  eth5:
+    suffix: 'vm'
+    network: 172.20.1.0
+    netmask: 255.255.255.0
+    gateway: 172.20.1.1
+
+#occamengine settings - end
+

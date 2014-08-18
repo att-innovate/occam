@@ -1,0 +1,24 @@
+# our lint warnings
+
+puppet/modules/profile/manifests/openstack/compute.pp: --no-variable_scope-check 
+puppet/modules/profile/manifests/openstack/controller.pp: --no-variable_scope-check 
+puppet/occam/modules/zabbix/manifests/frontend/vhost.pp: --no-class_inherits_from_params_class-check
+puppet/occam/modules/zabbix/manifests/init.pp: --no-class_inherits_from_params_class-check
+puppet/occam/modules/zabbix/manifests/server.pp: --no-documentation-check --no-autoloader_layout-check --no-nested_classes_or_defines-check
+puppet/modules/profile/manifests/routing/rt_table.pp: --no-only_variable_string-check
+puppet/occam/modules/apollo/test/site.pp: --no-autoloader_layout-check --no-documentation-check
+puppet/modules/profile/manifests/tempest/setup.pp: --no-variable_scope-check
+puppet/modules/profile/manifests/users/managed.pp: --no-variable_scope-check
+
+# upstream lint warnings
+
+puppet/occam/modules/tftp/manifests/init.pp: --no-variable_scope-check
+puppet/apps/cloud/modules/keystone/manifests/python.pp: --no-class_inherits_from_params_class-check
+puppet/apps/cloud/modules/nova/manifests/init.pp: --no-class_inherits_from_params_class-check
+puppet/apps/cloud/modules/openstack/manifests/cinder/all.pp: --no-documentation-check
+puppet/apps/cloud/modules/openstack/manifests/cinder/controller.pp: --no-documentation-check
+puppet/apps/cloud/modules/openstack/manifests/cinder/storage.pp: --no-documentation-check
+puppet/apps/cloud/modules/openstack/manifests/compute.pp:  --no-variable_scope-check
+puppet/apps/cloud/modules/openstack/manifests/repo/rdo.pp: --no-variable_scope-check --no-case_without_default-check
+puppet/apps/cloud/modules/openstack/manifests/swift/proxy.pp: --no-documentation-check
+puppet/apps/cloud/modules/openstack/manifests/swift/storage-node.pp: --no-documentation-check --no-names_containing_dash-check

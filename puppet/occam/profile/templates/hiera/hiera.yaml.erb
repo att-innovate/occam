@@ -1,0 +1,29 @@
+# /etc/puppet/hiera.yaml
+# This file is managed by Puppet. 
+# DO NOT EDIT
+#
+---
+:hierarchy:
+<% @hierarchy_top.each do |dir| -%>
+  - <%= dir %>
+<% end -%>
+<% @occam_apps.each do |app| -%>
+  - apps/<%= app %>
+  - users/users_<%= app %>
+<% end -%>
+<% @hierarchy_bottom.each do |dir| -%>
+  - <%= dir %>
+<% end -%>
+
+<% @backend_confs.each do |k,v| -%>
+:<%= k -%>:
+<% v.each do |opt,val| -%>
+  :<%= opt %>: <%= val %>
+<% end -%>
+
+<% end -%>
+
+:backends:
+<% @backends.each do |dir| -%>
+  - <%= dir %>
+<% end -%>

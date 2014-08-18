@@ -1,0 +1,7 @@
+*.iso
+*.deb
+*.log
+.vagrant
+localrc
+*secrets.yaml*
+tmp

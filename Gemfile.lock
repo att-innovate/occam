@@ -1,0 +1,127 @@
+GIT
+  remote: https://github.com/rodjek/puppet-lint.git
+  revision: 99101e64859516138592685959e56ce97718e012
+  branch: master
+  specs:
+    puppet-lint (0.4.0.pre1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bigdecimal (1.2.1)
+    builder (3.2.2)
+    bundler-unload (1.0.2)
+    ci_reporter (1.9.0)
+      builder (>= 2.1.2)
+    colored (1.2)
+    colorize (0.6.0)
+    cri (2.4.1)
+      colored (>= 1.2)
+    diff-lcs (1.2.4)
+    facter (1.7.3)
+    fuubar (1.2.1)
+      rspec (~> 2.0)
+      rspec-instafail (~> 0.2.0)
+      ruby-progressbar (~> 1.0)
+    gpgme (2.0.2)
+    hiera (1.2.1)
+      json_pure
+    hiera-gpg (1.1.0)
+      gpgme (>= 2.0.0)
+      hiera (>= 0.2.0)
+    hiera-puppet (1.0.0)
+      hiera (~> 1.0)
+    highline (1.6.19)
+    io-console (0.4.2)
+    json (1.8.0)
+    json_pure (1.8.0)
+    log4r (1.1.10)
+    metaclass (0.0.1)
+    minitest (5.0.8)
+    mocha (0.14.0)
+      metaclass (~> 0.0.1)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.7.0)
+    parallel (1.0.0)
+    parallel_tests (1.0.0)
+      parallel
+    psych (2.0.1)
+    puppet (3.3.1)
+      facter (~> 1.6)
+      hiera (~> 1.0)
+      rgen (~> 0.6.5)
+    puppetlabs_spec_helper (0.4.1)
+      mocha (>= 0.10.5)
+      rake
+      rspec (>= 2.9.0)
+      rspec-puppet (>= 0.1.1)
+    r10k (1.1.4)
+      colored (>= 1.2)
+      cri (~> 2.4.0)
+      json_pure
+      log4r (>= 1.1.10)
+      systemu (~> 2.5.2)
+    rake (10.1.0)
+    rdoc (4.0.1)
+      json (~> 1.4)
+    rgen (0.6.6)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.5)
+    rspec-expectations (2.14.3)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-hiera-puppet (1.0.0)
+      hiera (>= 1.0)
+      hiera-puppet (>= 1.0)
+      puppet (>= 3.0)
+      rspec
+      rspec-puppet
+    rspec-instafail (0.2.4)
+    rspec-mocks (2.14.3)
+    rspec-puppet (0.1.6)
+      rspec
+    rspec_junit_formatter (0.1.6)
+      builder
+      rspec (~> 2.0)
+      rspec-core (!= 2.12.0)
+    ruby-progressbar (1.2.0)
+    systemu (2.5.2)
+    test-unit (2.5.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bigdecimal
+  bundler
+  bundler-unload
+  ci_reporter
+  colorize
+  facter
+  fuubar
+  hiera
+  hiera-gpg
+  highline
+  io-console
+  json
+  json_pure
+  minitest
+  net-scp
+  net-ssh
+  parallel_tests
+  psych
+  puppet
+  puppet-lint!
+  puppetlabs_spec_helper
+  r10k
+  rake
+  rdoc
+  rgen
+  rspec
+  rspec-hiera-puppet
+  rspec-puppet
+  rspec_junit_formatter
+  test-unit

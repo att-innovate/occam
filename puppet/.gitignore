@@ -1,0 +1,4 @@
+*.lock
+*.iso
+.vagrant
+*.log
