@@ -8,7 +8,7 @@ Checking out Occam repository
 =============================
 .. code:: bash
 
-  % git checkout http://github.com/att/ocam.git
+  % git checkout https://github.com/att-innovate/openoccam.git
   % cd occam
 
 Setup RVM and install the necessary gems
