@@ -1,0 +1,30 @@
+profile::occamengine::kernel_version: 'linux-generic-lts-saucy'
+profile::occamengine::os_root_device: "%{hiera('root_device')}"
+profile::occamengine::init_environment: "%{hiera('puppet_environment')}"
+profile::occamengine::domain: "%{hiera('mgmt_domain')}"
+profile::occamengine::address: "%{hiera('puppet_address')}"
+profile::occamengine::timezone: "%{hiera('timezone')}"
+
+profile::puppet::agent::environment: "%{hiera('puppet_environment')}"
+
+profile::base::timezone: "%{hiera('timezone')}"
+
+profile::dns::server::domain: "%{hiera('mgmt_domain')}"
+
+
+profile::base::monitoring: true
+
+profile::monitoring::server::frontend_address: "%{hiera('monitoring_node')}.%{hiera('mgmt_domain')}"
+
+profile::dns::host:ip: "%{hiera('puppet_address')}"
+
+profile::puppet::agent::puppet_server: 'puppet'
+profile::base::ntp_servers:
+   -  '0.us.pool.ntp.org'
+   -  '1.us.pool.ntp.org'
+
+profile::dns::server::dhcp_range: "%{hiera('mgmt_net_dhcp_range')}"
+profile::dns::server::gateway: "%{hiera('mgmt_gateway')}"
+profile::dns::server::network: "%{hiera('mgmt_network')}"
+
+profile::mcollective::orchestrator: "%{hiera('orchestrator')}"

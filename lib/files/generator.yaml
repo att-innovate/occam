@@ -1,0 +1,52 @@
+params:
+  zone:
+    envvar: 'CFG_ZONE'
+    desc: 'Zone name'
+    default: false
+    regex: .+
+  ha_setup:
+    envvar: 'CFG_HA'
+    desc: 'Use HA'
+    default: true
+    regex: (?:true|false)
+  mgmt_domain:
+    envvar: 'CFG_INTDOM'
+    desc: 'Domain name for internal use'
+    default: false
+    regex: .+
+  pub_domain:
+    envvar: 'CFG_EXTDOM'
+    desc: 'Domain name for external use'
+    default: false
+    regex: .+
+  puppet_address:
+    envvar: 'CFG_OPSIP'
+    desc: 'Ip address of ops node'
+    default: true
+    regex: \d+\.\d+\.\d+\.\d+
+  mgmt_network:
+    envvar: 'CFG_MGMTNET'
+    desc: 'MGMT network in CIDR notation'
+    default: true
+    regex: \d+\.\d+\.\d+\.\d+\/\d+
+  mgmt_ctrl_ip:
+    envvar: 'CFG_CTRLMGMIP'
+    desc: 'MGMT IP address of controller'
+    default: true
+    regex: \d+\.\d+\.\d+\.\d+
+  cloud_public_net_cidr:
+    envvar: 'CFG_PUBNET'
+    desc: 'Public network in CIDR notation'
+    default: true
+    regex: \d+\.\d+\.\d+\.\d+\/\d+
+  pub_ctrl_ip:
+    envvar: 'CFG_CTRLPUBIP'
+    desc: 'Public IP address of controller'
+    default: true
+    regex: \d+\.\d+\.\d+\.\d+
+  private_net_cidr:
+    envvar: 'CFG_PRIVNET'
+    desc: 'Private (data) network in CIDR notation'
+    default: true
+    regex: \d+\.\d+\.\d+\.\d+\/\d+
+

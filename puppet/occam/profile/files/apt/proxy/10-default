@@ -1,0 +1,9 @@
+# File managed by puppet. For realz.
+
+ppa.launchpad.net
+repo.zabbix.com
+apt.puppetlabs.com
+www.rabbitmq.com
+public-repo-1.hortonworks.com
+repo.percona.com
+download.oracle.com
