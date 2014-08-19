@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'bigdecimal'
 gem 'bundler'
 gem 'bundler-unload'
 gem 'facter'
