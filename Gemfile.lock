@@ -8,7 +8,6 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    bigdecimal (1.2.1)
     builder (3.2.2)
     bundler-unload (1.0.2)
     ci_reporter (1.9.0)
@@ -93,7 +92,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bigdecimal
   bundler
   bundler-unload
   ci_reporter
