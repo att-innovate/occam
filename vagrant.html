@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Development Environment in Vagrant &mdash; Occam 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Occam 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Deploying a new environment" href="production_deployment.html"/>
+        <link rel="prev" title="Configuring Your Zone" href="configure_your_zone.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Occam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart: Deploying A Havana Cloud To Bare Metal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#cabling-and-networking">Cabling and Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#cable-your-servers">Cable Your Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-router-and-switch">Configure The Router And Switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-switch">Configure the Switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-ilo-ips-on-the-servers">Configure The iLO IPs On The Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuring-your-zone">Configuring Your Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#secrets">Secrets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#fqdn">fqdn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#zone">Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#occam">Occam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#prepare-occam-environment">Prepare Occam environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#checking-out-occam-repository">Checking out Occam repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#setup-rvm-and-install-the-necessary-gems">Setup RVM and install the necessary gems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#adding-local-configuration">Adding local configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#initialization-of-occam-itself">Initialization of Occam itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation-and-initialization-of-occam-application">Installation and initialization of Occam application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prepare-your-ops-node">Prepare Your OPS Node</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Main concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Occam components explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="components.html#ops-node">Ops node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#occamengine">Occamengine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Repository structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">Occam applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="apps.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html#application-structure">Application structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prepare_environment.html">Prepare Occam environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#checking-out-occam-repository">Checking out Occam repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#setup-rvm-and-install-the-necessary-gems">Setup RVM and install the necessary gems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#adding-local-configuration">Adding local configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#initialization-of-occam-itself">Initialization of Occam itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#installation-and-initialization-of-occam-application">Installation and initialization of Occam application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html">Configuring Your Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#secrets">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#fqdn">fqdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#zone">Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#users">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#occam">Occam</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Development Environment in Vagrant</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#obtain-the-occam-source-dependencies">Obtain the Occam Source &amp; Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploying-the-vagrant-development-environment">Deploying the Vagrant Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bringing-up-the-cloud">Bringing up the Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="production_deployment.html">Deploying a new environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#what-you-need">What you need.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#hardware-requirements-for-nodes">Hardware requirements for nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#install-an-operating-system">Install an operating system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#bootstrapping-the-ops-node">Bootstrapping the ops node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#secrets">Secrets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#fqdn">fqdn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#zone">Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#occam">Occam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Occam development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#repository-best-practices">Repository best practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">Occam rake tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-validate">rake occam:validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-demo-init-zone">rake demo:init[zone]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-init-app">rake apps:init[app]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-init">rake apps:init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-clean">rake apps:clean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-config-generate-zonename">rake config:generate[zonename]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-doc-build">rake doc:build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-deploy-initial-server-port">rake occam:deploy_initial[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-init">rake occam:init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-prepare-archive-key">rake occam:prepare_archive[key]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-update-code-server-port">rake occam:update_code[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-spec">rake spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-download-junit-from-host-server-port">rake tempest:download_junit_from_host[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-make-sure-that-cloud-is-complete-server-port">rake tempest:make_sure_that_cloud_is_complete[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-run-tests-on-ops-node-server-port">rake tempest:run_tests_on_ops_node[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html">Cabling and Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#cable-your-servers">Cable Your Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-router-and-switch">Configure The Router And Switch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#preparation">Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-gateways">Configure The Gateways</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-nat-pool">Configure The NAT Pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-nat-rules">Configure The NAT Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-switch">Configure the Switch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-ilo-ips-on-the-servers">Configure The iLO IPs On The Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_app.html">OpenStack Havana Cloud Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#version">Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#hardware">Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#openstack-components">Openstack components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#high-availability-vs-non-high-availability-architecture">High availability vs non-high availability architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#location-of-openstack-services">Location of Openstack services</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Occam</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Development Environment in Vagrant</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/vagrant.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="development-environment-in-vagrant">
+<h1>Development Environment in Vagrant<a class="headerlink" href="#development-environment-in-vagrant" title="Permalink to this headline">¶</a></h1>
+<p>We&#8217;ve prepared a copy of development environment that can be used with Vagrant
+and Virtualbox. Using this it is now possible to deploy full development
+environment on your own notebook without any changes in the configuration. The
+Vagrant configuration contains definition of ops1, ctrl1, comp1/2/3 nodes and
+public, private and management networks.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>For the script to work you will need:</p>
+<ul class="simple">
+<li>notebook with at least 8GB of RAM (16GB recommended)</li>
+<li>Virtualbox 4.3</li>
+<li>Vagrant 1.6 installed</li>
+<li>Occam repository</li>
+</ul>
+<p>Other versions may work, but these are the latest versions as of the writing of
+this document.</p>
+</div>
+<div class="section" id="obtain-the-occam-source-dependencies">
+<h2>Obtain the Occam Source &amp; Dependencies<a class="headerlink" href="#obtain-the-occam-source-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Check out the most recent version of the Occam source.</p>
+<div class="highlight-bash"><div class="highlight"><pre>git clone https://github.com/att-innovate/occam.git
+</pre></div>
+</div>
+<p>You&#8217;ll need to install the dependencies and ensure you&#8217;re running the
+appropriate version of ruby. This is typically done using <a class="reference external" href="http://rvm.io">rvm</a> or <a class="reference external" href="https://github.com/sstephenson/rbenv">rbenv</a>. If you
+choose rbenv, I&#8217;d recommend installing <a class="reference external" href="https://github.com/jf/rbenv-gemset">rbenv-gemsets</a> too.</p>
+<p>Whichever you choose and for whichever platform you&#8217;re running (Linux, OS X)
+please follow the respective documentation for each project.</p>
+<p>Once they&#8217;re installed, you&#8217;ll need the ruby version specified in the
+.ruby-version file.</p>
+<div class="highlight-bash"><div class="highlight"><pre>rbenv install <span class="sb">`</span>cat .ruby-version<span class="sb">`</span>
+</pre></div>
+</div>
+<p>Or for rvm</p>
+<div class="highlight-bash"><div class="highlight"><pre>rvm install <span class="sb">`</span>cat .ruby-version<span class="sb">`</span>
+</pre></div>
+</div>
+<p>Next, install the required gems using bundler. <strong>If you&#8217;re using rbenv</strong>, you&#8217;ll
+need to install bundler first.</p>
+<div class="highlight-bash"><div class="highlight"><pre>gem install bundler
+</pre></div>
+</div>
+<p>Then install your gems</p>
+<div class="highlight-bash"><div class="highlight"><pre>bundle install
+</pre></div>
+</div>
+<p>Now you&#8217;re ready to rock &amp; roll.</p>
+</div>
+<div class="section" id="deploying-the-vagrant-development-environment">
+<h2>Deploying the Vagrant Development Environment<a class="headerlink" href="#deploying-the-vagrant-development-environment" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve created a convenient rake task to setup the vagrant environment.</p>
+<div class="highlight-bash"><div class="highlight"><pre>rake demo:init
+</pre></div>
+</div>
+<p>This will perform quite a few tasks. We&#8217;ll go through each one.</p>
+<div class="section" id="initializes-the-local-occam-configuration">
+<h3>Initializes the <cite>local</cite> occam configuration<a class="headerlink" href="#initializes-the-local-occam-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Occam comes with an example set of hiera and ssl certs that work out the box in
+the vagrant development environment. The demo configs are found in
+<cite>lib/files/examples/demo</cite>. If you have an existing <cite>local</cite> file, you it will not
+be overwritten and you will be warned.</p>
+</div>
+<div class="section" id="occam-application-downloads">
+<h3>Occam Application Downloads<a class="headerlink" href="#occam-application-downloads" title="Permalink to this headline">¶</a></h3>
+<p>The demo environment installs the openstack cloud occam application. The
+required puppet modules are downloaded into the <cite>puppet/occam/modules</cite>
+directory.</p>
+</div>
+<div class="section" id="create-required-virtualbox-networks">
+<h3>Create Required Virtualbox Networks<a class="headerlink" href="#create-required-virtualbox-networks" title="Permalink to this headline">¶</a></h3>
+<p>Two host-only networks are created, configured according to the mgmt and public
+networks specified in the zone file. For the demo these are 192.168.3.0/24 and
+192.168.4.0/24. DHCP is disabled on both of these networks as services are
+provided by the Occam OPS node.</p>
+</div>
+<div class="section" id="vagrant-boxes-are-downloaded">
+<h3>Vagrant Boxes Are Downloaded<a class="headerlink" href="#vagrant-boxes-are-downloaded" title="Permalink to this headline">¶</a></h3>
+<p>The required vagrant boxes are downloaded. These include</p>
+<ul class="simple">
+<li>doctorjnupe/precise64_dhcpclient_on_eth7</li>
+<li>steigr/pxe</li>
+</ul>
+<p>The first is a vanilla Ubuntu 12.04 image that is configured for DHCP on eth7.
+Vagrant enables NAT on eth7 so it can interact with the booted system. The
+second is a pxe boot ready &#8216;blank&#8217; image. The OPS node will install and
+configure the nodes in our cloud.</p>
+</div>
+<div class="section" id="configuration-of-node-disks">
+<h3>Configuration of Node Disks<a class="headerlink" href="#configuration-of-node-disks" title="Permalink to this headline">¶</a></h3>
+<p>Next, the disks for each node are configured. This includes both a ipxe image
+and sparse disk of 200GB.[*]_</p>
+</div>
+<div class="section" id="system-configuration">
+<h3>System Configuration<a class="headerlink" href="#system-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Next, you&#8217;re prompted to accept the system changes that need to be made. These
+will require administrator access.</p>
+<ul class="simple">
+<li>Enable IPv4 forwarding for the current session</li>
+<li>Set ipv4 forwarding to enabled in /etc/sysctl.conf for persistence</li>
+<li>Set pf or iptable rules for NAT&#8217;ing on OS X and Linux respectively</li>
+<li>On OS X, will persist these rules by adding them to /etc/pf.conf <a class="footnote-reference" href="#id2" id="id1">[*]</a><ul>
+<li>Persistence of NAT rules on Linux are left up to the user.</li>
+</ul>
+</li>
+</ul>
+<p>You will also be prompted for the interface to use for NAT&#8217;ing. Most people will
+only have one option. However, if you have more than one you must ensure you
+select an interface that can route traffic to the WAN.</p>
+</div>
+<div class="section" id="deploying-the-ops-node">
+<h3>Deploying the OPS Node<a class="headerlink" href="#deploying-the-ops-node" title="Permalink to this headline">¶</a></h3>
+<p>Next, the Occam Operations node is started. Once vagrant indicates the OPS node
+is ready. Occam will bundle up the cloud application, ship it to the OPS node,
+and configure the node. This is a fully automated process, but it does take a
+while. You might want to fix a cup of coffee, but you probably won&#8217;t have time
+to drink it. Takes 2.5  minutes on my laptop.</p>
+<p>When it&#8217;s done, you&#8217;ll receive a warning about firewalls. Depending on your
+firewall configuration it <em>could</em> block the forwarded packets. The virtual
+machines being unable to route out the 192.168.3.1 gateway might be an
+indication of this problem.</p>
+</div>
+</div>
+<div class="section" id="bringing-up-the-cloud">
+<h2>Bringing up the Cloud<a class="headerlink" href="#bringing-up-the-cloud" title="Permalink to this headline">¶</a></h2>
+<p>At this point, we should have a fully operation OPS node. The OPS node provides
+PXE, dhcp, puppet master, and other required services for managing client nodes.</p>
+<p>Our cloud application is configured for 4 client nodes: A controller and three
+computes.</p>
+<div class="section" id="controller-first">
+<h3>Controller First<a class="headerlink" href="#controller-first" title="Permalink to this headline">¶</a></h3>
+<p>First a cloud needs a controller. To bring up the controller node</p>
+<div class="highlight-bash"><div class="highlight"><pre>vagrant up ctrl1
+</pre></div>
+</div>
+<p>This can take a good bit of time. Once it&#8217;s booted, and the intial puppet run is
+complete you&#8217;re ready to proceed.</p>
+<p>The easiest way to verify the puppet run is done is to just rerun the agent.</p>
+<div class="highlight-bash"><div class="highlight"><pre>vagrant ssh ctrl1 -c puppet agent -t --verbose
+</pre></div>
+</div>
+</div>
+<div class="section" id="finally-the-computes">
+<h3>Finally the Computes<a class="headerlink" href="#finally-the-computes" title="Permalink to this headline">¶</a></h3>
+<p>The process is the same for hte computes, bring each up in turn and take a back
+seat and wait for the OPS node to do its dance.</p>
+<div class="highlight-bash"><div class="highlight"><pre>vagrant up comp1 comp2 comp3
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">Add a section that walks through the services.</p>
+</div>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[*]</a></td><td>sparse disks will only take up used space on disk, not the full disk size</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[†]</td><td>The original pf.conf is stored in tmp/pf.conf. Subsequent runs of rake demo:init
+will overwrite this file.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="production_deployment.html" class="btn btn-neutral float-right" title="Deploying a new environment"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configure_your_zone.html" class="btn btn-neutral" title="Configuring Your Zone"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, AT&amp;T Foundry.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

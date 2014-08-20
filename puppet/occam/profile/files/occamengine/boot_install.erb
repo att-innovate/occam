@@ -1,9 +1,0 @@
-#!ipxe
-echo Node: <%= "#{hostname} (#{mac})" %>
-echo Role: <%= role.role %>
-echo State: <%= state %>
-
-sleep 3
-kernel <%= http_endpoint %>/image/default/linux BOOTIF=<%= mac %> preseed/url=<%= http_endpoint %>/api/deploy/preseed/<%= hostname %> debian-installer/locale=en_US netcfg/choose_interface=auto priority=critical || goto error
-initrd <%= http_endpoint %>/image/default/initrd.gz || goto error
-boot

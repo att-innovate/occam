@@ -1,9 +1,0 @@
-interfaces:
-  lo:
-    family: 'inet'
-    method: 'loopback'
-    auto: 1
-  eth0:
-    family: 'inet'
-    method: 'dhcp'
-    auto: 1

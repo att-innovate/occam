@@ -1,9 +1,0 @@
-test_ec2_keys.*
-test_load_balancer.*
-test_vpnaas_extensions.*
-test_server_cfn_init.*
-test_ec2_volumes.*
-test_neutron_resources.*
-test_templates.*
-test_limits.*
-test_non_empty_stack.*

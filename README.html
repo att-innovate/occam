@@ -1,0 +1,1648 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Occam - Deployment &amp; Automation Framework &mdash; Occam 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Occam 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Occam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart: Deploying A Havana Cloud To Bare Metal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#cabling-and-networking">Cabling and Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#cable-your-servers">Cable Your Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-router-and-switch">Configure The Router And Switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-switch">Configure the Switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-ilo-ips-on-the-servers">Configure The iLO IPs On The Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuring-your-zone">Configuring Your Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#secrets">Secrets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#fqdn">fqdn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#zone">Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#occam">Occam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#prepare-occam-environment">Prepare Occam environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#checking-out-occam-repository">Checking out Occam repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#setup-rvm-and-install-the-necessary-gems">Setup RVM and install the necessary gems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#adding-local-configuration">Adding local configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#initialization-of-occam-itself">Initialization of Occam itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation-and-initialization-of-occam-application">Installation and initialization of Occam application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prepare-your-ops-node">Prepare Your OPS Node</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Main concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Occam components explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="components.html#ops-node">Ops node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#occamengine">Occamengine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Repository structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">Occam applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="apps.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html#application-structure">Application structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prepare_environment.html">Prepare Occam environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#checking-out-occam-repository">Checking out Occam repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#setup-rvm-and-install-the-necessary-gems">Setup RVM and install the necessary gems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#adding-local-configuration">Adding local configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#initialization-of-occam-itself">Initialization of Occam itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#installation-and-initialization-of-occam-application">Installation and initialization of Occam application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html">Configuring Your Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#secrets">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#fqdn">fqdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#zone">Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#users">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#occam">Occam</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vagrant.html">Development Environment in Vagrant</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#obtain-the-occam-source-dependencies">Obtain the Occam Source &amp; Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#deploying-the-vagrant-development-environment">Deploying the Vagrant Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#bringing-up-the-cloud">Bringing up the Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="production_deployment.html">Deploying a new environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#what-you-need">What you need.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#hardware-requirements-for-nodes">Hardware requirements for nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#install-an-operating-system">Install an operating system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#bootstrapping-the-ops-node">Bootstrapping the ops node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#secrets">Secrets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#fqdn">fqdn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#zone">Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#occam">Occam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Occam development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#repository-best-practices">Repository best practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">Occam rake tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-validate">rake occam:validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-demo-init-zone">rake demo:init[zone]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-init-app">rake apps:init[app]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-init">rake apps:init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-clean">rake apps:clean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-config-generate-zonename">rake config:generate[zonename]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-doc-build">rake doc:build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-deploy-initial-server-port">rake occam:deploy_initial[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-init">rake occam:init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-prepare-archive-key">rake occam:prepare_archive[key]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-update-code-server-port">rake occam:update_code[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-spec">rake spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-download-junit-from-host-server-port">rake tempest:download_junit_from_host[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-make-sure-that-cloud-is-complete-server-port">rake tempest:make_sure_that_cloud_is_complete[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-run-tests-on-ops-node-server-port">rake tempest:run_tests_on_ops_node[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html">Cabling and Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#cable-your-servers">Cable Your Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-router-and-switch">Configure The Router And Switch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#preparation">Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-gateways">Configure The Gateways</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-nat-pool">Configure The NAT Pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-nat-rules">Configure The NAT Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-switch">Configure the Switch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-ilo-ips-on-the-servers">Configure The iLO IPs On The Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_app.html">OpenStack Havana Cloud Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#version">Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#hardware">Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#openstack-components">Openstack components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#high-availability-vs-non-high-availability-architecture">High availability vs non-high availability architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#location-of-openstack-services">Location of Openstack services</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Occam</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Occam - Deployment &amp; Automation Framework</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/README.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="occam-deployment-automation-framework">
+<h1><a class="toc-backref" href="#id27">Occam - Deployment &amp; Automation Framework</a><a class="headerlink" href="#occam-deployment-automation-framework" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Authors &amp; Contributors:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>James A. Kyle &lt;<a class="reference external" href="mailto:james&#46;kyle&#37;&#52;&#48;att&#46;com">james<span>&#46;</span>kyle<span>&#64;</span>att<span>&#46;</span>com</a>&gt;</li>
+<li>Jerry A. Higgs &lt;<a class="reference external" href="mailto:jerry&#46;a&#46;higgs&#37;&#52;&#48;att&#46;com">jerry<span>&#46;</span>a<span>&#46;</span>higgs<span>&#64;</span>att<span>&#46;</span>com</a>&gt;</li>
+<li>Ari Saha &lt;<a class="reference external" href="mailto:ari&#46;saha&#37;&#52;&#48;att&#46;com">ari<span>&#46;</span>saha<span>&#64;</span>att<span>&#46;</span>com</a>&gt;</li>
+<li>Paul McGoldrick &lt;<a class="reference external" href="mailto:paul&#46;mcgoldrick&#37;&#52;&#48;att&#46;com">paul<span>&#46;</span>mcgoldrick<span>&#64;</span>att<span>&#46;</span>com</a>&gt;</li>
+<li>Erik Sundelof &lt;<a class="reference external" href="mailto:eriks&#37;&#52;&#48;att&#46;com">eriks<span>&#64;</span>att<span>&#46;</span>com</a>&gt;</li>
+<li>Ashu Sharma &lt;<a class="reference external" href="mailto:ashu&#46;sharma&#37;&#52;&#48;att&#46;com">ashu<span>&#46;</span>sharma<span>&#64;</span>att<span>&#46;</span>com</a>&gt;</li>
+<li>Tomasz Z. Napierała &lt;<a class="reference external" href="mailto:tnapierala&#37;&#52;&#48;mirantis&#46;com">tnapierala<span>&#64;</span>mirantis<span>&#46;</span>com</a>&gt;</li>
+<li>Piotr Misiak &lt;<a class="reference external" href="mailto:pmisiak&#37;&#52;&#48;mirantis&#46;com">pmisiak<span>&#64;</span>mirantis<span>&#46;</span>com</a>&gt;</li>
+<li>Kamil Świątkowski &lt;<a class="reference external" href="mailto:kswiatkowski&#37;&#52;&#48;mirantis&#46;com">kswiatkowski<span>&#64;</span>mirantis<span>&#46;</span>com</a>&gt;</li>
+<li>Damian Szeluga &lt;<a class="reference external" href="mailto:dszeluga&#37;&#52;&#48;mirantis&#46;com">dszeluga<span>&#64;</span>mirantis<span>&#46;</span>com</a>&gt;</li>
+<li>Michał Skalski &lt;<a class="reference external" href="mailto:mskalski&#37;&#52;&#48;mirantis&#46;com">mskalski<span>&#64;</span>mirantis<span>&#46;</span>com</a>&gt;</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Date:</th><td class="field-body">2014-08-18</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#occam-deployment-automation-framework" id="id27">Occam - Deployment &amp; Automation Framework</a><ul>
+<li><a class="reference internal" href="#what-is-occam" id="id28">What is Occam?</a></li>
+<li><a class="reference internal" href="#occam-components-explained" id="id29">Occam components explained</a></li>
+<li><a class="reference internal" href="#repository-structure" id="id30">Repository structure</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#occam-applications" id="id31">Occam applications</a><ul>
+<li><a class="reference internal" href="#introduction" id="id32">Introduction</a></li>
+<li><a class="reference internal" href="#application-structure" id="id33">Application structure</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#prepare-occam-environment" id="id34">Prepare Occam environment</a><ul>
+<li><a class="reference internal" href="#checking-out-occam-repository" id="id35">Checking out Occam repository</a></li>
+<li><a class="reference internal" href="#setup-rvm-and-install-the-necessary-gems" id="id36">Setup RVM and install the necessary gems</a></li>
+<li><a class="reference internal" href="#adding-local-configuration" id="id37">Adding local configuration</a></li>
+<li><a class="reference internal" href="#initialization-of-occam-itself" id="id38">Initialization of Occam itself</a></li>
+<li><a class="reference internal" href="#installation-and-initialization-of-occam-application" id="id39">Installation and initialization of Occam application</a></li>
+<li><a class="reference internal" href="#id1" id="id40">Configuring Your Zone</a></li>
+<li><a class="reference internal" href="#secrets" id="id41">Secrets</a></li>
+<li><a class="reference internal" href="#fqdn" id="id42">fqdn</a></li>
+<li><a class="reference internal" href="#zone" id="id43">Zone</a></li>
+<li><a class="reference internal" href="#hostgroups" id="id44">Hostgroups</a></li>
+<li><a class="reference internal" href="#users" id="id45">Users</a></li>
+<li><a class="reference internal" href="#occam" id="id46">Occam</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#development-environment-in-vagrant" id="id47">Development Environment in Vagrant</a><ul>
+<li><a class="reference internal" href="#requirements" id="id48">Requirements</a></li>
+<li><a class="reference internal" href="#obtain-the-occam-source-dependencies" id="id49">Obtain the Occam Source &amp; Dependencies</a></li>
+<li><a class="reference internal" href="#deploying-the-vagrant-development-environment" id="id50">Deploying the Vagrant Development Environment</a></li>
+<li><a class="reference internal" href="#bringing-up-the-cloud" id="id51">Bringing up the Cloud</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deploying-a-new-environment" id="id52">Deploying a new environment</a><ul>
+<li><a class="reference internal" href="#what-you-need" id="id53">What you need.</a></li>
+<li><a class="reference internal" href="#overview" id="id54">Overview</a></li>
+<li><a class="reference internal" href="#hardware-requirements-for-nodes" id="id55">Hardware requirements for nodes</a></li>
+<li><a class="reference internal" href="#install-an-operating-system" id="id56">Install an operating system</a></li>
+<li><a class="reference internal" href="#bootstrapping-the-ops-node" id="id57">Bootstrapping the ops node</a></li>
+<li><a class="reference internal" href="#id5" id="id58">Secrets</a></li>
+<li><a class="reference internal" href="#id7" id="id59">fqdn</a></li>
+<li><a class="reference internal" href="#id11" id="id60">Zone</a></li>
+<li><a class="reference internal" href="#id13" id="id61">Hostgroups</a></li>
+<li><a class="reference internal" href="#id19" id="id62">Users</a></li>
+<li><a class="reference internal" href="#id21" id="id63">Occam</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#occam-development" id="id64">Occam development</a><ul>
+<li><a class="reference internal" href="#repository-best-practices" id="id65">Repository best practices</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id23" id="id66">Occam rake tasks</a><ul>
+<li><a class="reference internal" href="#rake-occam-validate" id="id67">rake occam:validate</a></li>
+<li><a class="reference internal" href="#rake-demo-init-zone" id="id68">rake demo:init[zone]</a></li>
+<li><a class="reference internal" href="#rake-apps-init-app" id="id69">rake apps:init[app]</a></li>
+<li><a class="reference internal" href="#rake-apps-init" id="id70">rake apps:init</a></li>
+<li><a class="reference internal" href="#rake-apps-clean" id="id71">rake apps:clean</a></li>
+<li><a class="reference internal" href="#rake-config-generate-zonename" id="id72">rake config:generate[zonename]</a></li>
+<li><a class="reference internal" href="#rake-doc-build" id="id73">rake doc:build</a></li>
+<li><a class="reference internal" href="#rake-occam-deploy-initial-server-port" id="id74">rake occam:deploy_initial[server,port]</a></li>
+<li><a class="reference internal" href="#rake-occam-init" id="id75">rake occam:init</a></li>
+<li><a class="reference internal" href="#rake-occam-prepare-archive-key" id="id76">rake occam:prepare_archive[key]</a></li>
+<li><a class="reference internal" href="#rake-occam-update-code-server-port" id="id77">rake occam:update_code[server,port]</a></li>
+<li><a class="reference internal" href="#rake-spec" id="id78">rake spec</a></li>
+<li><a class="reference internal" href="#rake-tempest-download-junit-from-host-server-port" id="id79">rake tempest:download_junit_from_host[server,port]</a></li>
+<li><a class="reference internal" href="#rake-tempest-make-sure-that-cloud-is-complete-server-port" id="id80">rake tempest:make_sure_that_cloud_is_complete[server,port]</a></li>
+<li><a class="reference internal" href="#rake-tempest-run-tests-on-ops-node-server-port" id="id81">rake tempest:run_tests_on_ops_node[server,port]</a></li>
+<li><a class="reference internal" href="#other" id="id82">Other</a></li>
+<li><a class="reference internal" href="#cabling-and-networking" id="id83">Cabling and Networking</a></li>
+<li><a class="reference internal" href="#cable-your-servers" id="id84">Cable Your Servers</a></li>
+<li><a class="reference internal" href="#configure-the-router-and-switch" id="id85">Configure The Router And Switch</a></li>
+<li><a class="reference internal" href="#configure-the-switch" id="id86">Configure the Switch</a></li>
+<li><a class="reference internal" href="#configure-the-ilo-ips-on-the-servers" id="id87">Configure The iLO IPs On The Servers</a></li>
+<li><a class="reference internal" href="#additional-resources" id="id88">Additional Resources</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="what-is-occam">
+<h2><a class="toc-backref" href="#id28">What is Occam?</a><a class="headerlink" href="#what-is-occam" title="Permalink to this headline">¶</a></h2>
+<p>The AT&amp;T Foundry currently runs a number of diverse infrastructure projects
+in various sections - such as Compute, Storage, and PaaS frameworks - which
+all have vastly varying demands. To be able meet these demands, it was
+necessary to develop our own solution for automation, orchestration, hardware
+abstraction and provisioning.</p>
+<p>Our ultimate goal was to build a framework with excellent code quality,
+inline with industry standards and includes the obligatory abstraction
+layers. It was essential to make sure our development process introduces best
+practices for how all services included in the framework as we test various
+compositions as well as evaluate various underlying technologies. The result
+of this work is a framework called <em>Occam</em>, which is a complete automation,
+orchestration, and development framework to manage your infrastructure and
+services you run on top.</p>
+<p>Occam has been confirmed to be working with a number of infrastructure
+applications. These applications are self-contained entities that can be
+easily installed inside the Occam core. You can for instance, using the `
+OpenStack Havana Cloud Application`_ and <a class="reference external" href="http://github.com/att-innovate/occam">Occam</a>, deploy many separated
+Havana clouds - so called <em>zones</em> - with completely different configurations.</p>
+<p>Occam is built using Puppet and using the proven development workflow
+consisting of Gitflow, continuous integration and Test-Driven Development (
+puppet-lint, spec). We wanted to make sure that the various zones have been
+brought up with integrity why Tempest was also introduced. To properly
+monitor and test performance irrespectively of configuration of the zone we
+also introduced benchmark tests.</p>
+<p>The Puppet orchestration layer is following the well-known role/profile
+paradigm, which allows us to abstract all local changes and keep the original
+modules unmodified and intact. This does not only let us take advantage of
+the efforts within the larger community, but also easily &amp; promptly upgrade
+all components. It also allows us to introduce new and old components as we
+evaluate them.</p>
+<p>The target deployment zone can easily be configured using Hiera configuration
+files, which optionally can be encrypted using GPG to allow for better
+security on deployed versions of the zone, yet allow development to be more
+seamless.</p>
+<p>We have also included a Vagrant configuration to allow for seamless local
+development.</p>
+<p>Occam consists of many components, from which most prominent are:</p>
+<ul class="simple">
+<li>Puppet + hiera + mcollective for automation and orchestration</li>
+<li>OccamEngine for bare metal provisioning and external node classification (ENC)</li>
+<li>Logstash + Elasticsearch + Kibana for log collection and analysis</li>
+<li>Zabbix for monitoring</li>
+</ul>
+<div class="section" id="main-concepts">
+<h3>Main concepts<a class="headerlink" href="#main-concepts" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Profile - complete configuration of one feature, containing modules,
+resources, etc.</li>
+<li>Role - collection of profiles applied to node. Node can only have ONE role</li>
+<li>Zone - self contained deployment entity. Zone concept is used for
+configuration. You can think of it as separate deployment of Occam core and
+chosen applications.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="occam-components-explained">
+<h2><a class="toc-backref" href="#id29">Occam components explained</a><a class="headerlink" href="#occam-components-explained" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ops-node">
+<h3>Ops node<a class="headerlink" href="#ops-node" title="Permalink to this headline">¶</a></h3>
+<p>Node hosting all core services of Occam:</p>
+<ul class="simple">
+<li>puppet master</li>
+<li>hiera</li>
+<li>puppetdb</li>
+<li>mcollective</li>
+<li>occamengine</li>
+<li>admin tools, etc.</li>
+</ul>
+<p>Ops node is first node that is deployed during installation process (see <a class="reference external" href="Tasks.rst">Occam Rake tasks</a>).</p>
+</div>
+<div class="section" id="occamengine">
+<h3>Occamengine<a class="headerlink" href="#occamengine" title="Permalink to this headline">¶</a></h3>
+<p>Occamengine (OE) is a daemon written in ruby, running on ops node, responsible for provisioning bare metal nodes. It interacts with dnsmasq and puppet.</p>
+<p>Occamengine consist of 5 main parts:</p>
+<ul class="simple">
+<li>database interface for storing nodes data (hostnames, ips, mac addresses, puppet&#8217;s runs statuses)</li>
+<li>http rest api for interacting with nodes (ipxe image serving, callbacks with node operating system installation status)</li>
+<li>http rest api for interacting with puppet master (nodes classification, node run reports)</li>
+<li>dnsmasq interface for creating dhcp reservations and dns entries</li>
+<li>logic for choosing a role for a node</li>
+</ul>
+<p>Configuration of OE is done in 2 yaml files. First one is occamengine.yaml file located in /etc/occam directory. This is where general OE options are set, like OE base directory, dhcp and dns reservations files, dnsmasq pidfile location, ip of the ops node and domain name used for quaifying the host names. All options in this file are set up by puppet during ops node configuration phase. Second yaml file is a zone file used for configuration of whole installation environment (see Configure Your Zone). Most important optons read from this file are &#8216;roles&#8217; and &#8216;networks&#8217; hashes.</p>
+<p><strong>Roles</strong> hash contains definition of possible roles for nodes (each node need to be bound to one of these roles).
+Each role contains following options:</p>
+<ul class="simple">
+<li><em>puppet_class</em> - full name of a puppet class used by external node classifier; can be ommited - defaults to role::<em>name_of_the_role</em></li>
+<li><em>priority</em> - priority of the role; lower number means higher priority</li>
+<li><em>minimum</em> - minimun number of nodes for the role</li>
+<li><em>maximum</em> - maximun number of nodes for the role</li>
+<li><em>macs</em> - array of mac addresses of the nodes that should be bound to the role apart from priority of the role</li>
+</ul>
+<div class="code yaml highlight-python"><div class="highlight"><pre>roles:
+  ctrl:
+    :puppet_class: &#39;role::openstack::controller&#39;
+    :priority: 10
+    :minimum: 1
+    :maximum: 1
+    :macs:
+      - &#39;b8:ca:3a:5b:c1:60&#39;
+  monit:
+    :puppet_class: &#39;role::monitoring::server&#39;
+    :priority: 20
+    :minimum: 1
+    :maximum: 1
+    :macs:
+      - &#39;52:54:00:c2:88:60&#39;
+  comp:
+    :puppet_class: &#39;role::openstack::compute&#39;
+    :priority: 30
+    :minimum: 3
+    :maximum: 10
+</pre></div>
+</div>
+<p>Every node managed by OE need to have exactly one role assigned. Hostname of a node is constructed from role name followed by a number (in sequence, starting from 1). For role named <em>ctrl</em> first node will have a hostname ctrl1.
+Selection algorithm of a role for a node is pretty simple: if mac address of the node matches one of the mac addresses in role&#8217;s <em>macs</em> array, the role is assigned; in other case the role with highest priority with a number of currently assigned nodes lower then role&#8217;s <em>maximum</em> setting is selected.</p>
+<p><strong>Networks</strong> hash contains definition of networks used by nodes. Dhcp reservations and dns entries are created for each network for each node. Each network contains following options:</p>
+<ul class="simple">
+<li><em>network</em> - netmask of the network</li>
+<li><em>netmask</em> - netmask of the network</li>
+<li><em>gateway</em> - gateway of the network</li>
+<li><em>suffix</em> - suffix for hostname; each aditional network need this setting to construct dns entry</li>
+</ul>
+<div class="code yaml highlight-python"><div class="highlight"><pre>networks:
+  eth0:
+    network: 10.100.1.0
+    netmask: 255.255.255.0
+    gateway: 10.100.1.1
+  eth5:
+    suffix: &#39;vm&#39;
+    network: 172.20.1.0
+    netmask: 255.255.255.0
+    gateway: 172.20.1.1
+</pre></div>
+</div>
+<p>It&#8217;s important to prepare nodes&#8217; network interfaces to match interface names from yaml&#8217;s networks hash. To ensure proper cabling (especially when using heterogeneous hardware environment) it can be useful to boot up every different hardware from Ubuntu live CD and check ethernet names given by the system for each ethernet port.</p>
+<p>Each node need to be set up for pxe booting. pxe files are served by dnsmasq-tftp. Provisioning flow consist of following steps:</p>
+<ul class="simple">
+<li>node boots up with pxe. dnsmasq responds with ipxe image (undionly.kpxe)</li>
+<li>ipxe ask again for pxe boot with NIC mac address as a parameter</li>
+<li>OE responds with either with commands for operating system installer boot (for new nodes) followed by kernel, initrd images and with preseed file for installation</li>
+<li>preseed files contains 3 callback calls to update node state in the database</li>
+<li>during installation stage puppet and facter are installed, puppet is configured to start and connect to puppet master running on ops node</li>
+<li>at the end of installation facter is executed in in-target chroot and facts are sent to OE</li>
+<li>OE receives facts from node, sets node status to <em>deployed</em></li>
+<li>mac addresses for networks defined in yaml file are extracted from received facter output and proper dhcp and dns entries are prepared</li>
+<li>node boots up from local disk and puppet makes it&#8217;s first run on the node</li>
+<li>for first run puppet class role::initial is returned by external node classifier; during this stage all required network interfaces are configured</li>
+<li>for all subsequent puppet runs class linked to node&#8217;s role is returned.</li>
+<li>OE kicks puppet on all nodes sequentially (one node at a time, nodes with lower count of runs first) until puppet_initial_runs config value is reached for all nodes</li>
+</ul>
+</div>
+</div>
+<div class="section" id="repository-structure">
+<h2><a class="toc-backref" href="#id30">Repository structure</a><a class="headerlink" href="#repository-structure" title="Permalink to this headline">¶</a></h2>
+<p>Folders:</p>
+<ul class="simple">
+<li>puppet - contains puppet modules, hiera configuraion, roles, profiles, apps,</li>
+<li>lib - rake tasks supporting occam deployment and maintenance</li>
+<li>spec - scripts mainly for testing Occam code for errors</li>
+<li>utils - auxiliary scripts</li>
+</ul>
+<p>Files:</p>
+<ul class="simple">
+<li>spec/lint-ignore-list - list of ignores for lint testing</li>
+<li>spec/lint-tested-directories - list of modules which will be tested against puppet-lint</li>
+<li>Rakefile - main rake file that includes tasks from lib folder</li>
+<li>tempest-disabled-tests - tests disabled during tempest run</li>
+<li>Vagrantfile - vagrant configuration for local Occam development</li>
+</ul>
+</div>
+</div>
+<div class="section" id="occam-applications">
+<h1><a class="toc-backref" href="#id31">Occam applications</a><a class="headerlink" href="#occam-applications" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id32">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Occam can deploy virtually any application that can be configured using ops node (e.g. puppet etc.) The cloud application is only one example of such an application but it can literally be any application.</p>
+</div>
+<div class="section" id="application-structure">
+<h2><a class="toc-backref" href="#id33">Application structure</a><a class="headerlink" href="#application-structure" title="Permalink to this headline">¶</a></h2>
+<p>Each Occam&#8217;s application should be placed in <em>puppet/apps/app_name</em> directory. Structure of an application is quite simple:</p>
+<div class="highlight-python"><div class="highlight"><pre>puppet/apps/app_name/
+  hiera/
+    app_name.yaml
+  profile/
+    files/
+    lib/
+    manifests/
+    templates/
+  role/
+    files/
+    lib/
+    manifests/
+    templates/
+  tasks/
+    appinit.rake
+  Puppetfile
+</pre></div>
+</div>
+<div class="section" id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">puppet/apps/app_name/hiera/app_name.yaml</span></tt></p>
+<p>This is a file with configuration options for an application and is a part of hiera database. In general this is a place where profile parameters should be defined.</p>
+</div>
+<div class="section" id="profiles">
+<h3>Profiles<a class="headerlink" href="#profiles" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">puppet/apps/app_name/profile/</span></tt></p>
+<p>Profile directory is for that part of puppet&#8217;s profile module that is related to the application. During deployment process this directory content is merged with puppet/modules/profile directory to build complete profile puppet module. Anything except manifests directory is optional and depends on application requirements.</p>
+</div>
+<div class="section" id="roles">
+<h3>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">puppet/apps/app_name/role/</span></tt></p>
+<p>Profile directory is for that part of puppet&#8217;s role module that defines application roles for nodes. During deployment process this directory content is merged with puppet/modules/role directory to build complete role puppet module. Just like in profile module, anything except manifests directory is optional and depends on application requirements.</p>
+</div>
+<div class="section" id="tasks">
+<h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h3>
+<p>Tasks directory should contain applinit.rake file with task init in app_name namespace. This task will be called during installation. Example appinit.rake file:</p>
+<div class="code ruby highlight-python"><div class="highlight"><pre>namespace :example do
+  desc &#39;Example app initialization&#39;
+  task :init do
+    app = &#39;example&#39;
+    puts &#39;Init of Example app&#39;
+    run &quot;cd puppet/apps/#{app} &amp;&amp; r10k -t -v DEBUG2 puppetfile install&quot;
+  end
+end
+</pre></div>
+</div>
+</div>
+<div class="section" id="modules">
+<h3>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
+<p>All puppet modules required by application need to be present in puppet/apps/app_name/modules/ directory after invoking rake init task of the application. You can use Puppetfile and provided appinit.rake example to initialize modules this way (please refer r10k ruby gem for Puppetfile format). You can of course provide modules directory inside of the application and dummy rake init task, or you can pick different method to do so.</p>
+</div>
+</div>
+</div>
+<div class="section" id="prepare-occam-environment">
+<h1><a class="toc-backref" href="#id34">Prepare Occam environment</a><a class="headerlink" href="#prepare-occam-environment" title="Permalink to this headline">¶</a></h1>
+<p>Occam repository needs to be prepared before development and deployment. This
+includes initialization of all submodules, installation of apps and
+initialization of their modules.</p>
+<div class="section" id="checking-out-occam-repository">
+<h2><a class="toc-backref" href="#id35">Checking out Occam repository</a><a class="headerlink" href="#checking-out-occam-repository" title="Permalink to this headline">¶</a></h2>
+<div class="code bash highlight-python"><div class="highlight"><pre>% git checkout https://github.com/att-innovate/occam.git
+% cd occam
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup-rvm-and-install-the-necessary-gems">
+<h2><a class="toc-backref" href="#id36">Setup RVM and install the necessary gems</a><a class="headerlink" href="#setup-rvm-and-install-the-necessary-gems" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Install rvm if you do not have it:</li>
+</ol>
+<div class="code bash highlight-python"><div class="highlight"><pre>% curl -sSL https://get.rvm.io | bash
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Install the right ruby version:</li>
+</ol>
+<div class="code bash highlight-python"><div class="highlight"><pre>% rvm install ruby-1.8.7
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Due to the 12.04 target platform, 1.8.7 is used. On some systems this no
+longer compiles cleanly. In such cases, v2.1.2 _should_ suffice.</p>
+</div>
+<ol class="arabic simple" start="3">
+<li>Install the necessary gems</li>
+</ol>
+<div class="code bash highlight-python"><div class="highlight"><pre>% bundle install
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-local-configuration">
+<h2><a class="toc-backref" href="#id37">Adding local configuration</a><a class="headerlink" href="#adding-local-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Local configuration directory should contain everything needed to deploy your
+zones. It&#8217;s capable of storing as many zones as you need. Zone to deploy is
+selected during installation process. It&#8217;s the best to keep the configuration
+as a git module, but you can just unpack a tarball with configuration if you
+prefer.</p>
+<p>Directory structure is as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>local/
+  hiera/
+    fqdns/
+    hostgroups/
+    secrets/
+    users/
+    zones/
+  ssl/
+</pre></div>
+</div>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">local/ssl</span></tt></dt>
+<dd>This directory should contain SSL certificates in PEM format to be used in a
+zone. A rake task will put each file from this directory to
+puppet/modules/profile/files/ssl</dd>
+<dt><tt class="docutils literal"><span class="pre">local/hiera</span></tt></dt>
+<dd>Directory that reflects part of the occam&#8217;s hiera hierarchy. Most important
+(and the only one required) is a zones directory. There you should put yaml
+files with zones configuration. Others are optional, depending on your setup.
+Eg. you can use hiera gpg backend to store sensitive information like
+passwords. In that case just put gpg encrypted yaml file in secrets
+directory. The secrets directory takes precedens over zones one. See
+<a class="reference external" href="configure_your_zone.html">Configuring Your Zone</a> for reference.</dd>
+</dl>
+<p>If you have local conf ready, add it as a submodule at local directory:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>% git submodule add https://your.repo/config.git local
+% git submodule init
+% git submodule update
+</pre></div>
+</div>
+</div>
+<div class="section" id="initialization-of-occam-itself">
+<h2><a class="toc-backref" href="#id38">Initialization of Occam itself</a><a class="headerlink" href="#initialization-of-occam-itself" title="Permalink to this headline">¶</a></h2>
+<p>Initialize occam:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>% rake occam:init
+</pre></div>
+</div>
+</div>
+<div class="section" id="installation-and-initialization-of-occam-application">
+<h2><a class="toc-backref" href="#id39">Installation and initialization of Occam application</a><a class="headerlink" href="#installation-and-initialization-of-occam-application" title="Permalink to this headline">¶</a></h2>
+<p>Occam applications are configured as a list in the zone file under the key
+<tt class="docutils literal"><span class="pre">profile::hiera::config::occam_apps</span></tt>.</p>
+<div class="section" id="application-naming-convention">
+<h3>Application Naming Convention<a class="headerlink" href="#application-naming-convention" title="Permalink to this headline">¶</a></h3>
+<p>Your application name should be occam-&lt;your appname&gt;.  app should be available
+on github. Each entry references the github user account and the application
+repository name. For example, the Havana Cloud Application is named
+occam-havana-cloud and is in the att-innovate github organization. To include
+this application in your deployment, you would add the entry in your zone file
+something like</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">profile::hiera::config::occam_apps</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="s">&#39;att-innovate/occam-havana-cloud&#39;</span>
+</pre></div>
+</div>
+<p>Then you initialize the apps</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>% rake apps:init
+</pre></div>
+</div>
+<p>If you want to clear out all managed apps and start fresh, you can use the clean
+task</p>
+<div class="highlight-bash"><div class="highlight"><pre>% rake apps:clean
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id40">Configuring Your Zone</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>This step entails the creation of your Occam configuration files. The configuration files use hiera - a key/value lookup tool for configuration data - built to make Puppet better and let you set node-specific data without repeating yourself. Hiera loads the hierarchy from the hiera.yaml config file.</p>
+<p>Occam&#8217;s hiera lookup table has the following precedence:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Hiera Precedence</th>
+<th class="head">Usage</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>local/secrets/</td>
+<td>This used as the password file. The password
+file is an encryted gpg file.</td>
+</tr>
+<tr class="row-odd"><td>local/fqdns/%{::fqdn}</td>
+<td>This is where the network interface definitions
+for the ops and ctrl nodes are stored.</td>
+</tr>
+<tr class="row-even"><td>local/zones/</td>
+<td>This is where the deployment target information
+is stored.</td>
+</tr>
+<tr class="row-odd"><td>local/hostgroups/%{::hostgroup}</td>
+<td>This is used to define the dns and dhcp for the
+target deployment.</td>
+</tr>
+<tr class="row-even"><td>users/users_occam</td>
+<td>Managed users and groups definitions.</td>
+</tr>
+<tr class="row-odd"><td>occam</td>
+<td>Occamengine specific configurations.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note: The following represent example hiera files. They may be used as a reference. You can name your zone anything.</strong></p>
+</div>
+<div class="section" id="secrets">
+<h2><a class="toc-backref" href="#id41">Secrets</a><a class="headerlink" href="#secrets" title="Permalink to this headline">¶</a></h2>
+<p>Example secrets file: <a class="reference external" href="../lib/files/examples/secrets/zone1.yaml">secrets/zone1.yaml</a></p>
+</div>
+<div class="section" id="fqdn">
+<h2><a class="toc-backref" href="#id42">fqdn</a><a class="headerlink" href="#fqdn" title="Permalink to this headline">¶</a></h2>
+<p>Example ops node file: <a class="reference external" href="../lib/files/examples/fqdn/ops1.zone1.example.com.yaml">ops1.zone1.example.com.yaml</a></p>
+<p>Example ctrl node file: <a class="reference external" href="../lib/files/examples/fqdn/ctrl1.zone1.example.com.yaml">ctrl1.zone1.example.com.yaml</a></p>
+<p>Example monit node file: <a class="reference external" href="../lib/files/examples/fqdn/monit1.zone1.example.com.yaml">monit1.zone1.example.com.yaml</a></p>
+</div>
+<div class="section" id="zone">
+<h2><a class="toc-backref" href="#id43">Zone</a><a class="headerlink" href="#zone" title="Permalink to this headline">¶</a></h2>
+<p>Example zone file: <a class="reference external" href="../lib/files/examples/zone1.yaml">zone1.yaml</a></p>
+<p>You can also generate zone file using rake task <a class="reference external" href="tasks.rst#rake-configgeneratezonename">config:generate</a></p>
+</div>
+<div class="section" id="hostgroups">
+<h2><a class="toc-backref" href="#id44">Hostgroups</a><a class="headerlink" href="#hostgroups" title="Permalink to this headline">¶</a></h2>
+<p>Example host files:</p>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/ops.yaml">ops.yaml</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/ctrl.yaml">ctrl.yaml</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/comp.yaml">comp.yaml</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/monit.yaml">monit.yaml</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/occam-node.yaml">occam-node.yaml</a></li>
+</ul>
+</div>
+<div class="section" id="users">
+<h2><a class="toc-backref" href="#id45">Users</a><a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h2>
+<p>Example users file: <a class="reference external" href="../lib/files/examples/users.yaml">users.yaml</a></p>
+</div>
+<div class="section" id="occam">
+<h2><a class="toc-backref" href="#id46">Occam</a><a class="headerlink" href="#occam" title="Permalink to this headline">¶</a></h2>
+<p>Example occam file: <a class="reference external" href="../lib/files/examples/occam.yaml">occam.yaml</a></p>
+</div>
+</div>
+<div class="section" id="development-environment-in-vagrant">
+<h1><a class="toc-backref" href="#id47">Development Environment in Vagrant</a><a class="headerlink" href="#development-environment-in-vagrant" title="Permalink to this headline">¶</a></h1>
+<p>We&#8217;ve prepared a copy of development environment that can be used with Vagrant
+and Virtualbox. Using this it is now possible to deploy full development
+environment on your own notebook without any changes in the configuration. The
+Vagrant configuration contains definition of ops1, ctrl1, comp1/2/3 nodes and
+public, private and management networks.</p>
+<div class="section" id="requirements">
+<h2><a class="toc-backref" href="#id48">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>For the script to work you will need:</p>
+<ul class="simple">
+<li>notebook with at least 8GB of RAM (16GB recommended)</li>
+<li>Virtualbox 4.3</li>
+<li>Vagrant 1.6 installed</li>
+<li>Occam repository</li>
+</ul>
+<p>Other versions may work, but these are the latest versions as of the writing of
+this document.</p>
+</div>
+<div class="section" id="obtain-the-occam-source-dependencies">
+<h2><a class="toc-backref" href="#id49">Obtain the Occam Source &amp; Dependencies</a><a class="headerlink" href="#obtain-the-occam-source-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Check out the most recent version of the Occam source.</p>
+<div class="highlight-bash"><div class="highlight"><pre>git clone https://github.com/att-innovate/occam.git
+</pre></div>
+</div>
+<p>You&#8217;ll need to install the dependencies and ensure you&#8217;re running the
+appropriate version of ruby. This is typically done using <a class="reference external" href="http://rvm.io">rvm</a> or <a class="reference external" href="https://github.com/sstephenson/rbenv">rbenv</a>. If you
+choose rbenv, I&#8217;d recommend installing <a class="reference external" href="https://github.com/jf/rbenv-gemset">rbenv-gemsets</a> too.</p>
+<p>Whichever you choose and for whichever platform you&#8217;re running (Linux, OS X)
+please follow the respective documentation for each project.</p>
+<p>Once they&#8217;re installed, you&#8217;ll need the ruby version specified in the
+.ruby-version file.</p>
+<div class="highlight-bash"><div class="highlight"><pre>rbenv install <span class="sb">`</span>cat .ruby-version<span class="sb">`</span>
+</pre></div>
+</div>
+<p>Or for rvm</p>
+<div class="highlight-bash"><div class="highlight"><pre>rvm install <span class="sb">`</span>cat .ruby-version<span class="sb">`</span>
+</pre></div>
+</div>
+<p>Next, install the required gems using bundler. <strong>If you&#8217;re using rbenv</strong>, you&#8217;ll
+need to install bundler first.</p>
+<div class="highlight-bash"><div class="highlight"><pre>gem install bundler
+</pre></div>
+</div>
+<p>Then install your gems</p>
+<div class="highlight-bash"><div class="highlight"><pre>bundle install
+</pre></div>
+</div>
+<p>Now you&#8217;re ready to rock &amp; roll.</p>
+</div>
+<div class="section" id="deploying-the-vagrant-development-environment">
+<h2><a class="toc-backref" href="#id50">Deploying the Vagrant Development Environment</a><a class="headerlink" href="#deploying-the-vagrant-development-environment" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve created a convenient rake task to setup the vagrant environment.</p>
+<div class="highlight-bash"><div class="highlight"><pre>rake demo:init
+</pre></div>
+</div>
+<p>This will perform quite a few tasks. We&#8217;ll go through each one.</p>
+<div class="section" id="initializes-the-local-occam-configuration">
+<h3>Initializes the <cite>local</cite> occam configuration<a class="headerlink" href="#initializes-the-local-occam-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Occam comes with an example set of hiera and ssl certs that work out the box in
+the vagrant development environment. The demo configs are found in
+<cite>lib/files/examples/demo</cite>. If you have an existing <cite>local</cite> file, you it will not
+be overwritten and you will be warned.</p>
+</div>
+<div class="section" id="occam-application-downloads">
+<h3>Occam Application Downloads<a class="headerlink" href="#occam-application-downloads" title="Permalink to this headline">¶</a></h3>
+<p>The demo environment installs the openstack cloud occam application. The
+required puppet modules are downloaded into the <cite>puppet/occam/modules</cite>
+directory.</p>
+</div>
+<div class="section" id="create-required-virtualbox-networks">
+<h3>Create Required Virtualbox Networks<a class="headerlink" href="#create-required-virtualbox-networks" title="Permalink to this headline">¶</a></h3>
+<p>Two host-only networks are created, configured according to the mgmt and public
+networks specified in the zone file. For the demo these are 192.168.3.0/24 and
+192.168.4.0/24. DHCP is disabled on both of these networks as services are
+provided by the Occam OPS node.</p>
+</div>
+<div class="section" id="vagrant-boxes-are-downloaded">
+<h3>Vagrant Boxes Are Downloaded<a class="headerlink" href="#vagrant-boxes-are-downloaded" title="Permalink to this headline">¶</a></h3>
+<p>The required vagrant boxes are downloaded. These include</p>
+<ul class="simple">
+<li>doctorjnupe/precise64_dhcpclient_on_eth7</li>
+<li>steigr/pxe</li>
+</ul>
+<p>The first is a vanilla Ubuntu 12.04 image that is configured for DHCP on eth7.
+Vagrant enables NAT on eth7 so it can interact with the booted system. The
+second is a pxe boot ready &#8216;blank&#8217; image. The OPS node will install and
+configure the nodes in our cloud.</p>
+</div>
+<div class="section" id="configuration-of-node-disks">
+<h3>Configuration of Node Disks<a class="headerlink" href="#configuration-of-node-disks" title="Permalink to this headline">¶</a></h3>
+<p>Next, the disks for each node are configured. This includes both a ipxe image
+and sparse disk of 200GB.[*]_</p>
+</div>
+<div class="section" id="system-configuration">
+<h3>System Configuration<a class="headerlink" href="#system-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Next, you&#8217;re prompted to accept the system changes that need to be made. These
+will require administrator access.</p>
+<ul class="simple">
+<li>Enable IPv4 forwarding for the current session</li>
+<li>Set ipv4 forwarding to enabled in /etc/sysctl.conf for persistence</li>
+<li>Set pf or iptable rules for NAT&#8217;ing on OS X and Linux respectively</li>
+<li>On OS X, will persist these rules by adding them to /etc/pf.conf <a class="footnote-reference" href="#id3" id="id2">[*]</a><ul>
+<li>Persistence of NAT rules on Linux are left up to the user.</li>
+</ul>
+</li>
+</ul>
+<p>You will also be prompted for the interface to use for NAT&#8217;ing. Most people will
+only have one option. However, if you have more than one you must ensure you
+select an interface that can route traffic to the WAN.</p>
+</div>
+<div class="section" id="deploying-the-ops-node">
+<h3>Deploying the OPS Node<a class="headerlink" href="#deploying-the-ops-node" title="Permalink to this headline">¶</a></h3>
+<p>Next, the Occam Operations node is started. Once vagrant indicates the OPS node
+is ready. Occam will bundle up the cloud application, ship it to the OPS node,
+and configure the node. This is a fully automated process, but it does take a
+while. You might want to fix a cup of coffee, but you probably won&#8217;t have time
+to drink it. Takes 2.5  minutes on my laptop.</p>
+<p>When it&#8217;s done, you&#8217;ll receive a warning about firewalls. Depending on your
+firewall configuration it <em>could</em> block the forwarded packets. The virtual
+machines being unable to route out the 192.168.3.1 gateway might be an
+indication of this problem.</p>
+</div>
+</div>
+<div class="section" id="bringing-up-the-cloud">
+<h2><a class="toc-backref" href="#id51">Bringing up the Cloud</a><a class="headerlink" href="#bringing-up-the-cloud" title="Permalink to this headline">¶</a></h2>
+<p>At this point, we should have a fully operation OPS node. The OPS node provides
+PXE, dhcp, puppet master, and other required services for managing client nodes.</p>
+<p>Our cloud application is configured for 4 client nodes: A controller and three
+computes.</p>
+<div class="section" id="controller-first">
+<h3>Controller First<a class="headerlink" href="#controller-first" title="Permalink to this headline">¶</a></h3>
+<p>First a cloud needs a controller. To bring up the controller node</p>
+<div class="highlight-bash"><div class="highlight"><pre>vagrant up ctrl1
+</pre></div>
+</div>
+<p>This can take a good bit of time. Once it&#8217;s booted, and the intial puppet run is
+complete you&#8217;re ready to proceed.</p>
+<p>The easiest way to verify the puppet run is done is to just rerun the agent.</p>
+<div class="highlight-bash"><div class="highlight"><pre>vagrant ssh ctrl1 -c puppet agent -t --verbose
+</pre></div>
+</div>
+</div>
+<div class="section" id="finally-the-computes">
+<h3>Finally the Computes<a class="headerlink" href="#finally-the-computes" title="Permalink to this headline">¶</a></h3>
+<p>The process is the same for hte computes, bring each up in turn and take a back
+seat and wait for the OPS node to do its dance.</p>
+<div class="highlight-bash"><div class="highlight"><pre>vagrant up comp1 comp2 comp3
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">Add a section that walks through the services.</p>
+</div>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[*]</a></td><td>sparse disks will only take up used space on disk, not the full disk size</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[†]</td><td>The original pf.conf is stored in tmp/pf.conf. Subsequent runs of rake demo:init
+will overwrite this file.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="deploying-a-new-environment">
+<h1><a class="toc-backref" href="#id52">Deploying a new environment</a><a class="headerlink" href="#deploying-a-new-environment" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-you-need">
+<h2><a class="toc-backref" href="#id53">What you need.</a><a class="headerlink" href="#what-you-need" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A Ubuntu 12.04 installation iso</li>
+<li>Access to the ILO network for the target server</li>
+<li>Network information (subnet, gateway, dns, etc.)</li>
+<li>A will of steel.</li>
+<li>Oh, and ninja skilz.</li>
+<li>A approximately 1 hour playlist of your favorite tunes.</li>
+<li>Coffee. Preferrably espresso, or beer... depending on time of day.</li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2><a class="toc-backref" href="#id54">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Occam deployment starts with deploying so called &#8216;ops node&#8217;. Master node hosts all tools required to bootstrap other server, puppet master, DHCP server, DNS server etc. Once deployed, it will be able to deploy other hosts on bare metal.
+Occam support deploying OpenStack Havana release including controller hosts (with and w/o HA), compute hosts, storage nodes, etc. As a bonus you can deploy savanna/sahara on top of OpenStack cluster.</p>
+</div>
+<div class="section" id="hardware-requirements-for-nodes">
+<h2><a class="toc-backref" href="#id55">Hardware requirements for nodes</a><a class="headerlink" href="#hardware-requirements-for-nodes" title="Permalink to this headline">¶</a></h2>
+<p>During bare metal deployment you must be able to PXE boot bare metal nodes either by rebooting them manually or using IPMI/custom tools. Occam will then install and configure base operating system and all packages depending on the chosen role. In most cases you should create one raw device on your servers and Occam will create one ca. 128GiB partition for system purposes and partition the rest depending on the role.</p>
+</div>
+<div class="section" id="install-an-operating-system">
+<h2><a class="toc-backref" href="#id56">Install an operating system</a><a class="headerlink" href="#install-an-operating-system" title="Permalink to this headline">¶</a></h2>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">By default, the scripts assume the initial operations node has a hostname
+of &#8216;ops1&#8217;. Make life easy on yourself. Use it.</p>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">This document was written based on the Ubuntu 12.04 LTS operating system.
+Other options are valid. YMMV</p>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">To best utilize Occam to deploy environments, naming the initial
+operations node &#8216;ops1&#8217; is recommended. See note on hostgroups in the
+<a class="reference internal" href="#configuring-for-your-environment">Configuring for your environment</a> section.</p>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">The hostname and fqdn must be configured before hand for these scripts to
+work properly.</p>
+</div>
+<p>Though not required, I suggest splitting up your system mount points. My
+configuration looks like:</p>
+<blockquote>
+<div><ul class="simple">
+<li>lv_root: 20GB</li>
+<li>lv_swap: 50GB</li>
+<li>lv_home: 50GB</li>
+<li>lv_var: 100GB</li>
+</ul>
+</div></blockquote>
+<p>The lv indicates I used lvm volume management. This, of course, is not a
+requirement.</p>
+</div>
+<div class="section" id="bootstrapping-the-ops-node">
+<h2><a class="toc-backref" href="#id57">Bootstrapping the ops node</a><a class="headerlink" href="#bootstrapping-the-ops-node" title="Permalink to this headline">¶</a></h2>
+<p>First, you need to prepare Occam environment. See <a class="reference external" href="prepare_environment.html">prepare environment</a> section for more details</p>
+<div class="section" id="configuring-zone">
+<h3>Configuring zone<a class="headerlink" href="#configuring-zone" title="Permalink to this headline">¶</a></h3>
+<p>This step entails the creation of your Occam configuration files. The configuration files use hiera - a key/value lookup tool for configuration data - built to make Puppet better and let you set node-specific data without repeating yourself. Hiera loads the hierarchy from the hiera.yaml config file.</p>
+<p>Occam&#8217;s hiera lookup table has the following precedence:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Hiera Precedence</th>
+<th class="head">Usage</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>local/secrets/</td>
+<td>This used as the password file. The password
+file is an encryted gpg file.</td>
+</tr>
+<tr class="row-odd"><td>local/fqdns/%{::fqdn}</td>
+<td>This is where the network interface definitions
+for the ops and ctrl nodes are stored.</td>
+</tr>
+<tr class="row-even"><td>local/zones/</td>
+<td>This is where the deployment target information
+is stored.</td>
+</tr>
+<tr class="row-odd"><td>local/hostgroups/%{::hostgroup}</td>
+<td>This is used to define the dns and dhcp for the
+target deployment.</td>
+</tr>
+<tr class="row-even"><td>users/users_occam</td>
+<td>Managed users and groups definitions.</td>
+</tr>
+<tr class="row-odd"><td>occam</td>
+<td>Occamengine specific configurations.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note: The following represent example hiera files. They may be used as a reference. You can name your zone anything.</strong></p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id58">Secrets</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Example secrets file: <a class="reference external" href="../lib/files/examples/secrets/zone1.yaml">secrets/zone1.yaml</a></p>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id59">fqdn</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>Example ops node file: <a class="reference external" href="../lib/files/examples/fqdn/ops1.zone1.example.com.yaml">ops1.zone1.example.com.yaml</a></p>
+<p>Example ctrl node file: <a class="reference external" href="../lib/files/examples/fqdn/ctrl1.zone1.example.com.yaml">ctrl1.zone1.example.com.yaml</a></p>
+<p>Example monit node file: <a class="reference external" href="../lib/files/examples/fqdn/monit1.zone1.example.com.yaml">monit1.zone1.example.com.yaml</a></p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id60">Zone</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>Example zone file: <a class="reference external" href="../lib/files/examples/zone1.yaml">zone1.yaml</a></p>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id61">Hostgroups</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>Example host files:</p>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/ops.yaml">ops.yaml</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/ctrl.yaml">ctrl.yaml</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/comp.yaml">comp.yaml</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/monit.yaml">monit.yaml</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="../lib/files/examples/occam-node.yaml">occam-node.yaml</a></li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id62">Users</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>Example users file: <a class="reference external" href="../lib/files/examples/users.yaml">users.yaml</a></p>
+</div>
+<div class="section" id="id21">
+<h2><a class="toc-backref" href="#id63">Occam</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<p>Example occam file: <a class="reference external" href="../lib/files/examples/occam.yaml">occam.yaml</a></p>
+<div class="section" id="initial-deployment">
+<h3>Initial deployment<a class="headerlink" href="#initial-deployment" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-python"><div class="highlight"><pre>% OPSUSERNAME=&#39;root&#39; OPSPASSWORD=&#39;secretpassword&#39; OC_ENVIRONMENT=testing ZONEFILE=yourzone rake occam:deploy_initial\[10.100.1.10\]
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li>OPSUSERNAME - username on ops1 node</li>
+<li>OPSPASSWORD - password for OPSUSERNAME</li>
+<li>OC_ENVIRONMENT - name of your puppet environment, usually testing or production</li>
+<li>ZONEFILE - zone configuration file from <strong>puppet/hiera/zones</strong> directory without .yaml extension. Puppet on ops node uses this information to read configuration. You can have many zones within one Occam project</li>
+<li>10.100.1.10 - ip address of ops node</li>
+</ul>
+<p>This rake task will package and transfer Occam folder to /var/puppet/environments/$OC_ENVIRONMENT/ on ops node and then install and configure all ops services like puppet, hiera, etc.</p>
+</div>
+<div class="section" id="configuring-for-your-environment">
+<h3>Configuring for your environment<a class="headerlink" href="#configuring-for-your-environment" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Puppet, hiera, git, etc. are beyond the scope of this document. If you do
+not have a working knowledge of these tools, your path will be frought
+with confusion, frustration, chaos, and quite possibly a non-trivial amount
+of psychiatric counseling. Fortunately, there are many, many, many
+resources available on these topics. A few are listed in the additional
+resources section.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This project assumes you&#8217;re using git to manage the source. The puppet
+master&#8217;s environments, hiera data, etc are checked out <strong>directly</strong> from a
+parent repository and created dynamically through git commit hooks.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The &#8216;hostgroup&#8217; is a dynamically generated facter based on the node&#8217;s
+hostname. It&#8217;s determined by the return of hostname stripped of appended
+numbers.</p>
+<p class="last">For example, host ops1 has a hostgroup of &#8216;ops&#8217;, host comp58 has a
+hostgroup &#8216;comp&#8217;, and host ctrl28 has a hostgroup &#8216;ctrl&#8217;.</p>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">This project assumes the first ops node has a hostname of ops1 and should
+be setup as the dhcp/dns/puppetmaster node. If that&#8217;s not the case,
+the operator is responsible for modifying the project to accomodate their
+custom configuration.</p>
+</div>
+<p>Occam deployment is based on puppet. Modules should be generalized and
+decoupled from environment sepcific data. It uses <a class="reference external" href="https://docs.puppetlabs.com/hiera/1/hierarchy.html">hiera data lookups</a> and
+<a class="reference external" href="https://docs.puppetlabs.com/hiera/1/puppet.html#automatic-parameter-lookup">automatic parameter lookup</a> for class arguments. When setting up a new
+environment, it&#8217;s highly likely you&#8217;ll need to create the requisite hiera data
+files for site or node specific information.</p>
+<p>Occam&#8217;s hiera lookup table has the following precedence:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The node&#8217;s FQDN.</li>
+<li>The node&#8217;s hostgroup</li>
+<li>The node&#8217;s virtual facter (vmware, kvm, etc. for specific virtual configs)</li>
+<li>Either virtual_true or virtual_false (mainly for general virtual configs)</li>
+<li>The &#8216;common&#8217; file which contains defaults.</li>
+</ul>
+</div></blockquote>
+<p>For the purpose of this example, we&#8217;ll assume the network configuration must be
+modified from the default. This effects multiple services and so effects
+multipe class arguments that must be configured in hiera. A reasonable place to
+put these site customizations for our new operations node is in the nodes FQDN
+hiera data file. For a server with the fqdn &#8216;ops1.zone1.example.com&#8217;, the
+hiera file would be ops1.zone1.example.com.yaml and placed in the
+puppet/hiera/ directory of this project.</p>
+<p>As of the writing of this document, the ops1.zone1.example.com  site
+specific configurations are the only ones required. However, they may not
+reflect all current configurations. It would behoove the new user to read
+through the node manifests and their referenced class&#8217;s documentation and
+source to familiarize themselves with the project.</p>
+</div>
+</div>
+</div>
+<div class="section" id="occam-development">
+<h1><a class="toc-backref" href="#id64">Occam development</a><a class="headerlink" href="#occam-development" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="repository-best-practices">
+<h2><a class="toc-backref" href="#id65">Repository best practices</a><a class="headerlink" href="#repository-best-practices" title="Permalink to this headline">¶</a></h2>
+<p>This project follows the conventions described in Jeff Kreeftmeijer&#8217;s seminal
+blog post <a class="reference external" href="http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/">Why aren&#8217;t you using git-flow</a> and implemented in
+<a class="reference external" href="https://github.com/nvie/gitflow">nvie&#8217;s gitflow plugin</a>. When deploying a new environment, it&#8217;s recommended
+that a feature branch be created and changes tested there first. The rest of
+this document assumes this has been done.</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>% git flow feature start my-new-environment
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id23">
+<h1><a class="toc-backref" href="#id66">Occam rake tasks</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rake-occam-validate">
+<h2><a class="toc-backref" href="#id67">rake occam:validate</a><a class="headerlink" href="#rake-occam-validate" title="Permalink to this headline">¶</a></h2>
+<p>Does a quick validation of your work environment. It will check things such as</p>
+<ul class="simple">
+<li>Whether virtualbox is available (needed for development environment)</li>
+<li>Whether vagrant is available (demo environment)</li>
+<li>The current ruby version</li>
+<li>Firewall settings</li>
+<li>Nat and ip forwarding settings</li>
+</ul>
+<p>The validate tasks output might look something like</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>rake occam:validate
+    Virtualbox 4.3.16r95972... OK
+    Vagrant 1.6.5... OK
+    Ruby version 2.1.2.... OK
+    Detected OS X Firewall: Disabled... OK
+    Pfctl plist.... OK
+    IP Forwarding Enabled.... OK
+</pre></div>
+</div>
+</div>
+<div class="section" id="rake-demo-init-zone">
+<h2><a class="toc-backref" href="#id68">rake demo:init[zone]</a><a class="headerlink" href="#rake-demo-init-zone" title="Permalink to this headline">¶</a></h2>
+<p>The demo task initializes and runs the demo environment. You can run the
+<a class="reference internal" href="#rake-occam-validate">rake occam:validate</a> task to check environment sanity. Once complete, the user
+will have a working ops node and the appropriate virtualbox networks and
+forwarding rules for testing your occam apps.</p>
+<p>By default, the zone is set to &#8216;zone1&#8217; which corresponds to the preconfigured
+demo environment.</p>
+</div>
+<div class="section" id="rake-apps-init-app">
+<h2><a class="toc-backref" href="#id69">rake apps:init[app]</a><a class="headerlink" href="#rake-apps-init-app" title="Permalink to this headline">¶</a></h2>
+<p>Takes one parameter: <strong>app</strong>.</p>
+<p>Initializes <strong>app</strong> in <strong>puppet/app/cloud/appname</strong> dir using r10k with data provided in <strong>puppet/app/cloud/appname/Puppetfile</strong></p>
+</div>
+<div class="section" id="rake-apps-init">
+<h2><a class="toc-backref" href="#id70">rake apps:init</a><a class="headerlink" href="#rake-apps-init" title="Permalink to this headline">¶</a></h2>
+<p>Initializes all apps.</p>
+</div>
+<div class="section" id="rake-apps-clean">
+<h2><a class="toc-backref" href="#id71">rake apps:clean</a><a class="headerlink" href="#rake-apps-clean" title="Permalink to this headline">¶</a></h2>
+<p>Removes all managed applications from the apps directory.</p>
+</div>
+<div class="section" id="rake-config-generate-zonename">
+<h2><a class="toc-backref" href="#id72">rake config:generate[zonename]</a><a class="headerlink" href="#rake-config-generate-zonename" title="Permalink to this headline">¶</a></h2>
+<p>Takes one parameter: <strong>zonename</strong>.</p>
+<p>Generates Occam config and writes it to <strong>puppet/hiera/zones/zonename.yaml</strong> file (or <strong>puppet/hiera/zones/example_file.yaml</strong> if argument is not provided).</p>
+<p>This will ask you series of questions regarding your ENV and will match your answers against regexes in <strong>lib/files/generator.yaml</strong>.</p>
+<p>You should edit the file afterwards f.e. to change root password.</p>
+</div>
+<div class="section" id="rake-doc-build">
+<h2><a class="toc-backref" href="#id73">rake doc:build</a><a class="headerlink" href="#rake-doc-build" title="Permalink to this headline">¶</a></h2>
+<p>This tasks converts rst docs to html.</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>It is dependent on you having rst2html available in your local environment. To install on a Mac please use the following command:</p>
+<div class="code bash last highlight-python"><div class="highlight"><pre>% easy_install docutils &amp;&amp; easy_install pygments
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="rake-occam-deploy-initial-server-port">
+<h2><a class="toc-backref" href="#id74">rake occam:deploy_initial[server,port]</a><a class="headerlink" href="#rake-occam-deploy-initial-server-port" title="Permalink to this headline">¶</a></h2>
+<p>Takes two parameters: <strong>server</strong> and <strong>port</strong>.</p>
+<p>This task requires you to have installed vanilla Ubuntu Server.
+It will:</p>
+<ul class="simple">
+<li>Initialize necessary modules</li>
+<li>Prepare archive</li>
+<li>Send it using scp to <strong>server</strong></li>
+<li>Decompress archive</li>
+<li>Run bootstrap.sh script (which can be found in utils/bootstrap.sh).</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">It should be the first step performed when deploying Occam. It also should be used <strong>ONLY ONCE</strong>.</p>
+</div>
+</div>
+<div class="section" id="rake-occam-init">
+<h2><a class="toc-backref" href="#id75">rake occam:init</a><a class="headerlink" href="#rake-occam-init" title="Permalink to this headline">¶</a></h2>
+<p>This tasks performs initalization of Occam modules.</p>
+<p>It uses <strong>puppet/occam/Puppetfile</strong> as a source of necessary modules.</p>
+</div>
+<div class="section" id="rake-occam-prepare-archive-key">
+<h2><a class="toc-backref" href="#id76">rake occam:prepare_archive[key]</a><a class="headerlink" href="#rake-occam-prepare-archive-key" title="Permalink to this headline">¶</a></h2>
+<p>Takes one parameter: <strong>key</strong>.</p>
+<p>This task will create Occam archive that will be use used by deploy_initial and update_code tasks.</p>
+<p>Usually it won&#8217;t be called directly.</p>
+</div>
+<div class="section" id="rake-occam-update-code-server-port">
+<h2><a class="toc-backref" href="#id77">rake occam:update_code[server,port]</a><a class="headerlink" href="#rake-occam-update-code-server-port" title="Permalink to this headline">¶</a></h2>
+<p>Takes two parameters: <strong>server</strong> and <strong>port</strong>.</p>
+<p>This task will:</p>
+<ul class="simple">
+<li>Create archive using current state of Occam repository</li>
+<li>Send it using scp to <strong>server</strong></li>
+<li>Decompress archive in <strong>/var/puppet/archive</strong></li>
+<li>Create necessary symlinks</li>
+<li>Reload puppet to serve new code to the clients.</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This task should be used to upload code <strong>AFTER</strong> occam:deply_initial has been performed.</p>
+</div>
+</div>
+<div class="section" id="rake-spec">
+<h2><a class="toc-backref" href="#id78">rake spec</a><a class="headerlink" href="#rake-spec" title="Permalink to this headline">¶</a></h2>
+<p>This task will perform spec tests on:</p>
+<ul class="simple">
+<li>manifests with:<ul>
+<li>Puppet Face validator (for syntax)</li>
+<li><strong>puppet-lint</strong> (for lint failures;))</li>
+</ul>
+</li>
+<li>erbs with <strong>erb -P -x -T erbfile | ruby -c</strong></li>
+<li>yamls with: <strong>ruby yaml parser</strong></li>
+<li>librarian files (Puppetfile) with <strong>r10k  puppetfile check</strong></li>
+</ul>
+</div>
+<div class="section" id="rake-tempest-download-junit-from-host-server-port">
+<h2><a class="toc-backref" href="#id79">rake tempest:download_junit_from_host[server,port]</a><a class="headerlink" href="#rake-tempest-download-junit-from-host-server-port" title="Permalink to this headline">¶</a></h2>
+<p>Takes two parameters: <strong>server</strong> and <strong>port</strong>.</p>
+<p>This task will download <strong>/var/lib/tempest/results.xml</strong> from <strong>server</strong> to local dir.</p>
+<p>This is currently used only by bamboo as a workaround.</p>
+</div>
+<div class="section" id="rake-tempest-make-sure-that-cloud-is-complete-server-port">
+<h2><a class="toc-backref" href="#id80">rake tempest:make_sure_that_cloud_is_complete[server,port]</a><a class="headerlink" href="#rake-tempest-make-sure-that-cloud-is-complete-server-port" title="Permalink to this headline">¶</a></h2>
+<p>Takes two parameters: <strong>server</strong> and <strong>port</strong>.</p>
+<p>This task runs <strong>wait_for_cloud_complete.rb</strong> script on <strong>server</strong>.</p>
+<p>This is used to ensure that necessary number of puppet runs have been performed in order to start tempest.</p>
+</div>
+<div class="section" id="rake-tempest-run-tests-on-ops-node-server-port">
+<h2><a class="toc-backref" href="#id81">rake tempest:run_tests_on_ops_node[server,port]</a><a class="headerlink" href="#rake-tempest-run-tests-on-ops-node-server-port" title="Permalink to this headline">¶</a></h2>
+<p>Takes two parameters: <strong>server</strong> and <strong>port</strong>.</p>
+<p>This task is used to start tempest run on <strong>server</strong>.</p>
+</div>
+<div class="section" id="other">
+<h2><a class="toc-backref" href="#id82">Other</a><a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
+<p>There are few more rake tasks in repo which will be shown when an <strong>app</strong> is available.</p>
+<p>They should conform <strong>appname:init</strong> naming scheme.</p>
+</div>
+<div class="section" id="cabling-and-networking">
+<h2><a class="toc-backref" href="#id83">Cabling and Networking</a><a class="headerlink" href="#cabling-and-networking" title="Permalink to this headline">¶</a></h2>
+<p>The first step is always to cable and setup the networking as you can only then define how you configure Occam. We recommend running <strong>at least 5 servers</strong> for your OpenStack cloud. (Note: If you choose to use high-availability feature, you will need to add 2 more servers.)</p>
+<p>With 5 servers you will have the following breakdown of your nodes:</p>
+<ul class="simple">
+<li><strong>Ops Node</strong></li>
+<li><strong>Controller Node</strong></li>
+<li><strong>2 Compute nodes</strong></li>
+<li><strong>Monitor Node</strong></li>
+</ul>
+<p>You will need to configure four networks.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>iLO Network</strong></td>
+<td>Most servers come with a dedicated remote console port known as Integrated Lights Out (iLO). This network is
+responsible for pre-configuration and PXE booting.</td>
+</tr>
+<tr class="row-even"><td><strong>Management Network</strong></td>
+<td>This network is responsible for all service level traffic for any management node (e.g. ops, controller, compute).</td>
+</tr>
+<tr class="row-odd"><td><strong>Public Network</strong></td>
+<td>This network is responsible for all northbound APIs.</td>
+</tr>
+<tr class="row-even"><td><strong>Private Network</strong></td>
+<td>This network is responible for all VM and volume traffic.</td>
+</tr>
+</tbody>
+</table>
+<p>Now we will go into how you need to cable these servers and also how to setup the necessary networking on both the router and the switch.</p>
+</div>
+<div class="section" id="cable-your-servers">
+<h2><a class="toc-backref" href="#id84">Cable Your Servers</a><a class="headerlink" href="#cable-your-servers" title="Permalink to this headline">¶</a></h2>
+<p>Follow these steps to cable your servers:</p>
+<ol class="arabic simple">
+<li>Connect the iLO interfaces of the servers to one set of ports on the switch (usually dedicated ports, see your own documentation)</li>
+<li>Select and take note of a set of ports on the switch that you would like to handle the Management Network. Connect all of these ports to the <strong>eth0</strong> interface on the servers.</li>
+<li>Decide which nodes will act as your controller, ops and monitor node. You will need this information later.</li>
+<li>Connect the <strong>eth1</strong> interface on the controller node to the switch. Take note of the port on the switch. It will serve the Public Network.</li>
+<li>Connect one twinax interface of each server to the switch and make note of the ports on the switch. Note: the specific interface on the server will vary on the vendor. For our servers, it was <strong>eth5</strong> but you will need to confirm which specific interface it will be on your servers.</li>
+<li>Connect one interface from the router to the switch. Make note of the port you use on both the router and the switch.</li>
+</ol>
+</div>
+<div class="section" id="configure-the-router-and-switch">
+<h2><a class="toc-backref" href="#id85">Configure The Router And Switch</a><a class="headerlink" href="#configure-the-router-and-switch" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/NetworkView.png"><img alt="_images/NetworkView.png" class="align-center" src="_images/NetworkView.png" style="width: 50%;" /></a>
+<p>The router will have the gateways for the Management and Public Network configured along with VLAN tags created. Make sure that these networks can reach out to the internet using NATing.</p>
+<p>Below you will find examples for how to configure the router and switch. In these examples we are assuming that the router is Juniper MX-240 and the switch is Arista 7050.</p>
+<p>The examples also assume these assignments for the various networks:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="36%" />
+<col width="26%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Network</th>
+<th class="head">IP Range</th>
+<th class="head">VLAN Tag</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Management Network</td>
+<td>10.100.1.0/24</td>
+<td>100</td>
+</tr>
+<tr class="row-odd"><td>Public Network</td>
+<td>10.101.2.0/24</td>
+<td>200</td>
+</tr>
+<tr class="row-even"><td>Private Network</td>
+<td>172.20.1.0/24</td>
+<td>300</td>
+</tr>
+<tr class="row-odd"><td>iLO Network</td>
+<td>10.0.2.0/24</td>
+<td>400</td>
+</tr>
+</tbody>
+</table>
+<p>It is also assumed that the interface on router which connected to switch is <strong>ge-0/2/0</strong>.</p>
+<div class="section" id="preparation">
+<h3>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h3>
+<p>Make note of the port that the cable from the router to the switch is connecting to the router. Using this port you will be able to identify which interface that you need to configure. Please see the documentation for your specific router to how you can identify the interface name via the port.</p>
+</div>
+<div class="section" id="configure-the-gateways">
+<h3>Configure The Gateways<a class="headerlink" href="#configure-the-gateways" title="Permalink to this headline">¶</a></h3>
+<p>The interface that is connected to the switch will need to have two gateways configured, one to support the management and one to support the Floating IP network (Public Network).</p>
+<p>Note: The Public network may be an actual public network or you can create a pseudo &#8220;Public Network&#8221;. A pseudo “Public Network” uses a private IP range that NATs all outbound traffic through a single Public IP. Of course specify two different gateway IPs for these. :-)</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# edit
+user@host# set interfaces ge-0/2/0 unit 100 description &quot;Link for Management Network&quot;
+user@host# set interfaces ge-0/2/0 unit 100 vlan-id 100
+user@host# set interfaces ge-0/2/0 unit 100 family inet address 10.100.1.1/24
+user@host# set interfaces ge-0/2/0 unit 200 description &quot;Link for Public Network&quot;
+user@host# set interfaces ge-0/2/0 unit 200 vlan-id 200
+user@host# set interfaces ge-0/2/0 unit 200 family inet address 10.101.2.1/24
+</pre></div>
+</div>
+<p>This should return something like this:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# show interfaces ge-0/2/0
+
+ge-0/2/0 {
+  unit 100 {
+    description &quot;Link for Management Network&quot;;
+    vlan-id 100;
+    family inet {
+      address 10.100.1.1/24;
+    }
+  }
+  unit 200 {
+    description &quot;Link for Public Network&quot;;
+    vlan-id 200;
+    family inet {
+      address 10.101.2.1/24;
+    }
+  }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-the-nat-pool">
+<h3>Configure The NAT Pool<a class="headerlink" href="#configure-the-nat-pool" title="Permalink to this headline">¶</a></h3>
+<p>Configure NAT pool so that private networks can route out to the internet. This allows a single Public IP to handle outbound traffic to the internet. This is called Source-NAT with single IP.  You can choose any label for your Pool Name. In our example, we use NAT-POOL</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# edit
+user@host# set services nat pool NAT-POOL address &lt;your public IP&gt;/32
+user@host# set services nat pool NAT-POOL port automatic
+</pre></div>
+</div>
+<p>This should return something like this:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# edit services nat pool NAT-POOL
+user@host# show
+
+address &lt;your public IP&gt;/32;
+port {
+  automatic;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-the-nat-rules">
+<h3>Configure The NAT Rules<a class="headerlink" href="#configure-the-nat-rules" title="Permalink to this headline">¶</a></h3>
+<p>Configure NAT rules for the source pool that was just created. These rules enable your Management and Public Networks to reach the internet. You can choose any label for your NAT rule. In this example we will use NAT-RULE:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# set services nat rule NAT-RULE match-direction input
+user@host# set services nat rule NAT-RULE term NAT from source-address 10.100.1.0/24
+user@host# set services nat rule NAT-RULE term NAT from source-address 10.101.2.0/24
+user@host# set services nat rule NAT-RULE term NAT then translated source-pool NAT-POOL
+user@host# set services nat rule NAT-RULE term NAT then translated translation-type napt-44
+user@host# set services nat rule NAT-RULE term NAT then translated mapping-type endpoint-independent
+user@host# set services nat rule NAT-RULE term NAT then translated filtering-type endpoint-independent
+
+user@host# set services nat rule NAT-RULE term Private from source-address 10.100.1.0/24
+user@host# set services nat rule NAT-RULE term Private from source-address 10.101.2.0/24
+user@host# set services nat rule NAT-RULE term Private from destination-address 10.100.1.0/24
+user@host# set services nat rule NAT-RULE term Private from destination-address 10.101.2.0/24
+user@host# set services nat rule NAT-RULE term Private then no-translation
+</pre></div>
+</div>
+<p>This should return something like this:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# edit services nat rule NAT-RULE
+user@host# show
+
+match-direction input;
+
+term NAT {
+  from {
+    source-address {
+      10.100.1.0/24;
+      10.101.2.0/24;
+    }
+  }
+  then {
+    translated {
+      source-pool NAT-POOL;
+        translation-type {
+          napt-44;
+        }
+        mapping-type endpoint-independent;
+        filtering-type {
+          endpoint-independent;
+        }
+      }
+    }
+  }
+}
+
+term Private {
+  from {
+    source-address {
+      10.100.1.0/24;
+      10.101.2.0/24;
+    }
+  }
+  then {
+    translated {
+      source-pool NAT-POOL;
+        translation-type {
+        napt-44;
+      }
+      mapping-type endpoint-independent;
+      filtering-type {
+        endpoint-independent;
+      }
+    }
+  }
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configure-the-switch">
+<h2><a class="toc-backref" href="#id86">Configure the Switch</a><a class="headerlink" href="#configure-the-switch" title="Permalink to this headline">¶</a></h2>
+<p>(Fix this section)
+Create the vlan tags for iLO and VM Traffic Network</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host (config)# vlan 300
+user@host(config-vlan-300)# exit
+user@host (config)# vlan 400
+user@host(config-vlan-400)# exit
+</pre></div>
+</div>
+<p>The switch will have virtual interfaces for the gateways of the VM and iLO networks. Apply the corresponding vlan tags to the iLO interfaces and VM Traffic interfaces. These will be access ports. See below for example of access port configuration.</p>
+<p>Since the vlan tags for Management and Public Networks were created on the router, take note of them and assign the same vlan tags on the switch. The port on the switch that is connected to the router should be configured as a trunk port. In the example below we used 300 and 301 respectively. Assuming interface 48 on the switch as the port connected to the router, run the following commands:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host (config)# int eth48
+user@host (config-if-Et48)# switchport mode trunk
+user@host (config-if-Et48)# switch port trunk allowed vlan add 100,200
+user@host (config-if-Et48)# exit
+</pre></div>
+</div>
+<p>On the ports connected to iLO, simply configure the switch as access ports and assign a vlan tag.  This vlan tag cannot be the same as the vlan tags used for the port trunk. Assuming two ports for iLO (1,2) and two ports VM Traffic (10,11):</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host (config)# int eth 1-2
+user@host (config-if-Et1-2)# description &quot;Configuration for iLO, VLAN 400, 10.0.2.0/24&quot;
+user@host (config-if-Et1-2)# switchport access vlan 400
+user@host (config-if-Et1-2)# exit
+
+user@host (config)# int eth 10-11
+user@host (config-if-Et10-11)# description &quot;Configuration for VM Traffic, VLAN 300, 172.20.1.0/24&quot;
+user@host (config-if-Et10-11)# switchport access vlan 300
+user@host (config-if-Et10-11)# exit
+</pre></div>
+</div>
+<p>On the ports connected to MGMT, since we will want to PXE boot, we will need to configure as access ports and make sure spanning-tree port fast is enabled. This keeps the port open long enough for PXE booting to occur.  Assuming two ports for the Management Network, ports 20 and 21, we run these commands:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host (config)# int eth 20-21
+user@host (config-if-Et20-21)# description &quot;Configuration for Management Network, VLAN 100, 10.100.1.0/24&quot;
+user@host (config-if-Et20-21)# switchport access vlan 100
+user@host (config-if-Et20-21)# spanning-tree portfast
+user@host (config-if-Et120-21)# exit
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-the-ilo-ips-on-the-servers">
+<h2><a class="toc-backref" href="#id87">Configure The iLO IPs On The Servers</a><a class="headerlink" href="#configure-the-ilo-ips-on-the-servers" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have the iLO network configured on the switch, we have to manually assign IP addresses to the servers for their dedicated iLO ports. You will have to consult your product manual on how to configure the iLO interface. There are different terms to refer to iLO and it largely depends on the vendor:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Vendor</th>
+<th class="head">Name of iLO Implementation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>HP</td>
+<td>iLO (Integrated Lights Out)</td>
+</tr>
+<tr class="row-odd"><td>Dell</td>
+<td>iDRAC (Integrated Dell Remote Access Controller)</td>
+</tr>
+<tr class="row-even"><td>Quanta</td>
+<td>IPMI</td>
+</tr>
+<tr class="row-odd"><td>Cisco</td>
+<td>CIMC (Cisco Integrated Management Controller)</td>
+</tr>
+<tr class="row-even"><td>Intel</td>
+<td>RMM (Remote Management Module)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="additional-resources">
+<h2><a class="toc-backref" href="#id88">Additional Resources</a><a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.puppetlabs.com/hiera/1/index.html">Hiera 1</a></li>
+<li><a class="reference external" href="http://docs.puppetlabs.com/puppet/">Puppet</a></li>
+<li><a class="reference external" href="http://git-scm.com/documentation">Git</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, AT&amp;T Foundry.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

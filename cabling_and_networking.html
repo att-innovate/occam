@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cabling and Networking &mdash; Occam 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Occam 0.1 documentation" href="index.html"/>
+        <link rel="next" title="OpenStack Havana Cloud Application" href="cloud_app.html"/>
+        <link rel="prev" title="Occam rake tasks" href="tasks.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Occam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart: Deploying A Havana Cloud To Bare Metal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#cabling-and-networking">Cabling and Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#cable-your-servers">Cable Your Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-router-and-switch">Configure The Router And Switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-switch">Configure the Switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-ilo-ips-on-the-servers">Configure The iLO IPs On The Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuring-your-zone">Configuring Your Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#secrets">Secrets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#fqdn">fqdn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#zone">Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#occam">Occam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#prepare-occam-environment">Prepare Occam environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#checking-out-occam-repository">Checking out Occam repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#setup-rvm-and-install-the-necessary-gems">Setup RVM and install the necessary gems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#adding-local-configuration">Adding local configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#initialization-of-occam-itself">Initialization of Occam itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation-and-initialization-of-occam-application">Installation and initialization of Occam application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prepare-your-ops-node">Prepare Your OPS Node</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Main concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Occam components explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="components.html#ops-node">Ops node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#occamengine">Occamengine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Repository structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">Occam applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="apps.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html#application-structure">Application structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prepare_environment.html">Prepare Occam environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#checking-out-occam-repository">Checking out Occam repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#setup-rvm-and-install-the-necessary-gems">Setup RVM and install the necessary gems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#adding-local-configuration">Adding local configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#initialization-of-occam-itself">Initialization of Occam itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#installation-and-initialization-of-occam-application">Installation and initialization of Occam application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html">Configuring Your Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#secrets">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#fqdn">fqdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#zone">Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#users">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#occam">Occam</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vagrant.html">Development Environment in Vagrant</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#obtain-the-occam-source-dependencies">Obtain the Occam Source &amp; Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#deploying-the-vagrant-development-environment">Deploying the Vagrant Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#bringing-up-the-cloud">Bringing up the Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="production_deployment.html">Deploying a new environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#what-you-need">What you need.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#hardware-requirements-for-nodes">Hardware requirements for nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#install-an-operating-system">Install an operating system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#bootstrapping-the-ops-node">Bootstrapping the ops node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#secrets">Secrets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#fqdn">fqdn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#zone">Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#occam">Occam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Occam development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#repository-best-practices">Repository best practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">Occam rake tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-validate">rake occam:validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-demo-init-zone">rake demo:init[zone]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-init-app">rake apps:init[app]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-init">rake apps:init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-clean">rake apps:clean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-config-generate-zonename">rake config:generate[zonename]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-doc-build">rake doc:build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-deploy-initial-server-port">rake occam:deploy_initial[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-init">rake occam:init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-prepare-archive-key">rake occam:prepare_archive[key]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-update-code-server-port">rake occam:update_code[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-spec">rake spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-download-junit-from-host-server-port">rake tempest:download_junit_from_host[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-make-sure-that-cloud-is-complete-server-port">rake tempest:make_sure_that_cloud_is_complete[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-run-tests-on-ops-node-server-port">rake tempest:run_tests_on_ops_node[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Cabling and Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#cable-your-servers">Cable Your Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#configure-the-router-and-switch">Configure The Router And Switch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preparation">Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-the-gateways">Configure The Gateways</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-the-nat-pool">Configure The NAT Pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-the-nat-rules">Configure The NAT Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#configure-the-switch">Configure the Switch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#configure-the-ilo-ips-on-the-servers">Configure The iLO IPs On The Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_app.html">OpenStack Havana Cloud Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#version">Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#hardware">Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#openstack-components">Openstack components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#high-availability-vs-non-high-availability-architecture">High availability vs non-high availability architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_app.html#location-of-openstack-services">Location of Openstack services</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Occam</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Cabling and Networking</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/cabling_and_networking.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="cabling-and-networking">
+<h1>Cabling and Networking<a class="headerlink" href="#cabling-and-networking" title="Permalink to this headline">¶</a></h1>
+<p>The first step is always to cable and setup the networking as you can only then define how you configure Occam. We recommend running <strong>at least 5 servers</strong> for your OpenStack cloud. (Note: If you choose to use high-availability feature, you will need to add 2 more servers.)</p>
+<p>With 5 servers you will have the following breakdown of your nodes:</p>
+<ul class="simple">
+<li><strong>Ops Node</strong></li>
+<li><strong>Controller Node</strong></li>
+<li><strong>2 Compute nodes</strong></li>
+<li><strong>Monitor Node</strong></li>
+</ul>
+<p>You will need to configure four networks.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>iLO Network</strong></td>
+<td>Most servers come with a dedicated remote console port known as Integrated Lights Out (iLO). This network is
+responsible for pre-configuration and PXE booting.</td>
+</tr>
+<tr class="row-even"><td><strong>Management Network</strong></td>
+<td>This network is responsible for all service level traffic for any management node (e.g. ops, controller, compute).</td>
+</tr>
+<tr class="row-odd"><td><strong>Public Network</strong></td>
+<td>This network is responsible for all northbound APIs.</td>
+</tr>
+<tr class="row-even"><td><strong>Private Network</strong></td>
+<td>This network is responible for all VM and volume traffic.</td>
+</tr>
+</tbody>
+</table>
+<p>Now we will go into how you need to cable these servers and also how to setup the necessary networking on both the router and the switch.</p>
+</div>
+<div class="section" id="cable-your-servers">
+<h1>Cable Your Servers<a class="headerlink" href="#cable-your-servers" title="Permalink to this headline">¶</a></h1>
+<p>Follow these steps to cable your servers:</p>
+<ol class="arabic simple">
+<li>Connect the iLO interfaces of the servers to one set of ports on the switch (usually dedicated ports, see your own documentation)</li>
+<li>Select and take note of a set of ports on the switch that you would like to handle the Management Network. Connect all of these ports to the <strong>eth0</strong> interface on the servers.</li>
+<li>Decide which nodes will act as your controller, ops and monitor node. You will need this information later.</li>
+<li>Connect the <strong>eth1</strong> interface on the controller node to the switch. Take note of the port on the switch. It will serve the Public Network.</li>
+<li>Connect one twinax interface of each server to the switch and make note of the ports on the switch. Note: the specific interface on the server will vary on the vendor. For our servers, it was <strong>eth5</strong> but you will need to confirm which specific interface it will be on your servers.</li>
+<li>Connect one interface from the router to the switch. Make note of the port you use on both the router and the switch.</li>
+</ol>
+</div>
+<div class="section" id="configure-the-router-and-switch">
+<h1>Configure The Router And Switch<a class="headerlink" href="#configure-the-router-and-switch" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/NetworkView.png"><img alt="_images/NetworkView.png" class="align-center" src="_images/NetworkView.png" style="width: 50%;" /></a>
+<p>The router will have the gateways for the Management and Public Network configured along with VLAN tags created. Make sure that these networks can reach out to the internet using NATing.</p>
+<p>Below you will find examples for how to configure the router and switch. In these examples we are assuming that the router is Juniper MX-240 and the switch is Arista 7050.</p>
+<p>The examples also assume these assignments for the various networks:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="36%" />
+<col width="26%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Network</th>
+<th class="head">IP Range</th>
+<th class="head">VLAN Tag</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Management Network</td>
+<td>10.100.1.0/24</td>
+<td>100</td>
+</tr>
+<tr class="row-odd"><td>Public Network</td>
+<td>10.101.2.0/24</td>
+<td>200</td>
+</tr>
+<tr class="row-even"><td>Private Network</td>
+<td>172.20.1.0/24</td>
+<td>300</td>
+</tr>
+<tr class="row-odd"><td>iLO Network</td>
+<td>10.0.2.0/24</td>
+<td>400</td>
+</tr>
+</tbody>
+</table>
+<p>It is also assumed that the interface on router which connected to switch is <strong>ge-0/2/0</strong>.</p>
+<div class="section" id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<p>Make note of the port that the cable from the router to the switch is connecting to the router. Using this port you will be able to identify which interface that you need to configure. Please see the documentation for your specific router to how you can identify the interface name via the port.</p>
+</div>
+<div class="section" id="configure-the-gateways">
+<h2>Configure The Gateways<a class="headerlink" href="#configure-the-gateways" title="Permalink to this headline">¶</a></h2>
+<p>The interface that is connected to the switch will need to have two gateways configured, one to support the management and one to support the Floating IP network (Public Network).</p>
+<p>Note: The Public network may be an actual public network or you can create a pseudo &#8220;Public Network&#8221;. A pseudo “Public Network” uses a private IP range that NATs all outbound traffic through a single Public IP. Of course specify two different gateway IPs for these. :-)</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# edit
+user@host# set interfaces ge-0/2/0 unit 100 description &quot;Link for Management Network&quot;
+user@host# set interfaces ge-0/2/0 unit 100 vlan-id 100
+user@host# set interfaces ge-0/2/0 unit 100 family inet address 10.100.1.1/24
+user@host# set interfaces ge-0/2/0 unit 200 description &quot;Link for Public Network&quot;
+user@host# set interfaces ge-0/2/0 unit 200 vlan-id 200
+user@host# set interfaces ge-0/2/0 unit 200 family inet address 10.101.2.1/24
+</pre></div>
+</div>
+<p>This should return something like this:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# show interfaces ge-0/2/0
+
+ge-0/2/0 {
+  unit 100 {
+    description &quot;Link for Management Network&quot;;
+    vlan-id 100;
+    family inet {
+      address 10.100.1.1/24;
+    }
+  }
+  unit 200 {
+    description &quot;Link for Public Network&quot;;
+    vlan-id 200;
+    family inet {
+      address 10.101.2.1/24;
+    }
+  }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-the-nat-pool">
+<h2>Configure The NAT Pool<a class="headerlink" href="#configure-the-nat-pool" title="Permalink to this headline">¶</a></h2>
+<p>Configure NAT pool so that private networks can route out to the internet. This allows a single Public IP to handle outbound traffic to the internet. This is called Source-NAT with single IP.  You can choose any label for your Pool Name. In our example, we use NAT-POOL</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# edit
+user@host# set services nat pool NAT-POOL address &lt;your public IP&gt;/32
+user@host# set services nat pool NAT-POOL port automatic
+</pre></div>
+</div>
+<p>This should return something like this:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# edit services nat pool NAT-POOL
+user@host# show
+
+address &lt;your public IP&gt;/32;
+port {
+  automatic;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-the-nat-rules">
+<h2>Configure The NAT Rules<a class="headerlink" href="#configure-the-nat-rules" title="Permalink to this headline">¶</a></h2>
+<p>Configure NAT rules for the source pool that was just created. These rules enable your Management and Public Networks to reach the internet. You can choose any label for your NAT rule. In this example we will use NAT-RULE:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# set services nat rule NAT-RULE match-direction input
+user@host# set services nat rule NAT-RULE term NAT from source-address 10.100.1.0/24
+user@host# set services nat rule NAT-RULE term NAT from source-address 10.101.2.0/24
+user@host# set services nat rule NAT-RULE term NAT then translated source-pool NAT-POOL
+user@host# set services nat rule NAT-RULE term NAT then translated translation-type napt-44
+user@host# set services nat rule NAT-RULE term NAT then translated mapping-type endpoint-independent
+user@host# set services nat rule NAT-RULE term NAT then translated filtering-type endpoint-independent
+
+user@host# set services nat rule NAT-RULE term Private from source-address 10.100.1.0/24
+user@host# set services nat rule NAT-RULE term Private from source-address 10.101.2.0/24
+user@host# set services nat rule NAT-RULE term Private from destination-address 10.100.1.0/24
+user@host# set services nat rule NAT-RULE term Private from destination-address 10.101.2.0/24
+user@host# set services nat rule NAT-RULE term Private then no-translation
+</pre></div>
+</div>
+<p>This should return something like this:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host# edit services nat rule NAT-RULE
+user@host# show
+
+match-direction input;
+
+term NAT {
+  from {
+    source-address {
+      10.100.1.0/24;
+      10.101.2.0/24;
+    }
+  }
+  then {
+    translated {
+      source-pool NAT-POOL;
+        translation-type {
+          napt-44;
+        }
+        mapping-type endpoint-independent;
+        filtering-type {
+          endpoint-independent;
+        }
+      }
+    }
+  }
+}
+
+term Private {
+  from {
+    source-address {
+      10.100.1.0/24;
+      10.101.2.0/24;
+    }
+  }
+  then {
+    translated {
+      source-pool NAT-POOL;
+        translation-type {
+        napt-44;
+      }
+      mapping-type endpoint-independent;
+      filtering-type {
+        endpoint-independent;
+      }
+    }
+  }
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configure-the-switch">
+<h1>Configure the Switch<a class="headerlink" href="#configure-the-switch" title="Permalink to this headline">¶</a></h1>
+<p>(Fix this section)
+Create the vlan tags for iLO and VM Traffic Network</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host (config)# vlan 300
+user@host(config-vlan-300)# exit
+user@host (config)# vlan 400
+user@host(config-vlan-400)# exit
+</pre></div>
+</div>
+<p>The switch will have virtual interfaces for the gateways of the VM and iLO networks. Apply the corresponding vlan tags to the iLO interfaces and VM Traffic interfaces. These will be access ports. See below for example of access port configuration.</p>
+<p>Since the vlan tags for Management and Public Networks were created on the router, take note of them and assign the same vlan tags on the switch. The port on the switch that is connected to the router should be configured as a trunk port. In the example below we used 300 and 301 respectively. Assuming interface 48 on the switch as the port connected to the router, run the following commands:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host (config)# int eth48
+user@host (config-if-Et48)# switchport mode trunk
+user@host (config-if-Et48)# switch port trunk allowed vlan add 100,200
+user@host (config-if-Et48)# exit
+</pre></div>
+</div>
+<p>On the ports connected to iLO, simply configure the switch as access ports and assign a vlan tag.  This vlan tag cannot be the same as the vlan tags used for the port trunk. Assuming two ports for iLO (1,2) and two ports VM Traffic (10,11):</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host (config)# int eth 1-2
+user@host (config-if-Et1-2)# description &quot;Configuration for iLO, VLAN 400, 10.0.2.0/24&quot;
+user@host (config-if-Et1-2)# switchport access vlan 400
+user@host (config-if-Et1-2)# exit
+
+user@host (config)# int eth 10-11
+user@host (config-if-Et10-11)# description &quot;Configuration for VM Traffic, VLAN 300, 172.20.1.0/24&quot;
+user@host (config-if-Et10-11)# switchport access vlan 300
+user@host (config-if-Et10-11)# exit
+</pre></div>
+</div>
+<p>On the ports connected to MGMT, since we will want to PXE boot, we will need to configure as access ports and make sure spanning-tree port fast is enabled. This keeps the port open long enough for PXE booting to occur.  Assuming two ports for the Management Network, ports 20 and 21, we run these commands:</p>
+<div class="code bash highlight-python"><div class="highlight"><pre>user@host (config)# int eth 20-21
+user@host (config-if-Et20-21)# description &quot;Configuration for Management Network, VLAN 100, 10.100.1.0/24&quot;
+user@host (config-if-Et20-21)# switchport access vlan 100
+user@host (config-if-Et20-21)# spanning-tree portfast
+user@host (config-if-Et120-21)# exit
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-the-ilo-ips-on-the-servers">
+<h1>Configure The iLO IPs On The Servers<a class="headerlink" href="#configure-the-ilo-ips-on-the-servers" title="Permalink to this headline">¶</a></h1>
+<p>Now that we have the iLO network configured on the switch, we have to manually assign IP addresses to the servers for their dedicated iLO ports. You will have to consult your product manual on how to configure the iLO interface. There are different terms to refer to iLO and it largely depends on the vendor:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Vendor</th>
+<th class="head">Name of iLO Implementation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>HP</td>
+<td>iLO (Integrated Lights Out)</td>
+</tr>
+<tr class="row-odd"><td>Dell</td>
+<td>iDRAC (Integrated Dell Remote Access Controller)</td>
+</tr>
+<tr class="row-even"><td>Quanta</td>
+<td>IPMI</td>
+</tr>
+<tr class="row-odd"><td>Cisco</td>
+<td>CIMC (Cisco Integrated Management Controller)</td>
+</tr>
+<tr class="row-even"><td>Intel</td>
+<td>RMM (Remote Management Module)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloud_app.html" class="btn btn-neutral float-right" title="OpenStack Havana Cloud Application"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tasks.html" class="btn btn-neutral" title="Occam rake tasks"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, AT&amp;T Foundry.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

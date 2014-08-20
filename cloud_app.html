@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OpenStack Havana Cloud Application &mdash; Occam 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Occam 0.1 documentation" href="index.html"/>
+        <link rel="prev" title="Cabling and Networking" href="cabling_and_networking.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Occam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart: Deploying A Havana Cloud To Bare Metal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#cabling-and-networking">Cabling and Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#cable-your-servers">Cable Your Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-router-and-switch">Configure The Router And Switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-switch">Configure the Switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configure-the-ilo-ips-on-the-servers">Configure The iLO IPs On The Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuring-your-zone">Configuring Your Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#secrets">Secrets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#fqdn">fqdn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#zone">Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#occam">Occam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#prepare-occam-environment">Prepare Occam environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#checking-out-occam-repository">Checking out Occam repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#setup-rvm-and-install-the-necessary-gems">Setup RVM and install the necessary gems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#adding-local-configuration">Adding local configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#initialization-of-occam-itself">Initialization of Occam itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation-and-initialization-of-occam-application">Installation and initialization of Occam application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prepare-your-ops-node">Prepare Your OPS Node</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Main concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Occam components explained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="components.html#ops-node">Ops node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#occamengine">Occamengine</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">Repository structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps.html">Occam applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="apps.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apps.html#application-structure">Application structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prepare_environment.html">Prepare Occam environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#checking-out-occam-repository">Checking out Occam repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#setup-rvm-and-install-the-necessary-gems">Setup RVM and install the necessary gems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#adding-local-configuration">Adding local configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#initialization-of-occam-itself">Initialization of Occam itself</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prepare_environment.html#installation-and-initialization-of-occam-application">Installation and initialization of Occam application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html">Configuring Your Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#secrets">Secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#fqdn">fqdn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#zone">Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#users">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure_your_zone.html#occam">Occam</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vagrant.html">Development Environment in Vagrant</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#obtain-the-occam-source-dependencies">Obtain the Occam Source &amp; Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#deploying-the-vagrant-development-environment">Deploying the Vagrant Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vagrant.html#bringing-up-the-cloud">Bringing up the Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="production_deployment.html">Deploying a new environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#what-you-need">What you need.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#hardware-requirements-for-nodes">Hardware requirements for nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#install-an-operating-system">Install an operating system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#bootstrapping-the-ops-node">Bootstrapping the ops node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#secrets">Secrets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#fqdn">fqdn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#zone">Zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#hostgroups">Hostgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="production_deployment.html#occam">Occam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Occam development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#repository-best-practices">Repository best practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">Occam rake tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-validate">rake occam:validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-demo-init-zone">rake demo:init[zone]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-init-app">rake apps:init[app]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-init">rake apps:init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-apps-clean">rake apps:clean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-config-generate-zonename">rake config:generate[zonename]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-doc-build">rake doc:build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-deploy-initial-server-port">rake occam:deploy_initial[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-init">rake occam:init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-prepare-archive-key">rake occam:prepare_archive[key]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-occam-update-code-server-port">rake occam:update_code[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-spec">rake spec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-download-junit-from-host-server-port">rake tempest:download_junit_from_host[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-make-sure-that-cloud-is-complete-server-port">rake tempest:make_sure_that_cloud_is_complete[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#rake-tempest-run-tests-on-ops-node-server-port">rake tempest:run_tests_on_ops_node[server,port]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tasks.html#other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html">Cabling and Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#cable-your-servers">Cable Your Servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-router-and-switch">Configure The Router And Switch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#preparation">Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-gateways">Configure The Gateways</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-nat-pool">Configure The NAT Pool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cabling_and_networking.html#configure-the-nat-rules">Configure The NAT Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-switch">Configure the Switch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cabling_and_networking.html#configure-the-ilo-ips-on-the-servers">Configure The iLO IPs On The Servers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">OpenStack Havana Cloud Application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version">Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hardware">Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#openstack-components">Openstack components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#high-availability-vs-non-high-availability-architecture">High availability vs non-high availability architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#location-of-openstack-services">Location of Openstack services</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Occam</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>OpenStack Havana Cloud Application</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/cloud_app.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="openstack-havana-cloud-application">
+<h1>OpenStack Havana Cloud Application<a class="headerlink" href="#openstack-havana-cloud-application" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The OpenStack Havana Cloud Application is a quite standard Havana Openstack installation. The application uses Stackforge Puppet modules to deploy and manage Openstack components.</p>
+</div>
+<div class="section" id="version">
+<h2>Version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h2>
+<p>Openstack components basically are installed in the Havana version, but there are exceptions:</p>
+<ul class="simple">
+<li>Savanna is in the 0.3 version</li>
+<li>Ceilometer is backported from the Openstack Icehouse version</li>
+</ul>
+</div>
+<div class="section" id="hardware">
+<h2>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="servers">
+<h3>Servers<a class="headerlink" href="#servers" title="Permalink to this headline">¶</a></h3>
+<p>Server nodes are divided into two groups:</p>
+<ul class="simple">
+<li>controller nodes with names like: ctrl1, ctrl2, etc.</li>
+<li>compute nodes with names like: comp1, comp2, etc.</li>
+</ul>
+</div>
+<div class="section" id="networks">
+<h3>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h3>
+<p>There are three networks:</p>
+<ul class="simple">
+<li>a management network</li>
+<li>a private network</li>
+<li>a public (external) network</li>
+</ul>
+<p>Every server is connected to the management and the private network.
+The public network is available only on controller nodes - where Neutron L3 Agents are installed.</p>
+<p>The management network is used for servers management and Openstack components communication.
+The private network is used by Neutron to connect VMs and by Swift for internal communication.</p>
+<p>10Gb bandwidth is recommended for the private network.</p>
+<p>Communication with external networks is provided through the public network.</p>
+</div>
+</div>
+<div class="section" id="openstack-components">
+<h2>Openstack components<a class="headerlink" href="#openstack-components" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="keystone">
+<h3>Keystone<a class="headerlink" href="#keystone" title="Permalink to this headline">¶</a></h3>
+<p>A standard installation where Keystone is run on the controller node and has a Mysql 5.5.x backend.
+A Keystone database is stored in the Mysql on the controller node.</p>
+</div>
+<div class="section" id="nova">
+<h3>Nova<a class="headerlink" href="#nova" title="Permalink to this headline">¶</a></h3>
+<p>A standard installation where Nova uses KVM hypervisor to run VMs on compute nodes.
+Core Nova services are run on the controller node and the Nova compute service is run on every compute node.
+Instances are stored on a /dev/sda4 partition which is EXT4 formatted and mounted at /var/lib/nova/instances.
+A Nova database is stored in the Mysql on the controller node.</p>
+</div>
+<div class="section" id="glance">
+<h3>Glance<a class="headerlink" href="#glance" title="Permalink to this headline">¶</a></h3>
+<p>A standard installation where images are stored in a local disk storage on the controller node.
+Images are stored on a /dev/sda4 partition which is EXT4 formatted and mounted at /var/lib/glance.
+A Glance database is stored in the Mysql on the controller node.</p>
+</div>
+<div class="section" id="horizon">
+<h3>Horizon<a class="headerlink" href="#horizon" title="Permalink to this headline">¶</a></h3>
+<p>A standard installation where Horizon is run on an Apache HTTP server on the controller node.</p>
+</div>
+<div class="section" id="cinder">
+<h3>Cinder<a class="headerlink" href="#cinder" title="Permalink to this headline">¶</a></h3>
+<p>Cinder API and scheduler are run on the controller node.
+Volumes are stored on compute nodes as LVMs on the cinder-volumes VG which uses a /dev/sda5 partition as a PV.
+Volumes are shared to VMs through iSCSI protocol by tgt software.
+A Cinder database is stored in the Mysql on the controller node.</p>
+</div>
+<div class="section" id="swift">
+<h3>Swift<a class="headerlink" href="#swift" title="Permalink to this headline">¶</a></h3>
+<p>Swift proxy server is run on the controller node.
+Account, Container and Object storage servers as well as related services (auditors, updaters, replicators, etc.) are run on every compute node.
+Objects are stored on a /dev/sda6 partition which is XFS formatted and mounted at /srv/node/sda6.
+HAproxy is configured in front of swift proxy server as a SSL terminator.
+By default there is an one region configured with five zones and three replicas, however an amount of zones and replicas are configurable.
+Amazon S3 API is disabled due to a bug in Keystone, but the API will be enabled when we switch to the Icehouse version.
+Internal communication in Swift is realized through the private network.</p>
+</div>
+<div class="section" id="neutron">
+<h3>Neutron<a class="headerlink" href="#neutron" title="Permalink to this headline">¶</a></h3>
+<p>Neutron uses Open vSwitch plugin to configure bridges on nodes.
+It supports network namespaces to fully separate networks owned by different tenants,
+so it is posible that two or more tenants have configured the same network.
+Additionally Neutron uses GRE tunnels for network traffic separation outside nodes.
+Core Neutron services (dhcp, l3, server) are run on the controller node and the Open vSwitch agent is run on every compute node.
+A Neutron database is stored in the Mysql database on the controller node.</p>
+</div>
+<div class="section" id="ceilometer">
+<h3>Ceilometer<a class="headerlink" href="#ceilometer" title="Permalink to this headline">¶</a></h3>
+<p>Ceilometer uses MongoDB database as a backend. The database and core services are run on the controller node. The Compute agent is run on every compute node.
+MongoDB database files are stored on a /dev/sda6 partition which is EXT4 formatted and mounted at /var/lib/mongodb.</p>
+</div>
+<div class="section" id="savanna">
+<h3>Savanna<a class="headerlink" href="#savanna" title="Permalink to this headline">¶</a></h3>
+<p>Savanna is run on the controller node. A database is stored in the Mysql on the controller node.</p>
+<p>By default there are two VM images installed:</p>
+<ul class="simple">
+<li>Sahara 0.3 Vanilla 1.2.1 Ubuntu 13.04</li>
+<li>Sahara 0.3 HDP 1.3 Centos 6.4</li>
+</ul>
+<p>and two plugins:</p>
+<ul class="simple">
+<li>Vanilla Apache Hadoop 1.2.1</li>
+<li>HDP 1.3.2</li>
+</ul>
+</div>
+</div>
+<div class="section" id="high-availability-vs-non-high-availability-architecture">
+<h2>High availability vs non-high availability architecture<a class="headerlink" href="#high-availability-vs-non-high-availability-architecture" title="Permalink to this headline">¶</a></h2>
+<p>Both architectures shares the same OpenStack components. The only difference is in number of controller nodes.
+In a non-high availability architecture there is only one controller node (ctrl1) and many compute nodes. There are only one Mysql and one RabbitMQ instances, without any replication. They are run on the controller node.
+In a high availability mode 3 controller nodes are required. To allow coexistence of more then one controller node, following changes were made:</p>
+<ul class="simple">
+<li>in place of regular MySQL server Percona XtraDB Cluster is used (where Galera library for active-active HA is used)</li>
+<li>all OpenStack services are run behind HAproxy</li>
+<li>Pacemaker with Corosync is used to provide roaming IP addresses (VIP) for HAproxy</li>
+<li>RabbitMQ cluster is used for messaging</li>
+<li>Swift is used for Glance backend</li>
+</ul>
+</div>
+<div class="section" id="location-of-openstack-services">
+<h2>Location of Openstack services<a class="headerlink" href="#location-of-openstack-services" title="Permalink to this headline">¶</a></h2>
+<p>Compute nodes are primarily intended to run virtual machines as well as to store Cinder Volumes and Swift Objects.</p>
+<p>A list of Openstack services which are run on compute nodes:</p>
+<ul class="simple">
+<li>nova-compute</li>
+<li>neutron-openvswitch-agent</li>
+<li>cinder-volume</li>
+<li>swift storage servers (account, container, object)</li>
+<li>ceilometer-agent</li>
+</ul>
+<p>Controller nodes holds all remaining Openstack services.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="cabling_and_networking.html" class="btn btn-neutral" title="Cabling and Networking"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, AT&amp;T Foundry.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
