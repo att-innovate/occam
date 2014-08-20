@@ -115,8 +115,9 @@ class Configuration
   attr_reader :image_dir
   attr_reader :http_endpoint
   attr_reader :root_password
+  attr_reader :sinatra_lock
   #in config file
-  attr_reader :db_path
+  attr_reader :db_uri
   attr_reader :pidfile
   attr_reader :dnsmasq_pidfile
   attr_reader :domain
@@ -166,7 +167,7 @@ class Configuration
     parsed_yamls = parse_yamls
 
     [
-      'pidfile', 'logdir', 'dnsmasq_pidfile',
+      'pidfile', 'logdir', 'dnsmasq_pidfile', 'db_uri',
       'interval', 'dhcp_file', 'dns_file', 'roles', 'reserved_vip_ips',
       'priv_interface', 'vm_base', 'starting_ip_mgmt',
       'occamengine_dir', 'node_template', 'networks',
@@ -196,7 +197,11 @@ class Configuration
       @domain = ''
     end
     
-    @db_path = "#{@occamengine_dir}/db/occamengine.db"
+    if @db_uri.nil?
+      @db_uri = "sqlite://#{@occamengine_dir}/db/occamengine.db"
+    end
+
+    @sinatra_lock = false
 
     if @reserved_vip_ips.nil?
       @reserved_vip_ips = 0
@@ -314,7 +319,7 @@ end #class DnsDhcp
 $dnsdhcp = DnsDhcp.new()
 
 Sequel::Model.plugin :timestamps, :update_on_create=>true
-DB = Sequel.sqlite($conf.db_path)
+DB = Sequel.connect($conf.db_uri)
 create_db_schema
 
 class Role < Sequel::Model
@@ -718,7 +723,7 @@ configure do
   set :bind, '0.0.0.0'
   set :public_folder, $conf.image_dir
   set :static, true
-  set :lock, true
+  set :lock, $conf.sinatra_lock
   set :environment, :production
   use Rack::CommonLogger, $conf.loghttp
 end

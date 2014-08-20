@@ -61,8 +61,34 @@ class profile::occamengine (
   $os_root_device       = '/dev/sda',
   $domain               = undef,
   $timezone             = 'UTC',
+  $db_type        = 'postgres',
+  $db_name        = 'occamengine',
+  $db_username    = 'occamengine',
+  $db_password    = 'occamengine',
 )
 {
+
+  case $db_type {
+    'postgres': {
+      $db_uri = "postgres://${db_username}:${db_password}@localhost/${db_name}"
+      postgresql::server::db { $db_name:
+        user     => $db_username,
+        password => $db_password,
+        grant    => 'all',
+        before   => Service['occamengine']
+      }
+      package { 'ruby-pg':
+        ensure   => installed,
+        before   => Service['occamengine']
+      }
+    }
+    'sqlite': {
+      $db_uri = 'sqlite:///opt/occamengine/db/occamengine.db'
+    }
+    default: {
+      fail("Unsupported database type: ${db_type}")
+    }
+  }
 
   package { 'sinatra':
     ensure   => installed,
