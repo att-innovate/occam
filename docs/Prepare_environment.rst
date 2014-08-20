@@ -54,7 +54,7 @@ This directory should contain SSL certificates in PEM format to be used in a zon
 
 ``local/hiera``
 
-Directory that reflects part of the occam's hiera hierarchy. Most important (and the only one required) is a zones directory. There you should put yaml files with zones configuration. Others are optional, depending on your setup. Eg. you can use hiera gpg backend to store sensitive information like passwords. In that case just put gpg encrypted yaml file in secrets directory. Secrets directory takes precedens over zones one. See `Configuring Your Zone`_ for reference.
+Directory that reflects part of the occam's hiera hierarchy. Most important (and the only one required) is a zones directory. There you should put yaml files with zones configuration. Others are optional, depending on your setup. Eg. you can use hiera gpg backend to store sensitive information like passwords. In that case just put gpg encrypted yaml file in secrets directory. Secrets directory takes precedens over zones one. See `Configuring Your Zone <Configure_your_zone.rst>`_ for reference.
 
 If you have local conf ready, add it as a submodule at local directory:
 

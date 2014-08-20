@@ -57,7 +57,7 @@ requirement.
 Bootstrapping the ops node
 ==========================
 
-First, you need to prepare Occam environment. See `Prepare Occam environment`_ section for more details
+First, you need to prepare Occam environment. See `Prepare environment <Prepare_environment.rst>`_ section for more details
 
 Configuring zone
 ----------------
@@ -229,3 +229,7 @@ specific configurations are the only ones required. However, they may not
 reflect all current configurations. It would behoove the new user to read 
 through the node manifests and their referenced class's documentation and 
 source to familiarize themselves with the project.
+
+
+.. _`hiera data lookups`: https://docs.puppetlabs.com/hiera/1/puppet.html#hiera-lookup-functions
+.. _`automatic parameter lookup`: https://docs.puppetlabs.com/hiera/1/puppet.html#automatic-parameter-lookup
