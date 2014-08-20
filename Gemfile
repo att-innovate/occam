@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 gem 'bundler'
 gem 'bundler-unload'
-gem 'facter'
-gem 'hiera'
-gem 'hiera-gpg'
 gem 'json'
 gem 'json_pure'
 gem 'minitest'
@@ -17,6 +14,12 @@ gem 'net-scp'
 gem 'net-ssh'
 gem 'colorize'
 gem 'r10k'
+
+group :production do
+  gem 'facter'
+  gem 'hiera'
+  gem 'hiera-gpg'
+end
 
 group :test do
   gem 'ci_reporter'
