@@ -14,3 +14,6 @@ this document assumes this has been done.
 .. code:: bash
 
     % git flow feature start my-new-environment
+
+.. _`Why aren't you using git-flow`: http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/
+.. _`nvie's gitflow plugin`: https://github.com/nvie/gitflow
