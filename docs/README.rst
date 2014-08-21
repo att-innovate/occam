@@ -44,27 +44,27 @@ Occam consists of many components, from which most prominent are:
 * Logstash + Elasticsearch + Kibana for log collection and analysis
 * Zabbix for monitoring
 
-.. include:: docs/Concepts.rst
+.. include:: Concepts.rst
 
-.. include:: docs/Components.rst
+.. include:: Components.rst
 
-.. include:: docs/Structure.rst
+.. include:: Structure.rst
 
-.. include:: docs/Apps.rst
+.. include:: Apps.rst
 
-.. include:: docs/Prepare_environment.rst
+.. include:: Prepare_environment.rst
 
-.. include:: docs/Configure_your_zone.rst
+.. include:: Configure_your_zone.rst
 
-.. include:: docs/Vagrant.rst
+.. include:: Vagrant.rst
 
-.. include:: docs/Production_deployment.rst
+.. include:: Production_deployment.rst
 
-.. include:: docs/Development.rst
+.. include:: Development.rst
 
-.. include:: docs/Tasks.rst
+.. include:: Tasks.rst
 
-.. include:: docs/Cabling_and_Networking.rst
+.. include:: Cabling_and_Networking.rst
 
 Additional Resources
 ====================
@@ -75,8 +75,6 @@ Additional Resources
 
 .. _`Hiera 1`: http://docs.puppetlabs.com/hiera/1/index.html
 .. _`Puppet`: http://docs.puppetlabs.com/puppet/
-.. _`hiera data lookups`: http://docs.puppetlabs.com/hiera/1/hierarchy.html
-.. _`automatic parameter lookup`: http://docs.puppetlabs.com/hiera/1/puppet.html#automatic-parameter-lookup
 .. _`Git`: http://git-scm.com/documentation
 .. _`Why aren't you using git-flow`: http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/
 .. _`nvie's gitflow plugin`: https://github.com/nvie/gitflow
