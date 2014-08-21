@@ -21,73 +21,10 @@
 ## THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                ##
 ##                                                                           ##
 ###############################################################################
-require 'yaml'
-require 'pp'
-require 'open3'
-require 'rake'
+require 'spec_helper'
 
-$ignore_list = 'spec/lint-ignore-list'
-$include_list = 'spec/lint-tested-directories'
-$base_dirs = Dir.glob('puppet/manifests/**/*.pp') +
-Dir.glob('puppet/occam/profile/**/*.pp') +
-Dir.glob('puppet/occam/role/**/*.pp')
-
-def yamls
-  Dir.glob('puppet/hiera/**/*.yaml') + Dir.glob('puppet/hiera/*.yaml')
+describe "Documentation" do
+   it "should compile" do
+       execute_rake('doc.rake', "doc:build")
+   end
 end
-
-def manifests
-  return $base_dirs
-end
-
-def manifests_occam
-  a = $base_dirs
-  f = File.open($include_list)
-  f.each do |line|
-    if line =~ /^#.*/ or line =~ /^$/
-      next
-    elsif line =~ /^(.*)$/
-      Dir.glob("#{$1}/**/*.pp").each {|l| a << l}
-    end
-  end
-  f.close
-  return a
-end
-
-def erbs
-  return Dir.glob('puppet/occam/profile/templates/**/*.erb')
-end
-
-def librarian_files
-  return Dir.glob('puppet/apps/*/Puppetfile')
-end
-
-def excludes
-  h = Hash.new
-  f = File.open($ignore_list)
-  f.each do |line|
-    if line =~ /^#.*/ or line =~ /^$/
-      next
-    elsif line =~ /(.*?): (.*)$/
-      file,args = $1,$2
-      if ! h.has_key?(file)
-        h[file] = args
-      else
-        abort("#{file} has duplicated entry in #{ignore_list} file. I quit.")
-      end
-    end
-  end
-  f.close
-  return h
-end
-
-def execute_rake(file, task)
-  rake = Rake::Application.new
-  Rake.application = rake
-  load "Rakefile"
-  load "lib/tasks/#{file}"
-  Rake::Task.define_task(:environment)
-  rake[task].invoke
-end
-
-

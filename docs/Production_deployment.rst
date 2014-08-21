@@ -231,5 +231,5 @@ through the node manifests and their referenced class's documentation and
 source to familiarize themselves with the project.
 
 
-.. _`hiera data lookups`: https://docs.puppetlabs.com/hiera/1/puppet.html#hiera-lookup-functions
+.. _`hiera data lookups`: https://docs.puppetlabs.com/hiera/1/hierarchy.html
 .. _`automatic parameter lookup`: https://docs.puppetlabs.com/hiera/1/puppet.html#automatic-parameter-lookup

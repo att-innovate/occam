@@ -14,7 +14,8 @@ During installation set OPS Node to these values:
 (they have to be consistent with the zone file variables)
 
 Hostname: ops1.zone1.example.com (orchestrator+mgmt_domain from the zone file)
-Network configuration:
+Network configuration::
+
   eth0 (mgmt_interface from the zone file):
     ip address: 10.100.1.10 (puppet_address from the zone file)
     network: 255.255.255.0 (mgmt_network from the zone file)

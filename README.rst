@@ -2,7 +2,7 @@
 What is Occam?
 ==============
 
-*Last updated:* 2014-08-18
+*Last updated:* 2014-08-21
 
 The AT&T Foundry currently runs a number of diverse infrastructure projects in various sections - such as Compute, Storage, and PaaS frameworks - which all have vastly varying demands. To be able meet these demands, it was necessary to develop our own solution for automation, orchestration, hardware abstraction and provisioning. 
 
@@ -47,12 +47,18 @@ You can generate exhaustive documentation by running the following commands:
 .. code:: bash
 
   % bundle install
-  
-4. Generate the latest documentation
+
+4. Install dependencies for compiling documentation
 
 .. code:: bash
 
-  % rake docs:build
+  % sudo easy_install docutils && sudo easy_install pygments
+  
+5. Generate the latest documentation
+
+.. code:: bash
+
+  % rake doc:build
   
 This will generate two HTML files under the *docs* directory: *readme.html* and *quickstart.html*. Please refer to the sections below for details on what you will find in these two files. 
 

@@ -25,7 +25,7 @@ namespace :doc do
   directory "docs"
   desc "Build documentation"
   task :build => "docs" do
-    run "rst2html.py docs/README.rst 2>/dev/null > docs/readme.html"
-    run "rst2html.py docs/QUICKSTART.rst 2>/dev/null > docs/quickstart.html"
+    run "rst2html.py --exit-status=2 docs/README.rst 2>/dev/null > docs/readme.html"
+    run "rst2html.py --exit-status=2 docs/QUICKSTART.rst 2>/dev/null > docs/quickstart.html"
   end
 end
