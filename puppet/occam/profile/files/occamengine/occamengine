@@ -102,6 +102,15 @@ def create_db_schema
 
 end
 
+def generalize_mac_addresses(macs)
+  #00:11:22:AA:BB:CC -> 00:11:22:aa:bb:cc
+  macs.map! { |mac| mac.downcase }
+  #00-11-22-aa-bb-cc -> 00:11:22:aa:bb:cc
+  macs.map! { |mac| mac.gsub(/-/,':') }
+  #001122aabbcc -> 00:11:22:aa:bb:cc
+  macs.map! { |mac| (mac.length == 12) ? mac.scan(/.{1,2}/).join(":") : mac }
+  return macs
+end
 
 class Configuration
 
@@ -222,6 +231,12 @@ class Configuration
     @log.info "Starting..."
     @log.debug "Configuration initialized"
 
+    @roles.each do |k,v|
+      if v.has_key?(:macs)
+        v[:macs] = generalize_mac_addresses( Array(v[:macs]) )
+      end
+    end
+
   end
 
   def parse_yamls
@@ -257,7 +272,7 @@ class Configuration
     log.progname = 'OccamEngine'
     return log, http_log
   end
-  
+
 end #class Configuration
 
 $conf = Configuration.new()
@@ -545,7 +560,7 @@ class Provisioner
   end
 
   def create(mac)
-    node = Node.new(:mac => mac)
+    node = Node.new(:mac => generalize_mac_addresses([mac]).first)
     node.classify
     if node.role_id.nil?
       $conf.log.info "Node #{node.mac} not created. No more roles to allocate"
