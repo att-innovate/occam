@@ -1,0 +1,7 @@
+input {
+ file {
+  path => ['/var/log/libvirt/libvirtd.log']
+  start_position => "beginning"
+  type => "libvirt"
+ }
+}

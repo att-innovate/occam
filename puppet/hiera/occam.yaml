@@ -8,6 +8,8 @@ profile::occamengine::timezone: "%{hiera('timezone')}"
 profile::puppet::agent::environment: "%{hiera('puppet_environment')}"
 
 profile::base::timezone: "%{hiera('timezone')}"
+profile::base::monitoring: "%{hiera('monitoring')}"
+profile::monitoring::logstash::app::collector: "%{hiera('monitoring_node')}.%{hiera('mgmt_domain')}"
 
 profile::dns::server::domain: "%{hiera('mgmt_domain')}"
 

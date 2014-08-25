@@ -1,0 +1,7 @@
+filter {
+ grok {
+  pattern => ['=%{LOGLEVEL:level} REPORT==== %{RABBITMQ_DATE:timestamp} ===']
+  patterns_dir => ['/etc/logstash/patterns']
+  type => "rabbitmq"
+ }
+}

@@ -1,0 +1,8 @@
+input {
+ zeromq {
+  address => ['tcp://*:2120']
+  mode => "server"
+  topology => "pushpull"
+  type => "zeromq"
+ }
+}

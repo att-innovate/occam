@@ -1,0 +1,9 @@
+filter {
+ multiline {
+  negate => true
+  pattern => "^="
+  patterns_dir => ['/etc/logstash/patterns']
+  type => "rabbitmq"
+  what => "previous"
+ }
+}

@@ -1,0 +1,108 @@
+input {
+  file {
+    path => ['/var/log/nova/nova-api.log']
+    tags => ['nova', 'oslofmt']
+    type => "nova"
+  }
+  file {
+    path => ['/var/log/nova/nova-conductor.log']
+    tags => ['nova', 'oslofmt']
+    type => "nova"
+  }
+  file {
+    path => ['/var/log/nova/nova-manage.log']
+    tags => ['nova', 'oslofmt']
+    type => "nova"
+  }
+  file {
+    path => ['/var/log/nova/nova-scheduler.log']
+    tags => ['nova', 'oslofmt']
+    type => "nova"
+  }
+  file {
+    path => ['/var/log/nova/nova-spicehtml5proxy.log']
+    tags => ['nova', 'oslofmt']
+    type => "nova"
+  }
+  file {
+    path => ['/var/log/keystone/keystone-all.log']
+    tags => ['keystone', 'keystonefmt']
+    type => "keystone"
+  }
+  file {
+    path => ['/var/log/keystone/keystone-manage.log']
+    tags => ['keystone', 'keystonefmt']
+    type => "keystone"
+  }
+  file {
+    path => ['/var/log/glance/api.log']
+    tags => ['glance', 'oslofmt']
+    type => "glance"
+  }
+  file {
+    path => ['/var/log/glance/registry.log']
+    tags => ['glance', 'oslofmt']
+    type => "glance"
+  }
+  file {
+    path => ['/var/log/glance/scrubber.log']
+    tags => ['glance', 'oslofmt']
+    type => "glance"
+  }
+  file {
+    path => ['/var/log/ceilometer/ceilometer-agent-central.log']
+    tags => ['ceilometer', 'oslofmt']
+    type => "ceilometer"
+  }
+  file {
+    path => ['/var/log/ceilometer/ceilometer-alarm-notifier.log']
+    tags => ['ceilometer', 'oslofmt']
+    type => "ceilometer"
+  }
+  file {
+    path => ['/var/log/ceilometer/ceilometer-api.log']
+    tags => ['ceilometer', 'oslofmt']
+    type => "ceilometer"
+  }
+  file {
+    path => ['/var/log/ceilometer/ceilometer-alarm-evaluator.log']
+    tags => ['ceilometer', 'oslofmt']
+    type => "ceilometer"
+  }
+  file {
+    path => ['/var/log/ceilometer/ceilometer-collector.log']
+    tags => ['ceilometer', 'oslofmt']
+    type => "ceilometer"
+  }
+  file {
+    path => ['/var/log/heat/heat.log']
+    tags => ['heat', 'oslofmt']
+    type => "heat"
+  }
+  file {
+    path => ['/var/log/neutron/neutron-server.log']
+    tags => ['neutron', 'oslofmt']
+    type => "neutron"
+  }
+  file {
+    path => ['/var/log/httpd/access_log']
+    tags => ['horizon']
+    type => "horizon"
+  }
+  file {
+    path => ['/var/log/httpd/error_log']
+    tags => ['horizon']
+    type => "horizon"
+  }
+  file {
+    path => ['/var/log/httpd/horizon_access_log']
+    tags => ['horizon']
+    type => "horizon"
+  }
+  file {
+    path => ['/var/log/httpd/horizon_error_log']
+    tags => ['horizon']
+    type => "horizon"
+  }
+}
+

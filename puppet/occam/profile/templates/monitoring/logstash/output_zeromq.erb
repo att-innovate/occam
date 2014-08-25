@@ -1,0 +1,7 @@
+output {
+ zeromq {
+  address => ['tcp://<%= @collector %>:2120']
+  mode => "client"
+  topology => "pushpull"
+ }
+}

@@ -25,9 +25,17 @@ mod 'dnsmasq',
   :git => 'https://github.com/saz/puppet-dnsmasq.git',
   :ref => 'b685667f43c03e2dc8b90c02892e60d76d349517'
 
+mod 'elasticsearch',
+  :git => 'https://github.com/elasticsearch/puppet-elasticsearch.git',
+  :ref => '0.4.0'
+
 mod 'firewall',
   :git => 'https://github.com/damjanek/puppetlabs-firewall',
   :ref => '90c73e749267618d44b77a8c6d6170a078ecd255'
+
+mod 'file_concat',
+  :git => 'https://github.com/electrical/puppet-lib-file_concat.git',
+  :ref => '0.1.0'
 
 mod 'git',
   :git => 'https://github.com/puppetlabs/puppetlabs-git',
@@ -40,6 +48,10 @@ mod 'inifile',
 mod 'interfaces',
   :git => 'https://github.com/x-way/puppet-interfaces.git',
   :ref => 'f934505556d2570bd890c15612f445c31ad7a383'
+
+mod 'logstash',
+  :git => 'https://github.com/elasticsearch/puppet-logstash.git',
+  :ref => '0.5.1'
 
 mod 'mcollective',
   :git => 'https://github.com/puppetlabs/puppetlabs-mcollective.git',
@@ -104,4 +116,8 @@ mod 'users',
 mod 'vcsrepo',
   :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
   :ref => 'b0f655163696aea40813db54fd830387bfc7e499'
+
+mod 'zabbix',
+  :git => 'https://github.com/kswia/puppet-zabbix.git',
+  :ref => 'feature/simplified'
 

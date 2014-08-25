@@ -21,86 +21,44 @@
 ## THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                ##
 ##                                                                           ##
 ###############################################################################
-# == Class: profile::base
+# == Class: profile::monitoring::zabbix::agent
 #
-# Includes all the core configurations needed for an occam server. These include:
-#   - foundry users
-#   - networking
-#   - puppet agent
-#   - firewall pre/post configurations
-#   - timezone configuration
+# Installs necessary packages.
 #
 # === Parameters
-# [timezone]
-#   timezone to configure servers with. default: UTC
-#
-# === Examples
-#
-# include profile::base
+# [virtualhost_cluster_fqdn]
+#   FQDN of host from which OpenStack cluster checks will be performed.
 #
 # === Authors
 #
-# James Kyle <james@jameskyle.org>
+# Kamil Swiatkowski <kswiatkowski@mirantis.com>
 #
 # === Copyright
 #
 # Copyright 2013 AT&T Foundry, unless otherwise noted.
-
-class profile::base (
-  $timezone   = 'UTC',
-  $ntp_servers = [ '0.us.pool.ntp.org', '1.us.pool.ntp.org' ],
-  $purge_sudo = false,
-  $monitoring = false,
-) {
-
-  include stdlib
-  include apt::unattended_upgrades
-  include profile::users::create
-  include profile::network
-  include profile::puppet::agent
-  include profile::firewall::pre
-  #include profile::firewall::post
-  include profile::mcollective
-  include ::firewall
-  include ::puppet::repo::puppetlabs
-
-  if str2bool($monitoring) {
-    include profile::monitoring::client
+class profile::monitoring::client (
+  $virtualhost_cluster_fqdn = undef
+){
+  class { 'profile::monitoring::zabbix::agent':
+    access_user              => hiera('profile::openstack::controller::nova_admin_user'),
+    access_password          => hiera('profile::openstack::controller::nova_user_password'),
+    keystone_db_user         => hiera('profile::openstack::controller::keystone_db_user'),
+    keystone_db_password     => hiera('profile::openstack::controller::keystone_db_password'),
+    glance_db_user           => hiera('profile::openstack::controller::glance_db_user'),
+    glance_db_password       => hiera('profile::openstack::controller::glance_db_password'),
+    nova_db_user             => hiera('profile::openstack::controller::nova_db_user'),
+    nova_db_password         => hiera('profile::openstack::controller::nova_db_password'),
+    cinder_db_user           => hiera('profile::openstack::controller::cinder_db_user'),
+    cinder_db_password       => hiera('profile::openstack::controller::cinder_db_password'),
+    quantum_db_user          => hiera('profile::openstack::controller::neutron_db_user'),
+    quantum_db_password      => hiera('profile::openstack::controller::neutron_db_password'),
+    rabbit_password          => hiera('profile::openstack::controller::rabbit_password'),
+    public_address           => $::ipaddress_eth0,
+    internal_address         => $::ipaddress_eth0,
+    storage_address          => $::ipaddress_eth0,
+    management_address       => $::ipaddress_eth0,
+    virtualhost_cluster_fqdn => $virtualhost_cluster_fqdn,
+    cluster_identifier       => $::zone
   }
-
-  class {'profile::dns::setup': stage => 'setup' }
-
-  class {'::sudo':
-    purge => $purge_sudo,
-  }
-
-  class { '::ntp':
-    servers  => $ntp_servers,
-    restrict => ['127.0.0.1'],
-  }
-
-  Firewall {
-    #before  => Class['profile::firewall::post'],
-    require => Class['profile::firewall::pre'],
-  }
-
-  $sudo_confs = hiera_hash('sudo_confs', {})
-  create_resources('sudo::conf', $sudo_confs)
-
-  case $::osfamily {
-    'RedHat': { include profile::system::redhat }
-    'Debian':  { include profile::system::debian }
-    default:  { alert("${::osfamily} family is not supported!") }
-  }
-
-  class { 'timezone': timezone => $timezone }
-
-  Profile::Users::Managed<| groups == foundry  |>
-  Apt::Source<| |> -> Package<| title != 'ubuntu-cloud-keyring' and
-                                title != 'python-software-properties' |>
-
-  if $::virtual == 'virtualbox' {
-    include profile::vagrant_guest
-  }
-
+  include profile::monitoring::logstash::app
 }

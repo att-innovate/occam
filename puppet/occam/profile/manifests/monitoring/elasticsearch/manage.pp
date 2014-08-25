@@ -21,86 +21,58 @@
 ## THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                ##
 ##                                                                           ##
 ###############################################################################
-# == Class: profile::base
+# == Class: profile::monitoring::elasticsearch::manage
 #
-# Includes all the core configurations needed for an occam server. These include:
-#   - foundry users
-#   - networking
-#   - puppet agent
-#   - firewall pre/post configurations
-#   - timezone configuration
-#
-# === Parameters
-# [timezone]
-#   timezone to configure servers with. default: UTC
+# Configures elasticsearch.
 #
 # === Examples
 #
-# include profile::base
+# class {'profile::monitoring::elasticsearch::manage':}
 #
 # === Authors
 #
-# James Kyle <james@jameskyle.org>
+# Bartosz Kupidura <bkupidura@mirantis.com>
+# Tomasz 'Zen' Napierala <tnapierala@mirantis.com>
 #
 # === Copyright
 #
 # Copyright 2013 AT&T Foundry, unless otherwise noted.
 
-class profile::base (
-  $timezone   = 'UTC',
-  $ntp_servers = [ '0.us.pool.ntp.org', '1.us.pool.ntp.org' ],
-  $purge_sudo = false,
-  $monitoring = false,
-) {
+class profile::monitoring::elasticsearch::manage (
+  $es_address = 'http://127.0.0.1:9200',
+  $index_name = 'logstash',
+  $retention_days = 14,
+  $cron_user = 'root',
+  $time_h = 5,
+  $time_m = 00,
+){
 
-  include stdlib
-  include apt::unattended_upgrades
-  include profile::users::create
-  include profile::network
-  include profile::puppet::agent
-  include profile::firewall::pre
-  #include profile::firewall::post
-  include profile::mcollective
-  include ::firewall
-  include ::puppet::repo::puppetlabs
-
-  if str2bool($monitoring) {
-    include profile::monitoring::client
+  if !defined(Package['python-pip']) {
+    package { 'python-pip':
+      ensure => latest,
+    }
   }
 
-  class {'profile::dns::setup': stage => 'setup' }
-
-  class {'::sudo':
-    purge => $purge_sudo,
+  package { ['esclient', 'argparse']:
+    ensure   => 'present',
+    provider => 'pip',
+    require  => Package['python-pip']
   }
 
-  class { '::ntp':
-    servers  => $ntp_servers,
-    restrict => ['127.0.0.1'],
+  file { '/usr/sbin/es_delete_index.py':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => 'puppet:///modules/profile/elasticsearch/es_delete_index.py',
+    require => Package['esclient', 'argparse'],
   }
 
-  Firewall {
-    #before  => Class['profile::firewall::post'],
-    require => Class['profile::firewall::pre'],
+  cron { 'es_delete_index':
+    command => "/usr/sbin/es_delete_index.py -o ${retention_days} -n ${index_name} -e ${es_address}",
+    user    => $cron_user,
+    hour    => $time_h,
+    minute  => $time_m,
+    require => File['/usr/sbin/es_delete_index.py']
   }
-
-  $sudo_confs = hiera_hash('sudo_confs', {})
-  create_resources('sudo::conf', $sudo_confs)
-
-  case $::osfamily {
-    'RedHat': { include profile::system::redhat }
-    'Debian':  { include profile::system::debian }
-    default:  { alert("${::osfamily} family is not supported!") }
-  }
-
-  class { 'timezone': timezone => $timezone }
-
-  Profile::Users::Managed<| groups == foundry  |>
-  Apt::Source<| |> -> Package<| title != 'ubuntu-cloud-keyring' and
-                                title != 'python-software-properties' |>
-
-  if $::virtual == 'virtualbox' {
-    include profile::vagrant_guest
-  }
-
 }

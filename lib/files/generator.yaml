@@ -9,6 +9,11 @@ params:
     desc: 'Use HA'
     default: true
     regex: (?:true|false)
+  monitoring:
+    envvar: 'CFG_MONIT'
+    desc: 'Use monitoring feature'
+    default: true
+    regex: (?:true|false)
   mgmt_domain:
     envvar: 'CFG_INTDOM'
     desc: 'Domain name for internal use'

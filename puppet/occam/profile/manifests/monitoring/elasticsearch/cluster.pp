@@ -21,86 +21,69 @@
 ## THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                ##
 ##                                                                           ##
 ###############################################################################
-# == Class: profile::base
+# == Class: profile::monitoring::elasticsearch::cluster
 #
-# Includes all the core configurations needed for an occam server. These include:
-#   - foundry users
-#   - networking
-#   - puppet agent
-#   - firewall pre/post configurations
-#   - timezone configuration
-#
-# === Parameters
-# [timezone]
-#   timezone to configure servers with. default: UTC
+# Configures elasticsearch.
 #
 # === Examples
 #
-# include profile::base
+# class {'profile::elasticsearch::cluster':}
 #
 # === Authors
 #
-# James Kyle <james@jameskyle.org>
+# Bartosz Kupidura <bkupidura@mirantis.com>
+# Tomasz 'Zen' Napierala <tnapierala@mirantis.com>
+# Kamil Swiatkowski <kswiatkowski@mirantis.com>
 #
 # === Copyright
 #
 # Copyright 2013 AT&T Foundry, unless otherwise noted.
-
-class profile::base (
-  $timezone   = 'UTC',
-  $ntp_servers = [ '0.us.pool.ntp.org', '1.us.pool.ntp.org' ],
-  $purge_sudo = false,
-  $monitoring = false,
+class profile::monitoring::elasticsearch::cluster (
+  $es_blkdev = undef,
+  $cluster_name = 'logstash'
 ) {
 
-  include stdlib
-  include apt::unattended_upgrades
-  include profile::users::create
-  include profile::network
-  include profile::puppet::agent
-  include profile::firewall::pre
-  #include profile::firewall::post
-  include profile::mcollective
-  include ::firewall
-  include ::puppet::repo::puppetlabs
-
-  if str2bool($monitoring) {
-    include profile::monitoring::client
+  if ( $es_blkdev != undef ) {
+    exec { "fstab ${es_blkdev}":
+      command => "echo '${es_blkdev} /var/lib/elasticsearch  ext4  defaults  0 2' >> /etc/fstab",
+      unless  => "grep  ${es_blkdev} /etc/fstab",
+      path    => ['/usr/sbin', '/usr/bin', '/sbin', '/bin'],
+      before  => Class['::elasticsearch'],
+      notify  => Exec["mkfs.ext4 ${es_blkdev}"],
+    }
+    exec { "mkfs.ext4 ${es_blkdev}":
+      command     => "mkfs.ext4 ${es_blkdev}",
+      path        => ['/usr/sbin', '/usr/bin', '/sbin', '/bin'],
+      before      => Class['::elasticsearch'],
+      refreshonly => true,
+      notify      => Exec["mount ${es_blkdev}"],
+    }
+    exec { "mount ${es_blkdev}":
+      command     => 'mkdir -p /var/lib/elasticsearch && mount /var/lib/elasticsearch',
+      path        => ['/usr/sbin', '/usr/bin', '/sbin', '/bin'],
+      before      => Class['::elasticsearch'],
+      refreshonly => true,
+    }
+  }
+  class { '::elasticsearch':
+    version => '1.1.1',
+    manage_repo  => true,
+    repo_version => '1.1',
+    datadir => '/var/lib/elasticsearch',
+    config       => {
+      'cluster'    => {
+        'name'       => $cluster_name
+      },
+      'index'      => {
+        'number_of_replicas' => '0',
+        'number_of_shards'   => '5'
+      },
+      'network'    => {
+        'host'       => $::ipaddress
+      }
+    }
   }
 
-  class {'profile::dns::setup': stage => 'setup' }
-
-  class {'::sudo':
-    purge => $purge_sudo,
-  }
-
-  class { '::ntp':
-    servers  => $ntp_servers,
-    restrict => ['127.0.0.1'],
-  }
-
-  Firewall {
-    #before  => Class['profile::firewall::post'],
-    require => Class['profile::firewall::pre'],
-  }
-
-  $sudo_confs = hiera_hash('sudo_confs', {})
-  create_resources('sudo::conf', $sudo_confs)
-
-  case $::osfamily {
-    'RedHat': { include profile::system::redhat }
-    'Debian':  { include profile::system::debian }
-    default:  { alert("${::osfamily} family is not supported!") }
-  }
-
-  class { 'timezone': timezone => $timezone }
-
-  Profile::Users::Managed<| groups == foundry  |>
-  Apt::Source<| |> -> Package<| title != 'ubuntu-cloud-keyring' and
-                                title != 'python-software-properties' |>
-
-  if $::virtual == 'virtualbox' {
-    include profile::vagrant_guest
-  }
+  elasticsearch::instance { "es-${::hostname}": }
 
 }
