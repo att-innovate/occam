@@ -113,7 +113,8 @@ namespace :occam do
       "rm -rf $(ls -dt1 #{env_root}/archive/#{OC_ENVIRONMENT}/* | tail -n +6)",
       'rm -rf occam-archive*',
       'service puppet start',
-      'service apache2 restart'
+      'service apache2 restart',
+      'service occamengine restart'
     ]
 
     ssh_commands(cmds,host,login,password,port)
