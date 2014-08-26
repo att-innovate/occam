@@ -104,6 +104,10 @@ mysql::server::package_name: 'percona-xtradb-cluster-server-5.5'
 mysql::server::package_name: 'mysql-server'
 <% end -%>
 mysql::client_package_name: 'percona-xtradb-cluster-client-5.5'
+# Swift installation switch
+swift: true
+# Glance backend: 'file' by default or 'swift'
+glance_backend: 'file'
 
 # OccamEngine settings - begin
 reserved_vip_ips: 1
