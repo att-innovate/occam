@@ -92,6 +92,10 @@ starting_ip_mgmt: 10.100.1.10
 vm_base: 172.20.1.
 # High availability setup (true/false)
 ha_setup: false
+# Swift installation switch
+swift: true
+# Glance backend: 'file' by default or 'swift'
+glance_backend: 'file'
 
 # OccamEngine settings - begin
 reserved_vip_ips: 0
