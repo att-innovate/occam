@@ -395,7 +395,7 @@ class Node < Sequel::Model
     if ! role.nil?
       self.role_id = role.id
       self.hostname = "#{role.role}#{role.suffix}"
-      i = DB[:nodes].select(:ip).order_by(:ip).last[:ip]
+      i = DB[:nodes].select(:ip).filter(:parent_id => nil).order_by(:ip).last[:ip]
       self.ip = $1 + ($2.to_i+1).to_s if i =~ /(\d+\.\d+\.\d+\.)(\d+)/
     end
   end
