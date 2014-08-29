@@ -1,0 +1,8 @@
+filter {
+  if [type] == "apache-error" {
+    grok {
+      match => ["message", "[%{APACHE_DATETIME_ERROR:timestamp}] [%{APACHE_LOG_LEVEL:level}] %{GREEDYDATA:message}"]
+      patterns_dir => ['/etc/logstash/patterns']
+    }
+  }
+}

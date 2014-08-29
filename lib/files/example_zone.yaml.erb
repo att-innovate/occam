@@ -50,6 +50,7 @@ timezone: 'America/Los_Angeles'
 mgmt_domain: '<%= @cfg['mgmt_domain'] %>'
 # Domain name used for endpoint names
 pub_domain: '<%= @cfg['pub_domain'] %>'
+monitoring: <%= @cfg['monitoring'].to_bool %>
 # Hostname of monitoring node
 monitoring_node: 'monit1'
 # IP address of monitoring node
@@ -131,6 +132,12 @@ roles:
     :macs:
       - 'aa:bb:cc:dd:ee:ff'
 <% end -%>
+  comp:
+    :puppet_class: 'role::openstack::compute'
+    :priority: 30
+    :minimum: 3
+    :maximum: 3
+<% if @cfg['monitoring'].to_bool -%>
   monit:
     :puppet_class: 'role::monitoring::server'
     :priority: 20
@@ -138,11 +145,7 @@ roles:
     :maximum: 1
     :macs:
       - 'dd:ee:ff:00:11:22'
-  comp:
-    :puppet_class: 'role::openstack::compute'
-    :priority: 30
-    :minimum: 3
-    :maximum: 3
+<% end -%>
 
 networks:
   eth0:

@@ -1,0 +1,7 @@
+input {
+ file {
+  path => ['/var/log/rabbitmq/rabbit@*.log']
+  start_position => "beginning"
+  type => "rabbitmq"
+ }
+}

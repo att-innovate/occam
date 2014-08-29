@@ -1,0 +1,8 @@
+filter {
+  if [type] == "apache-access" {
+    grok {
+      match => ["message", "%{COMBINEDAPACHELOG}"]
+      patterns_dir => ['/etc/logstash/patterns']
+    }
+  }
+}

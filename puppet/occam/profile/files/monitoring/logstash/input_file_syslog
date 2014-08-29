@@ -1,0 +1,8 @@
+input {
+ file {
+  path => ['/var/log/auth.log']
+  start_position => "beginning"
+  type => "syslog"
+  tags => ['auth']
+ }
+}
