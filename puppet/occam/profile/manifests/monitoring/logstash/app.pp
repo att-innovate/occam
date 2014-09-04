@@ -85,12 +85,9 @@ class profile::monitoring::logstash::app (
 
   }
 
-  #allow user logstash to read some log files
-  exec { 'add user logstash to adm group':
-    command => 'addgroup logstash adm',
-    unless  => 'id logstash | grep adm',
-    require => Package['logstash'],
-    notify  => Service['logstash'],
+  package { 'acl':
+    ensure => installed,
+    before => Service['logstash']
   }
 
   logstash::patternfile { 'extra_patterns':

@@ -109,6 +109,7 @@ case "$1" in
       >/dev/null; then
          # Prepare environment
          ulimit -n $OPEN_FILES
+         which setfacl > /dev/null 2>&1 && setfacl -R -m u:$LS_USER:rX /var/log
 
          # Start Daemon
          start-stop-daemon --start -b --user "$LS_USER" -c "$LS_USER":"$LS_GROUP" \
