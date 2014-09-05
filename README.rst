@@ -2,7 +2,7 @@
 What is Occam?
 ==============
 
-*Last updated:* 2014-08-21
+*Last updated:* 2014-09-05
 
 The AT&T Foundry currently runs a number of diverse infrastructure projects in various sections - such as Compute, Storage, and PaaS frameworks - which all have vastly varying demands. To be able meet these demands, it was necessary to develop our own solution for automation, orchestration, hardware abstraction and provisioning. 
 
@@ -83,6 +83,12 @@ The *docs/quickstart.html* file contains a quickstart tutorial for how to get an
   % open docs/quickstart.html
 
 
+Community, discussion and support
+=================================
+
+Any questions or want to start contributing, you can contact any of the
+`Authors & Contributors`_. We also have an `#occam`_ channel on Freenode's IRC.
+
 Authors & Contributors
 =======================
 
@@ -100,3 +106,4 @@ Authors & Contributors
 
 .. _`OpenStack Havana Cloud Application`: http://github.com/att-innovate/occam-havana-cloud
 .. _`Occam`: http://github.com/att-innovate/occam
+.. _`#occam`: http://webchat.freenode.net/?channels=occam
