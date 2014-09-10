@@ -21,18 +21,75 @@
 ## THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                ##
 ##                                                                           ##
 ###############################################################################
-namespace :doc do
-  directory "docs"
-  desc "Build documentation"
-  task :build => "docs" do
-    Dir['docs/*.rst'].each do |doc|
-      outname = doc.downcase.sub(".rst", ".html")
-      run "rst2html.py --exit-status=2 #{doc} > #{outname}"
+
+module VirtualBox
+    @command = "VBoxManage"
+  class << self
+    attr_accessor :command
+
+    ["ostypes", "hostdvds", "hostfloppies", "intnets",
+     "bridgedifs", "hostonlyifs", "natnets", "dhcpservers", "hostinfo",
+     "hddbackends", "hdds", "dvds", "floppies", "usbhost",
+     "usbfilters", "systemproperties", "extpacks"].each do |item|
+     define_method(item) do
+       self.list(item)
+     end
+   end
+
+  end
+    
+  def self.list(items)
+    `#{self.command} list #{items}`.split("\n\n").collect {|n|
+      n.split("\n")
+    }.collect do |net|
+      Hash[net.compact.collect {|l| 
+        l.split(":", 2)
+      }.collect {|keys| 
+          keys.collect {|item| item.strip
+          }
+      }]
     end
   end
 
-  desc "Clean out documentation"
-  task :clean => "docs" do
-    run "rm docs/*.html"
+  def self.disable_dhcp(network)
+    `#{self.command} dhcpserver remove --ifname #{network} 2>&1`
+  end
+
+  def self.get_network(gateway)
+    network = nil
+    self.hostonlyifs.each do |net|
+      if net['IPAddress'].eql? gateway
+        network = net['Name']
+      end
+    end
+    network
+  end
+
+  def self.create_hostonlyif(ip, netmask)
+    output = `#{self.command} hostonlyif create 2>&1`
+    m = /.* '(vboxnet\d+)' was/.match output
+    network = m[1]
+    `VBoxManage hostonlyif ipconfig #{network} --ip #{ip} --netmask #{netmask} 2>&1`
+    self.disable_dhcp network
+    network
+  end
+
+  def self.create_disk(path, size)
+      `VBoxManage createhd --filename #{path} --size #{size} 2>&1`
+  end
+
+  def self.add_box(box)
+    output = `vagrant box add --provider virtualbox #{box} 2>&1`
+    exit_code = $?.exitstatus
+    if exit_code.eql? 1 and 
+      /.*The box you're attempting to add already exists.*/.match output then
+      exit_code = 2
+    end
+    return exit_code, output
+  end
+
+  def self.delete_hostonlyif(network)
+    `VBoxManage hostonlyif remove #{network} 2>&1`
+    $?.exitstatus
   end
 end

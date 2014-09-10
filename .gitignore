@@ -3,5 +3,13 @@
 *.log
 .vagrant
 localrc
+/local
+puppet/hiera/local
 *secrets.yaml*
 tmp
+.gems
+.virtualdisks
+docs/*.html
+puppet/modules/*
+puppet/apps/*
+Vagrantfile

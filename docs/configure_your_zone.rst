@@ -27,7 +27,7 @@ Occam's hiera lookup table has the following precedence:
 
 **Note: The following represent example hiera files. They may be used as a reference. You can name your zone anything.**
 
-Secrets 
+Secrets
 =======
 
 Example secrets file: `secrets/zone1.yaml`_
@@ -56,7 +56,7 @@ Example zone file: zone1.yaml_
 
 .. _zone1.yaml: ../lib/files/examples/zone1.yaml
 
-You can also generate zone file using rake task `config:generate <Tasks.rst#rake-configgeneratezonename>`_
+You can also generate zone file using rake task `config:generate <tasks.rst#rake-configgeneratezonename>`_
 
 Hostgroups
 ==========

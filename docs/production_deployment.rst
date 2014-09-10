@@ -40,7 +40,7 @@ Install an operating system
     `Configuring for your environment`_ section.
 
 .. CAUTION::
-    The hostname and fqdn must be configured before hand for these scripts to 
+    The hostname and fqdn must be configured before hand for these scripts to
     work properly.
 
 Though not required, I suggest splitting up your system mount points. My
@@ -57,7 +57,7 @@ requirement.
 Bootstrapping the ops node
 ==========================
 
-First, you need to prepare Occam environment. See `Prepare environment <Prepare_environment.rst>`_ section for more details
+First, you need to prepare Occam environment. See `prepare environment`_ section for more details
 
 Configuring zone
 ----------------
@@ -159,7 +159,7 @@ Example occam file: occam.yaml_
 Initial deployment
 ------------------
 .. code:: bash
-  
+
   % OPSUSERNAME='root' OPSPASSWORD='secretpassword' OC_ENVIRONMENT=testing ZONEFILE=yourzone rake occam:deploy_initial\[10.100.1.10\]
 
 Where:
@@ -175,7 +175,7 @@ This rake task will package and transfer Occam folder to /var/puppet/environment
 Configuring for your environment
 --------------------------------
 
-.. WARNING:: 
+.. WARNING::
     Puppet, hiera, git, etc. are beyond the scope of this document. If you do
     not have a working knowledge of these tools, your path will be frought
     with confusion, frustration, chaos, and quite possibly a non-trivial amount
@@ -189,12 +189,12 @@ Configuring for your environment
     parent repository and created dynamically through git commit hooks.
 
 .. Note::
-    The 'hostgroup' is a dynamically generated facter based on the node's 
-    hostname. It's determined by the return of hostname stripped of appended 
-    numbers. 
-    
-    For example, host ops1 has a hostgroup of 'ops', host comp58 has a 
-    hostgroup 'comp', and host ctrl28 has a hostgroup 'ctrl'. 
+    The 'hostgroup' is a dynamically generated facter based on the node's
+    hostname. It's determined by the return of hostname stripped of appended
+    numbers.
+
+    For example, host ops1 has a hostgroup of 'ops', host comp58 has a
+    hostgroup 'comp', and host ctrl28 has a hostgroup 'ctrl'.
 
 .. ATTENTION::
     This project assumes the first ops node has a hostname of ops1 and should
@@ -203,33 +203,34 @@ Configuring for your environment
     custom configuration.
 
 Occam deployment is based on puppet. Modules should be generalized and
-decoupled from environment sepcific data. It uses `hiera data lookups`_ and 
-`automatic parameter lookup`_ for class arguments. When setting up a new 
-environment, it's highly likely you'll need to create the requisite hiera data 
-files for site or node specific information. 
+decoupled from environment sepcific data. It uses `hiera data lookups`_ and
+`automatic parameter lookup`_ for class arguments. When setting up a new
+environment, it's highly likely you'll need to create the requisite hiera data
+files for site or node specific information.
 
 Occam's hiera lookup table has the following precedence:
 
     * The node's FQDN.
-    * The node's hostgroup 
+    * The node's hostgroup
     * The node's virtual facter (vmware, kvm, etc. for specific virtual configs)
     * Either virtual_true or virtual_false (mainly for general virtual configs)
     * The 'common' file which contains defaults.
 
-For the purpose of this example, we'll assume the network configuration must be 
-modified from the default. This effects multiple services and so effects 
-multipe class arguments that must be configured in hiera. A reasonable place to 
+For the purpose of this example, we'll assume the network configuration must be
+modified from the default. This effects multiple services and so effects
+multipe class arguments that must be configured in hiera. A reasonable place to
 put these site customizations for our new operations node is in the nodes FQDN
-hiera data file. For a server with the fqdn 'ops1.zone1.example.com', the 
+hiera data file. For a server with the fqdn 'ops1.zone1.example.com', the
 hiera file would be ops1.zone1.example.com.yaml and placed in the
-puppet/hiera/ directory of this project. 
+puppet/hiera/ directory of this project.
 
-As of the writing of this document, the ops1.zone1.example.com  site 
-specific configurations are the only ones required. However, they may not 
-reflect all current configurations. It would behoove the new user to read 
-through the node manifests and their referenced class's documentation and 
+As of the writing of this document, the ops1.zone1.example.com  site
+specific configurations are the only ones required. However, they may not
+reflect all current configurations. It would behoove the new user to read
+through the node manifests and their referenced class's documentation and
 source to familiarize themselves with the project.
 
 
 .. _`hiera data lookups`: https://docs.puppetlabs.com/hiera/1/hierarchy.html
 .. _`automatic parameter lookup`: https://docs.puppetlabs.com/hiera/1/puppet.html#automatic-parameter-lookup
+.. _`prepare environment`: prepare_environment.html

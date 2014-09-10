@@ -37,7 +37,6 @@ namespace :occam do
     end
   end
 
-  desc 'Initialize hiera'
   task :init_hiera do
     puts 'Initializing hiera'
     if File.directory?('local/hiera')
@@ -54,11 +53,16 @@ namespace :occam do
   task :prepare_archive, [:key] => ['tmp', 'gpg:export', 'occam:init'] do |t, args|
     name = 'occam-archive'
     key = args[:key] || "#{DEFAULT_KEYNAME}.tgz"
-    run "tar -czf tmp/#{name}.tgz --exclude '.git*' --exclude './tmp' ."
+    run "tar -czf tmp/#{name}.tgz --exclude '.git*' --exclude './tmp' --exclude .virtualdisks ."
   end
 
   desc 'Deploy occam to vanilla ubuntu ops server (1st step!)'
-  task :deploy_initial, [:server, :port]  => ['tmp', 'occam:clean', 'apps:init_all', 'occam:prepare_archive'] do |t, args|
+  task :deploy_initial, [:server, :port]  => [
+    'tmp',
+    'occam:clean',
+    'apps:init',
+    'occam:prepare_archive'
+  ] do |t, args|
     host = args[:server] || '192.168.3.10'
     port = args[:port] || 22
     login, password = get_credentials
@@ -79,6 +83,7 @@ namespace :occam do
         ])
     end
     cmds.concat([
+      'rm -rf occam-archive',
       'mkdir occam-archive',
       'tar xzf occam-archive.tgz -C occam-archive',
       "cd occam-archive && sudo ./utils/bootstrap.sh #{OC_ENVIRONMENT} #{zone_file}",
@@ -88,7 +93,10 @@ namespace :occam do
   end
 
   desc 'Deploy a release based on the local occam branch to ops server'
-  task :update_code, [:server, :port] => ['tmp', 'occam:clean', 'apps:init_all', 'occam:prepare_archive'] do |t, args|
+  task :update_code, [:server, :port] => ['tmp',
+                                          'occam:clean',
+                                          'apps:init',
+                                          'occam:prepare_archive'] do |t, args|
     host = args[:server] || '192.168.3.10'
     port = args[:port] || 22
     env_root = args[:env_root] || '/var/puppet'

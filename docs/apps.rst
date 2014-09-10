@@ -43,14 +43,14 @@ Profiles
 
 ``puppet/apps/app_name/profile/``
 
-Profile directory is for that part of puppet's profile module that is related to the application. During deployment process this directory content is merged with puppet/modules/profile directory to build complete profile puppet module. Anything except manifests directory is optional and depends on application requirements. 
+Profile directory is for that part of puppet's profile module that is related to the application. During deployment process this directory content is merged with puppet/modules/profile directory to build complete profile puppet module. Anything except manifests directory is optional and depends on application requirements.
 
 Roles
 -----
 
 ``puppet/apps/app_name/role/``
 
-Profile directory is for that part of puppet's role module that defines application roles for nodes. During deployment process this directory content is merged with puppet/modules/role directory to build complete role puppet module. Just like in profile module, anything except manifests directory is optional and depends on application requirements. 
+Profile directory is for that part of puppet's role module that defines application roles for nodes. During deployment process this directory content is merged with puppet/modules/role directory to build complete role puppet module. Just like in profile module, anything except manifests directory is optional and depends on application requirements.
 
 
 Tasks
@@ -74,5 +74,3 @@ Modules
 -------
 
 All puppet modules required by application need to be present in puppet/apps/app_name/modules/ directory after invoking rake init task of the application. You can use Puppetfile and provided appinit.rake example to initialize modules this way (please refer r10k ruby gem for Puppetfile format). You can of course provide modules directory inside of the application and dummy rake init task, or you can pick different method to do so.
-
-

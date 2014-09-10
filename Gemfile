@@ -14,6 +14,7 @@ gem 'net-scp'
 gem 'net-ssh'
 gem 'colorize'
 gem 'r10k'
+gem 'os'
 
 group :production do
   gem 'facter'
@@ -26,10 +27,10 @@ group :test do
   gem 'fuubar'
   gem 'puppet-lint', :git => 'https://github.com/rodjek/puppet-lint.git', :branch => 'master'
   gem 'puppetlabs_spec_helper'
-  gem 'rspec'
+  gem 'rspec', "~>2.0"
   gem 'rspec-hiera-puppet'
   gem 'rspec-puppet'
-  gem 'rspec_junit_formatter'
+  gem 'rspec_junit_formatter', "~>0.1.6"
   gem 'test-unit'
   gem "parallel_tests"
 end

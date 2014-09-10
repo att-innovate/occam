@@ -100,6 +100,7 @@ class profile::base (
                                 title != 'python-software-properties' |>
 
   if $::virtual == 'virtualbox' {
+    notify {"Virtualbox guest detected": }
     include profile::vagrant_guest
   }
 

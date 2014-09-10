@@ -156,4 +156,3 @@ A list of Openstack services which are run on compute nodes:
 * ceilometer-agent
 
 Controller nodes holds all remaining Openstack services.
-

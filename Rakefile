@@ -8,6 +8,20 @@ require 'highline/import'
 require 'erb'
 # Ruby 1.8.7 doesn't have require_relative
 require './lib/tasks/helper.rb'
+require './lib/helpers/virtualbox.rb'
+require './lib/helpers/net.rb'
+
+ROOT = File.dirname(__FILE__)
+DEFAULT_ZONE = "zone1" # this is the name of the distributed example zone
+BASE_BOX="doctorjnupe/precise64_dhcpclient_on_eth7"
+PXE_BOX="steigr/pxe"
+DISKS_DIR = "#{ROOT}/.virtualdisks"
+DISK_SIZE = 1024 * 200
+NUM_DISKS = 1
+DEMO_VMS = ["ops1", "ctrl1", "comp1", "comp2", "comp3"]
+VIRTUALBOX_VERSION="4.3"
+VAGRANT_VERSION="1.6"
+
 if ENV['PARALLEL']
   begin
     require 'parallel_tests/tasks'

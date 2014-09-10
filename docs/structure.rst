@@ -3,10 +3,10 @@ Repository structure
 
 Folders:
 
-* puppet - contains puppet modules, hiera configuraion, roles, profiles, apps, 
+* puppet - contains puppet modules, hiera configuraion, roles, profiles, apps,
 * lib - rake tasks supporting occam deployment and maintenance
 * spec - scripts mainly for testing Occam code for errors
-* utils - auxiliary scripts 
+* utils - auxiliary scripts
 
 Files:
 

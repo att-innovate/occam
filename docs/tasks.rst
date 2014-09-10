@@ -28,10 +28,10 @@ You should edit the file afterwards f.e. to change root password.
 rake doc:build
 =================================
 
-This tasks converts rst docs to html. 
-  
+This tasks converts rst docs to html.
+
 .. Attention::
-    It is dependent on you having rst2html available in your local environment. To install on a Mac please use the following command: 
+    It is dependent on you having rst2html available in your local environment. To install on a Mac please use the following command:
 
     .. code:: bash
 
@@ -132,4 +132,3 @@ Other
 There are few more rake tasks in repo which will be shown when an **app** is available.
 
 They should conform **appname:init** naming scheme.
-

@@ -21,32 +21,62 @@
 ## THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                ##
 ##                                                                           ##
 ###############################################################################
+require 'yaml'
+
 namespace :apps do
-  desc 'App initialization'
-  task :init, [:app] => ['occam:init_hiera'] do |t, args|
-    app = args[:app]
-    Rake::Task["#{app}:init"].invoke
-  end
-  
-  desc 'All apps initialization'
-  task :init_all => ['occam:init_hiera'] do
-    apps = get_apps
+  desc 'App initialization, default initializes all apps.'
+  task :init, [:zone, :app] => ['occam:init_hiera', :fetch] do |t, args|
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || DEFAULT_ZONE}.yaml"
+    config = YAML.load_file zone
+    apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
+
     apps.each do |app|
-      puts "Starting initialization of occam app: #{app}"
-      if Rake::Task.task_defined?("#{app}:init")
-        Rake::Task["#{app}:init"].invoke
+      name = app_name(app)
+      puts "Starting initialization of occam app: #{name}"
+      if Rake::Task.task_defined?("#{name}:init")
+        Rake::Task["#{name}:init"].invoke
       else
-        puts "No init task for app: #{app}"
+        puts "No init task for app: #{name}"
       end
-      if File.directory?("puppet/apps/#{app}/profile")
-        FileUtils.cp_r("puppet/apps/#{app}/profile/.", 'puppet/modules/profile/')
+      if File.directory?("puppet/apps/#{name}/profile")
+        FileUtils.cp_r("puppet/apps/#{name}/profile/.", 'puppet/modules/profile/')
       end
-      if File.directory?("puppet/apps/#{app}/role")
-        FileUtils.cp_r("puppet/apps/#{app}/role/.", 'puppet/modules/role/')
+      if File.directory?("puppet/apps/#{name}/role")
+        FileUtils.cp_r("puppet/apps/#{name}/role/.", 'puppet/modules/role/')
       end
-      if File.exists?("puppet/apps/#{app}/hiera/#{app}.yaml")
-        FileUtils.cp("puppet/apps/#{app}/hiera/#{app}.yaml", 'puppet/hiera/apps/')
+      if File.exists?("puppet/apps/#{name}/hiera/#{name}.yaml")
+        FileUtils.cp("puppet/apps/#{name}/hiera/#{name}.yaml", 'puppet/hiera/apps/')
       end
+    end
+  end
+
+  task :fetch, [:zone, :app] do |t, args|
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || DEFAULT_ZONE}.yaml"
+    config = YAML.load_file zone
+    apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
+    base_cmd = "git clone https://github.com/"
+
+    Dir.chdir("puppet/apps") do
+      apps.each do |app|
+        name  = app_name(app)
+        if not Dir.exists? name
+          sh "#{base_cmd}#{app}.git #{name}"
+        else
+          puts "#{name} already exists. Perhaps you want to apps:update?"
+        end
+      end
+    end
+  end
+
+  desc "Remove all managed apps; Seriously, all of them."
+  task :clean, [:zone, :app] do
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || DEFAULT_ZONE}.yaml"
+    config = YAML.load_file zone
+    apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
+
+    apps.each do |app|
+      name = app_name(app)
+      sh "rm -rf puppet/apps/#{name}"
     end
   end
 end

@@ -69,7 +69,7 @@ class profile::puppet::master (
   $manifest = "${env_path}/puppet/manifests/site.pp"
 
   # Add main path + app specific module paths
-  $modulepath = chop(inline_template('<%= @mainmodulepath %>:<% @apps.each do |app| %><%= @env_path %>/puppet/apps/<%= app %>/modules:<% end %>'))
+  $modulepath = chop(inline_template('<%= @mainmodulepath %>:<% @apps.each do |app| %><%= @env_path %>/puppet/apps/<%= app.split("occam-").last %>/modules:<% end %>'))
 
   class { 'puppetdb':
     ssl_listen_address => '0.0.0.0',

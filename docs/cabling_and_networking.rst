@@ -7,10 +7,10 @@ With 5 servers you will have the following breakdown of your nodes:
 
 + **Ops Node**
 + **Controller Node**
-+ **2 Compute nodes** 
++ **2 Compute nodes**
 + **Monitor Node**
 
-You will need to configure four networks.  
+You will need to configure four networks.
 
 +------------------------+----------------------------------------------------------------------------------------------------------------------+
 | **iLO Network**        |  Most servers come with a dedicated remote console port known as Integrated Lights Out (iLO). This network is        |
@@ -23,7 +23,7 @@ You will need to configure four networks.
 | **Private Network**    |  This network is responible for all VM and volume traffic.                                                           |
 +------------------------+----------------------------------------------------------------------------------------------------------------------+
 
-Now we will go into how you need to cable these servers and also how to setup the necessary networking on both the router and the switch. 
+Now we will go into how you need to cable these servers and also how to setup the necessary networking on both the router and the switch.
 
 Cable Your Servers
 ==================
@@ -31,9 +31,9 @@ Cable Your Servers
 Follow these steps to cable your servers:
 
 #. Connect the iLO interfaces of the servers to one set of ports on the switch (usually dedicated ports, see your own documentation)
-#. Select and take note of a set of ports on the switch that you would like to handle the Management Network. Connect all of these ports to the **eth0** interface on the servers. 
-#. Decide which nodes will act as your controller, ops and monitor node. You will need this information later. 
-#. Connect the **eth1** interface on the controller node to the switch. Take note of the port on the switch. It will serve the Public Network. 
+#. Select and take note of a set of ports on the switch that you would like to handle the Management Network. Connect all of these ports to the **eth0** interface on the servers.
+#. Decide which nodes will act as your controller, ops and monitor node. You will need this information later.
+#. Connect the **eth1** interface on the controller node to the switch. Take note of the port on the switch. It will serve the Public Network.
 #. Connect one twinax interface of each server to the switch and make note of the ports on the switch. Note: the specific interface on the server will vary on the vendor. For our servers, it was **eth5** but you will need to confirm which specific interface it will be on your servers.
 #. Connect one interface from the router to the switch. Make note of the port you use on both the router and the switch.
 
@@ -43,10 +43,10 @@ Configure The Router And Switch
 .. image:: ../images/NetworkView.png
    :width: 25%
 
-The router will have the gateways for the Management and Public Network configured along with VLAN tags created. Make sure that these networks can reach out to the internet using NATing. 
+The router will have the gateways for the Management and Public Network configured along with VLAN tags created. Make sure that these networks can reach out to the internet using NATing.
 
 Below you will find examples for how to configure the router and switch. In these examples we are assuming that the router is Juniper MX-240 and the switch is Arista 7050.
-	
+
 The examples also assume these assignments for the various networks:
 
 +--------------------+-------------------+--------------+
@@ -61,12 +61,12 @@ The examples also assume these assignments for the various networks:
 | iLO Network        |  10.0.2.0/24      | 400          |
 +--------------------+-------------------+--------------+
 
-It is also assumed that the interface on router which connected to switch is **ge-0/2/0**.  
+It is also assumed that the interface on router which connected to switch is **ge-0/2/0**.
 
 Preparation
 -----------
 
-Make note of the port that the cable from the router to the switch is connecting to the router. Using this port you will be able to identify which interface that you need to configure. Please see the documentation for your specific router to how you can identify the interface name via the port. 
+Make note of the port that the cable from the router to the switch is connecting to the router. Using this port you will be able to identify which interface that you need to configure. Please see the documentation for your specific router to how you can identify the interface name via the port.
 
 Configure The Gateways
 ----------------------
@@ -81,7 +81,7 @@ Note: The Public network may be an actual public network or you can create a pse
 	user@host# set interfaces ge-0/2/0 unit 100 description "Link for Management Network"
 	user@host# set interfaces ge-0/2/0 unit 100 vlan-id 100
 	user@host# set interfaces ge-0/2/0 unit 100 family inet address 10.100.1.1/24
-	user@host# set interfaces ge-0/2/0 unit 200 description "Link for Public Network" 
+	user@host# set interfaces ge-0/2/0 unit 200 description "Link for Public Network"
 	user@host# set interfaces ge-0/2/0 unit 200 vlan-id 200
 	user@host# set interfaces ge-0/2/0 unit 200 family inet address 10.101.2.1/24
 
@@ -91,8 +91,8 @@ This should return something like this:
 .. code:: bash
 
   user@host# show interfaces ge-0/2/0
-	
-  ge-0/2/0 {        
+
+  ge-0/2/0 {
     unit 100 {
       description "Link for Management Network";
       vlan-id 100;
@@ -125,10 +125,10 @@ Configure NAT pool so that private networks can route out to the internet. This 
 This should return something like this:
 
 .. code:: bash
-		
+
   user@host# edit services nat pool NAT-POOL
   user@host# show
-	
+
   address <your public IP>/32;
   port {
     automatic;
@@ -161,9 +161,9 @@ This should return something like this:
 
   user@host# edit services nat rule NAT-RULE
   user@host# show
-	
+
   match-direction input;
-	
+
   term NAT {
     from {
       source-address {
@@ -185,7 +185,7 @@ This should return something like this:
       }
     }
   }
-  
+
   term Private {
     from {
       source-address {
@@ -214,7 +214,7 @@ Configure the Switch
 Create the vlan tags for iLO and VM Traffic Network
 
 .. code:: bash
-	
+
 	user@host (config)# vlan 300
 	user@host(config-vlan-300)# exit
 	user@host (config)# vlan 400
@@ -223,7 +223,7 @@ Create the vlan tags for iLO and VM Traffic Network
 
 The switch will have virtual interfaces for the gateways of the VM and iLO networks. Apply the corresponding vlan tags to the iLO interfaces and VM Traffic interfaces. These will be access ports. See below for example of access port configuration.
 
-Since the vlan tags for Management and Public Networks were created on the router, take note of them and assign the same vlan tags on the switch. The port on the switch that is connected to the router should be configured as a trunk port. In the example below we used 300 and 301 respectively. Assuming interface 48 on the switch as the port connected to the router, run the following commands: 
+Since the vlan tags for Management and Public Networks were created on the router, take note of them and assign the same vlan tags on the switch. The port on the switch that is connected to the router should be configured as a trunk port. In the example below we used 300 and 301 respectively. Assuming interface 48 on the switch as the port connected to the router, run the following commands:
 
 .. code:: bash
 
@@ -257,9 +257,9 @@ On the ports connected to MGMT, since we will want to PXE boot, we will need to 
 	user@host (config-if-Et120-21)# exit
 
 Configure The iLO IPs On The Servers
-====================================    
+====================================
 
-Now that we have the iLO network configured on the switch, we have to manually assign IP addresses to the servers for their dedicated iLO ports. You will have to consult your product manual on how to configure the iLO interface. There are different terms to refer to iLO and it largely depends on the vendor: 
+Now that we have the iLO network configured on the switch, we have to manually assign IP addresses to the servers for their dedicated iLO ports. You will have to consult your product manual on how to configure the iLO interface. There are different terms to refer to iLO and it largely depends on the vendor:
 
 +--------+--------------------------------------------------+
 | Vendor | Name of iLO Implementation                       |
@@ -274,4 +274,3 @@ Now that we have the iLO network configured on the switch, we have to manually a
 +--------+--------------------------------------------------+
 | Intel  | RMM (Remote Management Module)                   |
 +--------+--------------------------------------------------+
-
