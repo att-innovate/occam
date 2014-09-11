@@ -12,9 +12,9 @@ function create_network {
   NAME=$1
   IP=$2
   NETMASK=$3
-  if ! `vboxmanage list hostonlyifs |grep -q ^Name:.*${NAME}`; then
+  if ! `VBoxManage list hostonlyifs |grep -q ^Name:.*${NAME}`; then
     echo "- ${NAME}"
-    vboxmanage hostonlyif create && vboxmanage dhcpserver remove --ifname ${NAME} && vboxmanage hostonlyif ipconfig ${NAME} --ip ${IP} --netmask ${NETMASK} && echo "HostOnly interface ${NAME} created"
+    VBoxManage hostonlyif create && VBoxManage dhcpserver remove --ifname ${NAME} && VBoxManage hostonlyif ipconfig ${NAME} --ip ${IP} --netmask ${NETMASK} && echo "HostOnly interface ${NAME} created"
   else
     echo "- ${NAME} exists - nothing to do"
   fi
@@ -27,7 +27,7 @@ function create_disks {
       echo "  - ${VMNAME}_disk${NUMBER}.vdi exists - nothing to do"
     else
       echo "  - ${VMNAME}_disk${NUMBER}"
-      vboxmanage createhd --filename "${HDDIR}/${VMNAME}_disk${NUMBER}.vdi" --size ${HDSIZEMB}
+      VBoxManage createhd --filename "${HDDIR}/${VMNAME}_disk${NUMBER}.vdi" --size ${HDSIZEMB}
     fi
   done
 }
