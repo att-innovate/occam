@@ -733,6 +733,8 @@ end #class Pxe
 
 $prov = Provisioner.new()
 
+$dnsdhcp.update
+
 configure do
   set :port, 8160
   set :bind, '0.0.0.0'
