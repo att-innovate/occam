@@ -74,7 +74,10 @@ namespace :remote do
     end
 
     # Run puppet
-    modulepath = (["#{OCCAM_DIR}/puppet/modules", "#{OCCAM_DIR}/puppet/occam/modules"] + Dir.glob("#{OCCAM_DIR}/puppet/apps/*/modules")).join(':')
+    modulepath = ([
+      "#{OCCAM_DIR}/puppet/modules", 
+      "#{OCCAM_DIR}/puppet/occam/modules"
+    ] + Dir.glob("#{OCCAM_DIR}/puppet/apps/*/modules")).join(':')
     cmd = "puppet apply --modulepath #{modulepath} "
     cmd << "--hiera_config #{OCCAM_DIR}/tmp/hiera.yaml --pluginsync "
     cmd << "#{OCCAM_DIR}/puppet/manifests/ops_bootstrap.pp"

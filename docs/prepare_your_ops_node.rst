@@ -34,7 +34,7 @@ Check if you can reach gateway and the Internet from ops1:
 3. Deploy Occam on the Ops Node:
 
 .. code:: bash
-  
+
   % OPSUSERNAME='root' OPSPASSWORD='secretpassword' OC_ENVIRONMENT=testing ZONEFILE=yourzone rake occam:deploy_initial\[10.100.1.10\]
 
 Where:
@@ -65,5 +65,3 @@ This rake task will package and transfer Occam folder to /var/puppet/environment
         nova-conductor   ctrl1                                internal         enabled    :-)   2013-10-20 19:40:25
         nova-compute     comp1                                nova             enabled    :-)   2013-10-19 22:31:42
         nova-cert        ctrl1                                internal         enabled    :-)   2013-10-20 19:40:28
-
-

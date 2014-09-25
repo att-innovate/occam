@@ -8,8 +8,8 @@
   - <%= dir %>
 <% end -%>
 <% @occam_apps.each do |app| -%>
-  - apps/<%= app %>
-  - users/users_<%= app %>
+  - apps/<%= app.split("occam-").last %>
+  - users/users_<%= app.split("occam-").last %>
 <% end -%>
 <% @hierarchy_bottom.each do |dir| -%>
   - <%= dir %>

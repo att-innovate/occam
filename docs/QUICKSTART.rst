@@ -20,10 +20,10 @@
 
 .. contents::
 
-.. include:: Cabling_and_Networking.rst
+.. include:: cabling_and_networking.rst
 
-.. include:: Configure_your_zone.rst
+.. include:: configure_your_zone.rst
 
-.. include:: Prepare_environment.rst
+.. include:: prepare_environment.rst
 
-.. include:: Prepare_your_ops_node.rst
+.. include:: prepare_your_ops_node.rst

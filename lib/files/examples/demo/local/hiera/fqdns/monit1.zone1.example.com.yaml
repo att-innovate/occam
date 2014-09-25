@@ -1,0 +1,2 @@
+profile::monitoring::client::virtualhost_cluster_fqdn: "%{::fqdn}"
+

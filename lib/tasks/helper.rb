@@ -120,3 +120,6 @@ def run cmd
   end
 end
 
+def app_name(reference)
+  reference.split("occam-").last
+end
