@@ -22,7 +22,7 @@ profile::admintools::announcements::from_name: 'ZONE1 Cloud Admin'
 
 # included applications
 profile::hiera::config::occam_apps:
-  - 'cloud'
+  - 'att-innovate/occam-havana-cloud'
 
 # Block devices
 root_device: '/dev/sda'
