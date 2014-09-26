@@ -2,6 +2,41 @@
 Occam rake tasks
 ========================
 
+rake occam:validate
+====================
+
+Does a quick validation of your work environment. It will check things such as
+
+- Whether virtualbox is available (needed for development environment)
+- Whether vagrant is available (demo environment)
+- The current ruby version
+- Firewall settings
+- Nat and ip forwarding settings
+
+The validate tasks output might look something like
+
+.. code-block:: bash
+
+    $ rake occam:validate
+	Virtualbox 4.3.16r95972... OK
+	Vagrant 1.6.5... OK
+	Ruby version 2.1.2.... OK
+	Detected OS X Firewall: Disabled... OK
+	Pfctl plist.... OK
+	IP Forwarding Enabled.... OK
+
+
+rake demo:init[zone]
+=====================
+
+The demo task initializes and runs the demo environment. You can run the
+`rake occam:validate`_ task to check environment sanity. Once complete, the user
+will have a working ops node and the appropriate virtualbox networks and
+forwarding rules for testing your occam apps.
+
+By default, the zone is set to 'zone1' which corresponds to the preconfigured
+demo environment.
+
 rake apps:init[app]
 ========================
 
@@ -9,10 +44,16 @@ Takes one parameter: **app**.
 
 Initializes **app** in **puppet/app/cloud/appname** dir using r10k with data provided in **puppet/app/cloud/appname/Puppetfile**
 
-rake apps:init_all
+rake apps:init
 =================================
 
 Initializes all apps.
+
+rake apps:clean
+=================
+
+Removes all managed applications from the apps directory.
+
 
 rake config:generate[zonename]
 =================================
