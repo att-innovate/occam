@@ -60,17 +60,17 @@ Directory structure is as follows::
     ssl/
 
 ``local/ssl``
-    This directory should contain SSL certificates in PEM format to be used in a 
-    zone. A rake task will put each file from this directory to 
+    This directory should contain SSL certificates in PEM format to be used in a
+    zone. A rake task will put each file from this directory to
     puppet/modules/profile/files/ssl
 
 ``local/hiera``
-    Directory that reflects part of the occam's hiera hierarchy. Most important 
-    (and the only one required) is a zones directory. There you should put yaml 
-    files with zones configuration. Others are optional, depending on your setup. 
-    Eg. you can use hiera gpg backend to store sensitive information like 
-    passwords. In that case just put gpg encrypted yaml file in secrets 
-    directory. The secrets directory takes precedens over zones one. See 
+    Directory that reflects part of the occam's hiera hierarchy. Most important
+    (and the only one required) is a zones directory. There you should put yaml
+    files with zones configuration. Others are optional, depending on your setup.
+    Eg. you can use hiera gpg backend to store sensitive information like
+    passwords. In that case just put gpg encrypted yaml file in secrets
+    directory. The secrets directory takes precedens over zones one. See
     `Configuring Your Zone <configure_your_zone.html>`_ for reference.
 
 If you have local conf ready, add it as a submodule at local directory:
@@ -93,14 +93,34 @@ Initialize occam:
 Installation and initialization of Occam application
 ====================================================
 
-Install cloud app:
+Occam applications are configured as a list in the zone file under the key
+``profile::hiera::config::occam_apps``.
+
+Application Naming Convention
+------------------------------
+
+Your application name should be occam-<your appname>.  app should be available
+on github. Each entry references the github user account and the application
+repository name. For example, the Havana Cloud Application is named
+occam-havana-cloud and is in the att-innovate github organization. To include
+this application in your deployment, you would add the entry in your zone file
+something like
+
+.. code-block:: yaml
+
+    profile::hiera::config::occam_apps:
+      - 'att-innovate/occam-havana-cloud'
+
+Then you initialize the apps
 
 .. code:: bash
 
-  % git clone https://github.com/att-innovate/occam-havana-cloud.git puppet/apps/cloud
+  % rake apps:init
 
-Initialize app:
+If you want to clear out all managed apps and start fresh, you can use the clean
+task
 
-.. code:: bash
+.. code-block:: bash
 
-  % rake apps:init_all
+    % rake apps:clean
+
