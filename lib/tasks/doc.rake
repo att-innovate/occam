@@ -25,14 +25,15 @@ namespace :doc do
   directory "docs"
   desc "Build documentation"
   task :build => "docs" do
-    Dir['docs/*.rst'].each do |doc|
-      outname = doc.downcase.sub(".rst", ".html")
-      run "rst2html.py --exit-status=2 #{doc} > #{outname}"
+    Dir.chdir('docs') do
+      run "make html"
     end
   end
 
   desc "Clean out documentation"
   task :clean => "docs" do
-    run "rm docs/*.html"
+    Dir.chdir('docs') do
+      run "make clean"
+    end
   end
 end

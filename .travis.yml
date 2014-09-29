@@ -3,4 +3,4 @@ rvm:
   - 1.8.7
 bundler_args: --without production
 before_script:
-    - sudo easy_install docutils && sudo easy_install pygments
+    - sudo pip install -r doc-requirements.txt

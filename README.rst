@@ -32,34 +32,55 @@ You can generate exhaustive documentation by running the following commands:
 
 1. Install rvm if you do not have it:
 
-.. code:: bash
+   .. code:: bash
 
-  % curl -sSL https://get.rvm.io | bash
-  
+     % curl -sSL https://get.rvm.io | bash
+
 2. Install the right ruby version:
 
-.. code:: bash
+   .. code:: bash
 
-  % rvm install ruby-1.8.7
-  
+     % rvm install ruby-1.8.7
+
 3. Install the necessary gems
 
-.. code:: bash
+   .. code:: bash
 
-  % bundle install
+     % bundle install
 
-4. Install dependencies for compiling documentation
+4. Install dependencies for compiling documentation. You can do this globally,
+   but I *strongly* suggest using a virtualenvwrapper_. It's a great way to 
+   keep  your python modules isolated and version pegged. I also recommend pip
+   as it allows you to uninstall packages, install from requirements files, etc.
 
-.. code:: bash
+   Installing virtualenvwrapper:
 
-  % sudo easy_install docutils && sudo easy_install pygments
-  
+   .. code:: bash
+
+      % sudo easy_install virtualenvwrapper && pip install virtualenvwrapper
+
+   You'll also need to add something like the following to your shell
+   environment.
+
+   .. code:: bash
+
+      export WORKON_HOME=$HOME/.virtualenvs
+      export PROJECT_HOME=$HOME/Devel
+      source /usr/local/bin/virtualenvwrapper.sh
+
+   Create a virtualenv for occam and install doc dependencies.
+
+   .. code:: bash
+
+      % mkvirtualenv occam
+      % pip install -r doc-requirements.txt
+
 5. Generate the latest documentation
 
-.. code:: bash
+   .. code:: bash
 
-  % rake doc:build
-  
+     % rake doc:build
+
 This will generate two HTML files under the *docs* directory: *readme.html* and *quickstart.html*. Please refer to the sections below for details on what you will find in these two files. 
 
 What is in the readme.html?
@@ -107,3 +128,4 @@ Authors & Contributors
 .. _`OpenStack Havana Cloud Application`: http://github.com/att-innovate/occam-havana-cloud
 .. _`Occam`: http://github.com/att-innovate/occam
 .. _`#occam`: http://webchat.freenode.net/?channels=occam
+.. _virtualenvwrapper: http://virtualenvwrapper.readthedocs.org/en/latest/
