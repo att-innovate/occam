@@ -40,8 +40,9 @@ Follow these steps to cable your servers:
 Configure The Router And Switch
 ===============================
 
-.. image:: ../images/NetworkView.png
-   :width: 25%
+.. image:: _static/NetworkView.png
+   :width: 50%
+   :align: center
 
 The router will have the gateways for the Management and Public Network configured along with VLAN tags created. Make sure that these networks can reach out to the internet using NATing.
 

@@ -5,8 +5,9 @@ This step also includes installing Ubuntu on the OPS node, configuring the initi
 
 1. Install Ubuntu OS on the OPS Node.  (Using Virtual Console from the iDRAC web GUI).
 
-.. image:: ../images/iDRAC.png
-   :width: 50%
+.. image:: _static/iDRAC.png
+   :width: 75%
+   :align: center
 
 Note: Only for OPS node, perform the above step on Windows.  Open the virtual console, select the virtual mdeia tab and click lauch Virtual Media.  This will open a new box, where you can select the folder in the your workstation that has the ubuntu installation iso.  Once done, check the "Mapped" box and keep the dialog box open until the Ubuntu install.  Now Select the net boot to "Virtual CD/DVD/ISO" and reboot the box.
 
