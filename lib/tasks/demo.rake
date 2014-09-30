@@ -146,7 +146,7 @@ namespace :demo do
       sh "cp /etc/pf.conf #{ROOT}/tmp/pf.conf.orig"
       sh "sudo cp #{NetHelper.pfnat_temp(network, nic)} /etc/pf.conf"
       sh "sudo pfctl -f /etc/pf.conf"
-    elsif os.linux?
+    elsif OS.linux?
       sh "sudo sysctl -w net.ipv4.ip_forward=1"
       sh "sudo iptables -t nat -I POSTROUTING -s #{network} -j MASQUERADE"
       puts "To make nat'ing permanent you must: "
