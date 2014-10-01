@@ -41,6 +41,7 @@
 # === Authors
 #
 # James Kyle <james@jameskyle.org>
+# Ari Saha <as754m@att.com>
 #
 # === Copyright
 #
@@ -54,7 +55,6 @@ class profile::base (
 ) {
 
   include stdlib
-  include apt::unattended_upgrades
   include profile::users::create
   include profile::network
   include profile::puppet::agent
@@ -88,8 +88,9 @@ class profile::base (
   create_resources('sudo::conf', $sudo_confs)
 
   case $::osfamily {
+    'deb': ['profile::system::debian', 'apt::unattended_upgrades']
     'RedHat': { include profile::system::redhat }
-    'Debian':  { include profile::system::debian }
+    'Debian':  { include $deb }
     default:  { alert("${::osfamily} family is not supported!") }
   }
 

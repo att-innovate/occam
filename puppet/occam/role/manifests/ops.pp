@@ -40,7 +40,9 @@ class role::ops {
   include profile::base
   include profile::puppet::master
   include profile::occamengine
-  include profile::apt::server
+  case $::osfamily {
+    'Debian': { include profile::apt::server }
+  }
   include profile::mcollective
   include profile::tempest::setup
   include profile::openstack::setup

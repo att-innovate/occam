@@ -73,6 +73,17 @@ class profile::network {
         unless     => '/sbin/lsmod | /bin/grep 8021q',
       }
     }
+    'RedHat':   {
+      include interfaces
+      $interfaces = hiera_hash('interfaces', {})
+      create_resources('interfaces::iface', $interfaces)
+
+      exec {'restart-networking':
+        command     => '/sbin/ifdown -a && /sbin/ifup -a && sleep 10',
+        subscribe   => File['/etc/network/interfaces'],
+        refreshonly => true,
+      }
+    }
     default: {
       alert("Interface configuration on ${::osfamily} systems\
 not yet supported by occam!")
