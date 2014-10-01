@@ -69,7 +69,7 @@ namespace :apps do
   end
 
   desc "Remove all managed apps; Seriously, all of them."
-  task :clean, [:zone, :app] do |t, args|
+  task :clean, [:zone, :app] do |t,args|
     zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || DEFAULT_ZONE}.yaml"
     config = YAML.load_file zone
     apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
