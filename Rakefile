@@ -18,7 +18,12 @@ PXE_BOX="steigr/pxe"
 DISKS_DIR = "#{ROOT}/.virtualdisks"
 DISK_SIZE = 1024 * 200
 NUM_DISKS = 1
-DEMO_VMS = ["ops1", "ctrl1", "comp1", "comp2", "comp3"]
+NUM_COMPS = 3
+NAT_SSH_START = 2222
+NAT_SUBNET_START = 2
+DEMO_VMS = ["ops1", "ctrl1", "monit1"]
+( DEMO_VMS << (1..NUM_COMPS).map {|i| "comp#{i}"} ).flatten!
+
 VIRTUALBOX_VERSION="4.3"
 VAGRANT_VERSION="1.6"
 

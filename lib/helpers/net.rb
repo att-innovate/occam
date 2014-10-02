@@ -68,13 +68,17 @@ module NetHelper
         if not nic.eql? m[1]
           msg = "Your selected nic, #{nic}, would create a forwarding conflict."
           puts msg.colorize(:red)
-          puts "Please verify your nat configuration/options.".colorize(:red)
         end
-        puts "Skipping. Please verify your nat configuration".colorize(:red)
-        tempfile << text
+        print "Would you like to replace with the new rule? [y] "
+        answ = STDIN.gets.chomp
+        if answ.nil? or answ.eql? "y"
+          tempfile << nat_st
+        elsif answ.eql? "n"
+          tempfile << text
+        end
       else
         lines.each do |line|
-          tempfile<<line
+          tempfile << line
           if line.downcase.include? 'nat-anchor "com.apple/*"'
             tempfile << nat_st if not lines.find {|l| l.include? nat_st }
           end

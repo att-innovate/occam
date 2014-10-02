@@ -31,170 +31,109 @@
 ##                                                                           ##
 ###############################################################################
 
+$nat_subnet_start = <%= NAT_SUBNET_START %>
+$num_comps = <%= NUM_COMPS %>
+$ssh_nat_start = <%= NAT_SSH_START %>
 
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
-
   config.vm.boot_timeout = 3600
   config.vm.synced_folder ".", "/vagrant", disabled: true
+  nodes = <%= DEMO_VMS.inspect %>
 
-  config.vm.define :ops1 do |t|
-    # ops1 node
-    t.vm.box = "doctorjnupe/precise64_dhcpclient_on_eth7"
-    t.vm.hostname = "ops1.<%= @zone %>.example.com"
-    t.vm.synced_folder ".", "/occam", disabled: false
-    t.vm.provider "virtualbox" do |prov|
-      prov.gui = true
-      prov.memory = 2048
-      prov.cpus = 2
-      prov.customize ["modifyvm", :id, "--natpf1", "delete", "ssh" ]
-      # management network:
-      prov.customize ["modifyvm", :id, "--nic1", "hostonly", "--hostonlyadapter1", "vboxnet0" ]
-      # unused interfaces:
-      prov.customize ["modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter2", "vboxnet0", "--cableconnected2", "off" ]
-      prov.customize ["modifyvm", :id, "--nic3", "hostonly", "--hostonlyadapter3", "vboxnet0", "--cableconnected3", "off" ]
-      prov.customize ["modifyvm", :id, "--nic4", "hostonly", "--hostonlyadapter4", "vboxnet0", "--cableconnected4", "off" ]
-      prov.customize ["modifyvm", :id, "--nic5", "hostonly", "--hostonlyadapter5", "vboxnet0", "--cableconnected5", "off" ]
-      # private network:
-      prov.customize ["modifyvm", :id, "--nic6", "intnet", "--intnet6", "private" ]
-      # unused interface:
-      prov.customize ["modifyvm", :id, "--nic7", "intnet", "--intnet7", "private", "--cableconnected7", "off" ]
-      # NAT interface required by Vagrant:
-      prov.customize ["modifyvm", :id, "--nic8", "nat", "--natnet8", "10.99.2/24", "--natpf8", "ssh,tcp,127.0.0.1,2222,,22" ]
-    end
-    # set up eth0 interface with 192.168.3.10/24 address after first boot
-    t.vm.provision "shell", inline: "echo -e '\nauto eth0\niface eth0 inet static\n  address 192.168.3.10\n  netmask 255.255.255.0\n  dns-nameservers 8.8.8.8\n' >> /etc/network/interfaces; ifup eth0"
-  end
+  nodes.each_with_index do |node, idx|
+    ssh_port = $ssh_nat_start + idx
+    nat_subnet = $nat_subnet_start + idx
 
-  config.vm.define :ctrl1 do |t|
-    # controller node
-    t.vm.box = "steigr/pxe"
-    t.vm.provider "virtualbox" do |prov|
-      prov.gui = true
-      prov.memory = 2048
-      prov.cpus = 2
-      prov.customize ["modifyvm", :id, "--natpf1", "delete", "ssh" ]
-      # management network:
-      prov.customize ["modifyvm", :id, "--nic1", "hostonly", 
-                      "--hostonlyadapter1", "vboxnet0", "--macaddress1", 
-                      "b8ca3a5bc160" ]
-      # public network:
-      prov.customize ["modifyvm", :id, "--nic2", "hostonly", 
-                      "--hostonlyadapter2", "vboxnet1", "--nicpromisc2", 
-                      "allow-all" ]
-      # unused interfaces:
-      prov.customize ["modifyvm", :id, "--nic3", "hostonly", 
-                      "--hostonlyadapter3", "vboxnet0", "--cableconnected3", 
-                      "off" ]
-      prov.customize ["modifyvm", :id, "--nic4", "hostonly", 
-                      "--hostonlyadapter4", "vboxnet0", "--cableconnected4", 
-                      "off" ]
-      prov.customize ["modifyvm", :id, "--nic5", "hostonly", 
-                      "--hostonlyadapter5", "vboxnet0", 
-                      "--cableconnected5", "off" ]
-      # private network:
-      prov.customize ["modifyvm", :id, "--nic6", "intnet", "--intnet6", 
-                      "private" ]
-      # unused interface:
-      prov.customize ["modifyvm", :id, "--nic7", "intnet", "--intnet7", 
-                      "private", "--cableconnected7", "off" ]
-      # NAT interface required by Vagrant:
-      prov.customize ["modifyvm", :id, "--nic8", "nat", "--natnet8", 
-                      "10.99.3/24", "--natpf8", "ssh,tcp,127.0.0.1,2223,,22" ]
-      # attaching IPXE floppy image:
-      prov.customize ["storageattach", :id, "--storagectl", 
-                      "Floppy Controller", "--type", "fdd", "--device", "0", 
-                      "--medium", 
-                      "<%= @disks_directory %>/ctrl1_ipxe.dsk"]
-      # attaching disks, because steigr/pxe box have no disks by default:
-      prov.customize ["storageattach", :id, "--storagectl", "SATA Controller", 
-                      "--port", "0", "--type", "hdd", "--medium", 
-                      "<%= @disks_directory %>/ctrl1_disk1.vdi" ]
-    end
-  end
-  
-  config.vm.define :comp1 do |t|
-    # compute node
-    t.vm.box = "steigr/pxe"
-    t.vm.provider "virtualbox" do |prov|
-      prov.gui = true
-      prov.memory = 2048
-      prov.cpus = 2
-      prov.customize ["modifyvm", :id, "--natpf1", "delete", "ssh" ]
-      # management network:
-      prov.customize ["modifyvm", :id, "--nic1", "hostonly", "--hostonlyadapter1", "vboxnet0", "--macaddress1", "b8ca3a5bbe54" ]
-      # unused interfaces:
-      prov.customize ["modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter2", "vboxnet0", "--cableconnected2", "off" ]
-      prov.customize ["modifyvm", :id, "--nic3", "hostonly", "--hostonlyadapter3", "vboxnet0", "--cableconnected3", "off" ]
-      prov.customize ["modifyvm", :id, "--nic4", "hostonly", "--hostonlyadapter4", "vboxnet0", "--cableconnected4", "off" ]
-      prov.customize ["modifyvm", :id, "--nic5", "hostonly", "--hostonlyadapter5", "vboxnet0", "--cableconnected5", "off" ]
-      # private network:
-      prov.customize ["modifyvm", :id, "--nic6", "intnet", "--intnet6", "private" ]
-      # unused interface:
-      prov.customize ["modifyvm", :id, "--nic7", "intnet", "--intnet7", "private", "--cableconnected7", "off" ]
-      # NAT interface required by Vagrant:
-      prov.customize ["modifyvm", :id, "--nic8", "nat", "--natnet8", "10.99.4/24", "--natpf8", "ssh,tcp,127.0.0.1,2224,,22" ]
-      # attaching IPXE floppy image:
-      prov.customize ["storageattach", :id, "--storagectl", "Floppy Controller", "--type", "fdd", "--device", "0", "--medium", "<%= @disks_directory %>/comp1_ipxe.dsk"]
-      # attaching disks, because steigr/pxe box have no disks by default: 
-      prov.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", "0", "--type", "hdd", "--medium", "<%= @disks_directory %>/comp1_disk1.vdi" ]
-    end
-  end
+    box = "steigr/pxe"
+    box = "doctorjnupe/precise64_dhcpclient_on_eth7"  if node.eql? "ops1"
 
-  config.vm.define :comp2 do |t|
-    # compute node
-    t.vm.box = "steigr/pxe"
-    t.vm.provider "virtualbox" do |prov|
-      prov.gui = true
-      prov.memory = 2048
-      prov.cpus = 2
-      prov.customize ["modifyvm", :id, "--natpf1", "delete", "ssh" ]
-      # management network:
-      prov.customize ["modifyvm", :id, "--nic1", "hostonly", "--hostonlyadapter1", "vboxnet0", "--macaddress1", "b8ca3a5bbe74" ]
-      # unused interfaces:
-      prov.customize ["modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter2", "vboxnet0", "--cableconnected2", "off" ]
-      prov.customize ["modifyvm", :id, "--nic3", "hostonly", "--hostonlyadapter3", "vboxnet0", "--cableconnected3", "off" ]
-      prov.customize ["modifyvm", :id, "--nic4", "hostonly", "--hostonlyadapter4", "vboxnet0", "--cableconnected4", "off" ]
-      prov.customize ["modifyvm", :id, "--nic5", "hostonly", "--hostonlyadapter5", "vboxnet0", "--cableconnected5", "off" ]
-      # private network:
-      prov.customize ["modifyvm", :id, "--nic6", "intnet", "--intnet6", "private" ]
-      # unused interface:
-      prov.customize ["modifyvm", :id, "--nic7", "intnet", "--intnet7", "private", "--cableconnected7", "off" ]
-      # NAT interface required by Vagrant:
-      prov.customize ["modifyvm", :id, "--nic8", "nat", "--natnet8", "10.99.5/24", "--natpf8", "ssh,tcp,127.0.0.1,2225,,22" ]
-      # attaching IPXE floppy image:
-      prov.customize ["storageattach", :id, "--storagectl", "Floppy Controller", "--type", "fdd", "--device", "0", "--medium", "<%= @disks_directory %>/comp2_ipxe.dsk"]
-      # attaching disks, because steigr/pxe box have no disks by default:
-      prov.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", "0", "--type", "hdd", "--medium", "<%= @disks_directory %>/comp2_disk1.vdi" ]
-    end
-  end
+    config.vm.define node do |t|
+      t.vm.box = box
+      t.vm.hostname = "#{node}.<%= @zone %>.example.com"
+      t.vm.synced_folder ".", "/occam", disabled: false
+      t.vm.provider "virtualbox" do |prov|
+        prov.gui = true
+        prov.memory = 2048
+        prov.cpus = 2
+        prov.customize ["modifyvm", :id, "--natpf1", "delete", "ssh" ]
+        nic1_opts = [
+          "modifyvm", :id,
+          "--nic1", "hostonly",
+          "--hostonlyadapter1", "<%= @network %>",
+          "--macaddress1",
+        ]
+        if node.eql? "ctrl1"
+          nic1_opts << "<%= @ctrl_mac %>"
+        elsif node.eql? "monit1"
+          nic1_opts << "<%= @monit_mac %>"
+        else
+          nic1_opts << (1..6).map{"%0.2X"%rand(256)}.join("").downcase
+        end
 
-  config.vm.define :comp3 do |t|
-    # compute node
-    t.vm.box = "steigr/pxe"
-    t.vm.provider "virtualbox" do |prov|
-      prov.gui = true
-      prov.memory = 2048
-      prov.cpus = 2
-      prov.customize ["modifyvm", :id, "--natpf1", "delete", "ssh" ]
-      # management network:
-      prov.customize ["modifyvm", :id, "--nic1", "hostonly", "--hostonlyadapter1", "vboxnet0", "--macaddress1", "b8ca3a5bbe75" ]
-      # unused interfaces:
-      prov.customize ["modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter2", "vboxnet0", "--cableconnected2", "off" ]
-      prov.customize ["modifyvm", :id, "--nic3", "hostonly", "--hostonlyadapter3", "vboxnet0", "--cableconnected3", "off" ]
-      prov.customize ["modifyvm", :id, "--nic4", "hostonly", "--hostonlyadapter4", "vboxnet0", "--cableconnected4", "off" ]
-      prov.customize ["modifyvm", :id, "--nic5", "hostonly", "--hostonlyadapter5", "vboxnet0", "--cableconnected5", "off" ]
-      # private network:
-      prov.customize ["modifyvm", :id, "--nic6", "intnet", "--intnet6", "private" ]
-      # unused interface:
-      prov.customize ["modifyvm", :id, "--nic7", "intnet", "--intnet7", "private", "--cableconnected7", "off" ]
-      # NAT interface required by Vagrant:
-      prov.customize ["modifyvm", :id, "--nic8", "nat", "--natnet8", "10.99.6/24", "--natpf8", "ssh,tcp,127.0.0.1,2226,,22" ]
-      # attaching IPXE floppy image:
-      prov.customize ["storageattach", :id, "--storagectl", "Floppy Controller", "--type", "fdd", "--device", "0", "--medium", "<%= @disks_directory %>/comp3_ipxe.dsk"]
-      # attaching disks, because steigr/pxe box have no disks by default:
-      prov.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", "0", "--type", "hdd", "--medium", "<%= @disks_directory %>/comp3_disk1.vdi" ]
+        prov.customize nic1_opts
+
+        (2..5).each do |num|
+          if node.eql? "ctrl1" and num.eql? 2
+            options = ["modifyvm", :id,
+                       "--nic#{num}", "hostonly",
+                       "--hostonlyadapter2", "<%= @pubnet %>",
+                       "--nicpromisc#{num}", "allow-all"
+            ]
+            else
+          options = ["modifyvm", :id,
+                     "--nic#{num}",
+                     "hostonly",
+                     "--hostonlyadapter#{num}",
+                     "<%= @network %>",
+                     "--cableconnected#{num}",
+                     "off"
+          ]
+          end
+          prov.customize options
+        end
+        # private network:
+        prov.customize ["modifyvm", :id, "--nic6", "intnet", "--intnet6", "private" ]
+        # unused interface:
+        prov.customize ["modifyvm", :id,
+                        "--nic7",
+                        "intnet",
+                        "--intnet7",
+                        "private",
+                        "--cableconnected7",
+                        "off"
+        ]
+        # NAT interface required by Vagrant:
+        prov.customize ["modifyvm", :id,
+                        "--nic8",
+                        "nat",
+                        "--natnet8",
+                        "10.99.#{nat_subnet}/24",
+                        "--natpf8",
+                        "ssh,tcp,127.0.0.1,#{ssh_port},,22" ]
+        if node.eql? "ops1"
+          # set up eth0 interface with 192.168.3.10/24 address after first boot
+          op_prov = "echo -e '\nauto eth0\niface eth0 inet static\n  address "
+          op_prov << "192.168.3.10\n  netmask 255.255.255.0\n  dns-nameservers "
+          op_prov << "8.8.8.8\n' >> /etc/network/interfaces; ifup eth0"
+          t.vm.provision "shell", inline: op_prov
+        else
+          # attaching IPXE floppy image:
+          prov.customize ["storageattach", :id, "--storagectl",
+                          "Floppy Controller", "--type", "fdd", "--device", "0",
+                          "--medium",
+                          "<%= @disks_directory %>/#{node}_ipxe.dsk"]
+          # attaching disks, because steigr/pxe box have no disks by default:
+          file_to_disk = "<%= @disks_directory %>/#{node}_disk1.vdi"
+          unless File.exist?(file_to_disk)
+            prov.customize ['createhd', '--filename', file_to_disk, '--size', 1024 * 200]
+          end
+          prov.customize ["storageattach", :id, "--storagectl", "SATA Controller",
+                          "--port", "0", "--type", "hdd", "--medium",
+                          "#{file_to_disk}" ]
+        end
+      end
     end
   end
 
