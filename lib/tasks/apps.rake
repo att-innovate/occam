@@ -26,7 +26,7 @@ require 'yaml'
 namespace :apps do
   desc 'App initialization, default initializes all apps.'
   task :init, [:zone, :app] => ['occam:init_hiera', :fetch] do |t, args|
-    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEINFO}.yaml"
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEFILE}.yaml"
     config = YAML.load_file zone
     apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
 
@@ -57,7 +57,7 @@ namespace :apps do
   end
 
   task :fetch, [:zone, :app] do |t, args|
-    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEINFO}.yaml"
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEFILE}.yaml"
     config = YAML.load_file zone
     apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
     base_cmd = "git clone https://github.com/"
@@ -76,7 +76,7 @@ namespace :apps do
 
   desc "Remove all managed apps; Seriously, all of them."
   task :clean, [:zone, :app] do |t, args|
-    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEINFO}.yaml"
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEFILE}.yaml"
     config = YAML.load_file zone
     apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
 
