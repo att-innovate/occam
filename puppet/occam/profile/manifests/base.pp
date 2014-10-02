@@ -88,9 +88,9 @@ class profile::base (
   create_resources('sudo::conf', $sudo_confs)
 
   case $::osfamily {
-    'deb': ['profile::system::debian', 'apt::unattended_upgrades']
     'RedHat': { include profile::system::redhat }
-    'Debian':  { include $deb }
+    'Debian': { include profile::system::debian
+                include apt::unattended_upgrades }
     default:  { alert("${::osfamily} family is not supported!") }
   }
 
