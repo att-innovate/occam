@@ -47,6 +47,12 @@ namespace :apps do
       if File.exists?("puppet/apps/#{name}/hiera/#{name}.yaml")
         FileUtils.cp("puppet/apps/#{name}/hiera/#{name}.yaml", 'puppet/hiera/apps/')
       end
+      if File.directory?("puppet/apps/#{name}/hiera/hostgroups/")
+        FileUtils.cp_r("puppet/apps/#{name}/hiera/hostgroups/.", 'puppet/hiera/local/hostgroups/')
+      end
+      if File.directory?("puppet/apps/#{name}/hiera/fqdns/")
+        FileUtils.cp_r("puppet/apps/#{name}/hiera/fqdns/.", 'puppet/hiera/local/fqdns/')
+      end
     end
   end
 
@@ -59,7 +65,7 @@ namespace :apps do
     Dir.chdir("puppet/apps") do
       apps.each do |app|
         name  = app_name(app)
-        if Dir[name] == nil
+        if not Dir.exists?(name)
           sh "#{base_cmd}#{app}.git #{name}"
         else
           puts "#{name} already exists. Perhaps you want to apps:update?"
