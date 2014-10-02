@@ -86,22 +86,22 @@ This will generate two HTML files under the *docs* directory: *readme.html* and 
 What is in the readme.html?
 ---------------------------
 
-The *docs/readme.html* file contains an exhaustive documentation of *Occam*. 
+The *docs/build/htmls/README.html* file contains an exhaustive documentation of *Occam*. 
 
 .. code:: bash
 
-  % open docs/readme.html
+  % open docs/build/html/README.html
   
 *Note:* If you would like to just try it out locally using Vagrant, you will within this file instructions for how to do so.
 
 What is in the quickstart.html?
 -------------------------------
 
-The *docs/quickstart.html* file contains a quickstart tutorial for how to get an Havana cloud up and running on bare metal nodes using *Occam*. 
+The *docs/build/htmls/quickstart.html* file contains a quickstart tutorial for how to get an Havana cloud up and running on bare metal nodes using *Occam*. 
 
 .. code:: bash
 
-  % open docs/quickstart.html
+  % open docs/build/htmls/quickstart.html
 
 
 Community, discussion and support
