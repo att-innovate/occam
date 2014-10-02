@@ -46,7 +46,7 @@ namespace :demo do
                                             "#{DISKS_DIR}/comp1_ipxe.dsk",
                                             "#{DISKS_DIR}/comp2_ipxe.dsk",
                                             "#{DISKS_DIR}/comp3_ipxe.dsk",
-                                            :create_disks,
+                                            "#{DISKS_DIR}/monit1_ipxe.dsk",
                                             "#{ROOT}/Vagrantfile",
                                             :nat,
                                             :ops_up,
@@ -57,6 +57,9 @@ namespace :demo do
     puts "Warning!! Your firewall settings may block the forwarding rules".colorize(:red)
     puts "Warning!! This is a known issue particularly on OS X.".colorize(:red)
   end
+
+  desc "Update the demo configuration"
+  task :update, [:zone] => [:nat]
 
   task :warning do
     msg = "WARNING! This script may make changes to system files/state"
@@ -108,6 +111,19 @@ namespace :demo do
   end
 
   file "#{ROOT}/Vagrantfile", [:zone, :disks_directory] => "#{ROOT}/lib/templates/Vagrantfile.erb" do |task, args|
+
+    zone_name = args[:zone] || DEFAULT_ZONE
+    zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
+    if not File.exists? zone
+      raise "Could not find requested zone: #{zone_name}!"
+    end
+
+    config = YAML.load_file zone
+
+    @network = VirtualBox.get_network(config['mgmt_gateway'])
+    @pubnet = VirtualBox.get_network(config['cloud_public_net_gateway'])
+    @ctrl_mac = config['roles']['ctrl'][:macs].first.gsub(":", "")
+    @monit_mac = config['roles']['monit'][:macs].first.gsub(":", "")
     template = File.open(task.prerequisites.first).read()
     @zone = args[:zone] || DEFAULT_ZONE
     @disks_directory = args[:disks_directory] || DISKS_DIR
@@ -184,22 +200,6 @@ namespace :demo do
     end
   end
 
-  task :create_disks do
-    size = 1024 * 200
-    DEMO_VMS.each do |vm|
-      (1..NUM_DISKS).each do |num|
-        path = "#{DISKS_DIR}/#{vm}_disk#{num}.vdi"
-        if not File.exists? path
-          puts "Creating #{vm}_disk#{num}..."
-          VirtualBox.create_disk(path, size)
-        else
-          puts "#{vm}_disk#{num} exists. Doing nothing."
-        end
-      end
-
-    end
-  end
-
   task :createif, [:zone] do |t, args|
     zone_name = args[:zone] || DEFAULT_ZONE
     zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
@@ -262,6 +262,7 @@ namespace :demo do
       `vagrant destroy --force #{vm}`
     end
     sh "rm -rf #{DISKS_DIR}"
+    sh "rm Vagrantfile"
 
     config = YAML.load_file zone
     ['cloud_public_net_gateway', 'mgmt_gateway'].each do |net|

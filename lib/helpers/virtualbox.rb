@@ -37,14 +37,14 @@ module VirtualBox
    end
 
   end
-    
+
   def self.list(items)
     `#{self.command} list #{items}`.split("\n\n").collect {|n|
       n.split("\n")
     }.collect do |net|
-      Hash[net.compact.collect {|l| 
+      Hash[net.compact.collect {|l|
         l.split(":", 2)
-      }.collect {|keys| 
+      }.collect {|keys|
           keys.collect {|item| item.strip
           }
       }]
@@ -81,7 +81,7 @@ module VirtualBox
   def self.add_box(box)
     output = `vagrant box add --provider virtualbox #{box} 2>&1`
     exit_code = $?.exitstatus
-    if exit_code.eql? 1 and 
+    if exit_code.eql? 1 and
       /.*The box you're attempting to add already exists.*/.match output then
       exit_code = 2
     end
