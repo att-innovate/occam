@@ -44,9 +44,6 @@ class role::ops {
     'Debian': { include profile::apt::server }
   }
   include profile::mcollective
-  include profile::tempest::setup
-  include profile::openstack::setup
-  include profile::openstack::facts
   include profile::admintools::announcements
 
   class {'profile::dns::server': stage => 'setup_infra' }
