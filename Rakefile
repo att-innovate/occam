@@ -12,7 +12,7 @@ require './lib/helpers/virtualbox.rb'
 require './lib/helpers/net.rb'
 
 ROOT = File.dirname(__FILE__)
-DEFAULT_ZONE = "zone1" # this is the name of the distributed example zone
+ZONEFILE = ENV['ZONEFILE'] || 'zone1' # this is the name of the distributed example zone
 BASE_BOX="doctorjnupe/precise64_dhcpclient_on_eth7"
 PXE_BOX="steigr/pxe"
 DISKS_DIR = "#{ROOT}/.virtualdisks"

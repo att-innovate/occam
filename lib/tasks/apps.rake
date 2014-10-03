@@ -26,7 +26,7 @@ require 'yaml'
 namespace :apps do
   desc 'App initialization, default initializes all apps.'
   task :init, [:zone, :app] => ['occam:init_hiera', :fetch] do |t, args|
-    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || DEFAULT_ZONE}.yaml"
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEFILE}.yaml"
     config = YAML.load_file zone
     apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
 
@@ -47,11 +47,17 @@ namespace :apps do
       if File.exists?("puppet/apps/#{name}/hiera/#{name}.yaml")
         FileUtils.cp("puppet/apps/#{name}/hiera/#{name}.yaml", 'puppet/hiera/apps/')
       end
+      if File.directory?("puppet/apps/#{name}/hiera/hostgroups/")
+        FileUtils.cp_r("puppet/apps/#{name}/hiera/hostgroups/.", 'puppet/hiera/local/hostgroups/')
+      end
+      if File.directory?("puppet/apps/#{name}/hiera/fqdns/")
+        FileUtils.cp_r("puppet/apps/#{name}/hiera/fqdns/.", 'puppet/hiera/local/fqdns/')
+      end
     end
   end
 
   task :fetch, [:zone, :app] do |t, args|
-    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || DEFAULT_ZONE}.yaml"
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEFILE}.yaml"
     config = YAML.load_file zone
     apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
     base_cmd = "git clone https://github.com/"
@@ -59,7 +65,7 @@ namespace :apps do
     Dir.chdir("puppet/apps") do
       apps.each do |app|
         name  = app_name(app)
-        if not Dir.exists? name
+        if not Dir.exists?(name)
           sh "#{base_cmd}#{app}.git #{name}"
         else
           puts "#{name} already exists. Perhaps you want to apps:update?"
@@ -70,7 +76,7 @@ namespace :apps do
 
   desc "Remove all managed apps; Seriously, all of them."
   task :clean, [:zone, :app] do |t, args|
-    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || DEFAULT_ZONE}.yaml"
+    zone = "#{ROOT}/local/hiera/zones/#{args[:zone] || ZONEFILE}.yaml"
     config = YAML.load_file zone
     apps = args[:app] ? [args[:app]] : config['profile::hiera::config::occam_apps']
 
