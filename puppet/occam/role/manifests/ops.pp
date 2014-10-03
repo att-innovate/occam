@@ -44,7 +44,6 @@ class role::ops {
     'Debian': { include profile::apt::server }
   }
   include profile::mcollective
-  include profile::admintools::announcements
 
   class {'profile::dns::server': stage => 'setup_infra' }
 }
