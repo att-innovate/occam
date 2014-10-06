@@ -114,7 +114,7 @@ namespace :demo do
 
   file "#{ROOT}/Vagrantfile", [:zone, :disks_directory] => "#{ROOT}/lib/templates/Vagrantfile.erb" do |task, args|
 
-    zone_name = args[:zone] || DEFAULT_ZONE
+    zone_name = args[:zone] || ZONEFILE
     zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
     if not File.exists? zone
       raise "Could not find requested zone: #{zone_name}!"
@@ -127,7 +127,7 @@ namespace :demo do
     @ctrl_mac = config['roles']['ctrl'][:macs].first.gsub(":", "")
     @monit_mac = config['roles']['monit'][:macs].first.gsub(":", "")
     template = File.open(task.prerequisites.first).read()
-    @zone = args[:zone] || DEFAULT_ZONE
+    @zone = args[:zone] || ZONEFILE
     @disks_directory = args[:disks_directory] || DISKS_DIR
 
     renderer = ERB.new(template)
@@ -138,7 +138,7 @@ namespace :demo do
   end
 
   task :nat, [:zone] => [:load_requires]  do |task, args|
-    zone_name = args[:zone] || DEFAULT_ZONE
+    zone_name = args[:zone] || ZONEFILE
     zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
     config = YAML.load_file zone
     network = config['mgmt_network']
@@ -174,7 +174,7 @@ namespace :demo do
   end
 
   task :setup_ops_root, [:pubkey, :zone] do |task,args|
-    zone_name = args[:zone] || DEFAULT_ZONE
+    zone_name = args[:zone] || ZONEFILE
     pubkey = args[:pubkey] || "~/.vagrant.d/insecure_private_key"
     zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
     config = YAML.load_file zone
@@ -185,7 +185,7 @@ namespace :demo do
 
   task :deploy_ops, [:environment, :zone] do |task, args|
     environment = args[:environment] || "testing"
-    zone_name = args[:zone] || DEFAULT_ZONE
+    zone_name = args[:zone] || ZONEFILE
     pubkey = args[:pubkey] || "~/.vagrant.d/insecure_private_key"
     zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
     config = YAML.load_file zone
@@ -203,7 +203,7 @@ namespace :demo do
   end
 
   task :createif, [:zone] do |t, args|
-    zone_name = args[:zone] || DEFAULT_ZONE
+    zone_name = args[:zone] || ZONEFILE
     zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
     if not File.exists? zone
       raise "Could not find requested zone: #{zone_name}!"
@@ -256,7 +256,7 @@ namespace :demo do
 
   desc "Cleans out all demo generated files"
   task :clean, [:zone] do  |t, args|
-    zone_name = args[:zone] || DEFAULT_ZONE
+    zone_name = args[:zone] || ZONEFILE
     zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
 
     DEMO_VMS.each do |vm|

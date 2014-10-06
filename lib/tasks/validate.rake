@@ -95,7 +95,7 @@ namespace :occam do
     end
 
     task :verify_nat, :zone do |task,args|
-       zone_name = args[:zone] || DEFAULT_ZONE
+       zone_name = args[:zone] || ZONEFILE
        zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
        config = YAML.load_file zone
        network = config['mgmt_network']
