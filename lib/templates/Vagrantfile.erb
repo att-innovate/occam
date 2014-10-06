@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
         elsif node.eql? "monit1"
           nic1_opts << "<%= @monit_mac %>"
         else
-          nic1_opts << (1..6).map{"%0.2X"%rand(256)}.join("").downcase
+          nic1_opts << "auto"
         end
 
         prov.customize nic1_opts

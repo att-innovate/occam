@@ -30,7 +30,8 @@ module NetHelper
     Hash[Socket.getifaddrs.reject {|ifaddr|
       !ifaddr.addr.ip? ||
       !ifaddr.addr.ipv4_private? ||
-      (/vboxnet\d+/.match ifaddr.name)
+      (/vboxnet\d+/.match ifaddr.name) ||
+      (/vmnet\d+/.match ifaddr.name)
     }.collect {|ifaddr|
       [ifaddr.name, ifaddr.addr.ip_address]
     }]
