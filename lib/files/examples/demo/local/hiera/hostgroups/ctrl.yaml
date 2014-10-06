@@ -1,0 +1,17 @@
+interfaces:
+  lo:
+    family: 'inet'
+    method: 'loopback'
+    auto: 1
+  eth0:
+    family: 'inet'
+    method: 'dhcp'
+    auto: 1
+  eth1:
+    family: 'inet'
+    method: 'manual'
+    auto: 1
+    options:
+      - "pre-up ifconfig $IFACE 0.0.0.0 up"
+      - "up ip link set $IFACE promisc on"
+      - "post-down ifconfig $IFACE down"
