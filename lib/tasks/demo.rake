@@ -49,6 +49,7 @@ namespace :demo do
                                             "#{DISKS_DIR}/monit1_ipxe.dsk",
                                             "#{ROOT}/Vagrantfile",
                                             :nat,
+                                            "hosts:setup",
                                             :ops_up,
                                             :setup_ops_root,
                                             :deploy_ops,
@@ -70,6 +71,7 @@ namespace :demo do
       puts "    - net.inet.ip.forwarding=1"
       puts "    - /System/Library/LaunchDaemons/com.apple.pfctl.plist"
       puts "    - /etc/sysctl.conf"
+      puts "    - /etc/hosts"
     end
     puts "Continue [n|no|y|yes] (default no)? "
     answ = STDIN.gets.chomp
