@@ -49,7 +49,7 @@ namespace :demo do
                                             "#{DISKS_DIR}/monit1_ipxe.dsk",
                                             "#{ROOT}/Vagrantfile",
                                             :nat,
-                                            "hosts:setup",
+                                            "domains:setup",
                                             :ops_up,
                                             :setup_ops_root,
                                             :deploy_ops,
