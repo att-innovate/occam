@@ -2,7 +2,7 @@
 namespace :domains do
 
   desc "adds the necessary hosts (fqdn) to your /etc/hosts "
-  task :setup => :environment do
+  task :setup do
     # NOTE: default_hosts is used as a locator for the line to update in /etc/hosts
     tmp_file, changed = '/tmp/etc_hosts_copy', false
     default_hosts, hosts    = %w(cloud.zone1.example.com), []
