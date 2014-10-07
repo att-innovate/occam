@@ -1,0 +1,7 @@
+profile::dns::setup::hostnames:
+        - "puppet.%{hiera('mgmt_domain')}"
+        - 'puppet'
+
+sudo_confs:
+  ops:
+    content: "ops ALL=(ALL) NOPASSWD: ALL"

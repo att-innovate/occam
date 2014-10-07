@@ -52,6 +52,7 @@ class profile::base (
   $ntp_servers = [ '0.us.pool.ntp.org', '1.us.pool.ntp.org' ],
   $purge_sudo = false,
   $monitoring = false,
+  $deb        = [ 'profile::system::debian', 'apt::unattended_upgrades' ],
 ) {
 
   include stdlib
@@ -89,8 +90,7 @@ class profile::base (
 
   case $::osfamily {
     'RedHat': { include profile::system::redhat }
-    'Debian': { include profile::system::debian
-                include apt::unattended_upgrades }
+    'Debian': { include $deb }
     default:  { alert("${::osfamily} family is not supported!") }
   }
 
