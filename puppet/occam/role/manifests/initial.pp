@@ -27,7 +27,8 @@
 #
 # === Authors
 #
-# Kamil Swiatkowski <kswiatkowski@mirantis.com.
+# Kamil Swiatkowski <kswiatkowski@mirantis.com>
+# Ari Saha <as754m@att.com>
 #
 # === Copyright
 #

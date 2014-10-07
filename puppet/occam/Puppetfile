@@ -45,10 +45,6 @@ mod 'inifile',
   :git => 'https://github.com/cprice-puppet/puppetlabs-inifile.git',
   :ref => '530b053f71c60837573899cd6a8b3c9ec13f7196'
 
-mod 'interfaces',
-  :git => 'https://github.com/x-way/puppet-interfaces.git',
-  :ref => 'f934505556d2570bd890c15612f445c31ad7a383'
-
 mod 'logstash',
   :git => 'https://github.com/elasticsearch/puppet-logstash.git',
   :ref => '0.5.1'
@@ -107,7 +103,7 @@ mod 'sudo',
 
 mod 'timezone',
   :git => 'https://github.com/saz/puppet-timezone.git',
-  :ref => 'b56562938fdb24066d777e75269f3bfb290ed96b'
+  :ref => 'v3.1.1'
 
 mod 'users',
   :git => 'https://github.com/damjanek/puppet-users',
@@ -121,3 +117,10 @@ mod 'zabbix',
   :git => 'https://github.com/kswia/puppet-zabbix.git',
   :ref => 'feature/simplified'
 
+mod 'network',
+  :git => 'https://github.com/example42/puppet-network.git',
+  :ref => 'v3.1.18'
+
+mod 'stdmod',
+  :git => 'https://github.com/stdmod/stdmod.git',
+  :ref => 'v0.0.4'

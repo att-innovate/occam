@@ -1,17 +1,12 @@
-interfaces:
+profile::network::interfaces:
   eth0:
-    family: 'inet'
     method: 'static'
-    auto: 1
-    options:
-      - "address 192.168.3.10"
-      - "netmask 255.255.255.0"
-      - "gateway 192.168.3.1"
-      - "dns-nameservers 8.8.8.8"
+    ipaddress: "192.168.3.10"
+    netmask: "255.255.255.0"
+    gateway: "192.168.3.1"
+    dns_nameservers: "8.8.8.8"
+
   eth5:
-    family: 'inet'
     method: 'static'
-    auto: 1
-    options:
-      - "address 172.16.1.10"
-      - "netmask 255.255.255.0"
+    ipaddress: "172.16.1.10"
+    netmask: "255.255.255.0"

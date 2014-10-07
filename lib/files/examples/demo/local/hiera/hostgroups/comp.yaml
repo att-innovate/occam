@@ -1,11 +1,9 @@
 profile::openstack::compute::vncserver_listen: "0.0.0.0"
 
-interfaces:
+profile::network::interfaces:
   lo:
-    family: 'inet'
-    method: 'loopback'
-    auto: 1
+   method: 'loopback'
+
   eth0:
-    family: 'inet'
-    method: 'dhcp'
-    auto: 1
+   method: 'dhcp'
+

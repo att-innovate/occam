@@ -33,7 +33,7 @@
 #   package name of ubuntu kernel
 #
 # [os_root_device]
-#   block device name passed to debian installer used as root device
+#   block device name passed to ubuntu installer used as root device
 #
 # [domain]
 #   domain name of occam installation
@@ -50,6 +50,7 @@
 # === Authors
 #
 # Kamil Swiatkowski <kswiatkowski@mirantis.com>
+# Ari Saha <as754m@att.com>
 #
 # === Copyright
 #
@@ -61,10 +62,10 @@ class profile::occamengine (
   $os_root_device       = '/dev/sda',
   $domain               = undef,
   $timezone             = 'UTC',
-  $db_type        = 'postgres',
-  $db_name        = 'occamengine',
-  $db_username    = 'occamengine',
-  $db_password    = 'occamengine',
+  $db_type              = 'postgres',
+  $db_name              = 'occamengine',
+  $db_username          = 'occamengine',
+  $db_password          = 'occamengine',
 )
 {
 
@@ -119,9 +120,12 @@ class profile::occamengine (
                 '/opt/occamengine/db',
                 '/opt/occamengine/pxe',
                 '/opt/occamengine/tftp',
-                '/opt/occamengine/pxe/default',
-                '/opt/occamengine/pxe/default/image',
-                '/opt/occamengine/pxe/default/templates',
+                '/opt/occamengine/pxe/templates',
+                '/opt/occamengine/pxe/images',
+                '/opt/occamengine/pxe/templates/fedora',
+                '/opt/occamengine/pxe/images/fedora',
+                '/opt/occamengine/pxe/templates/ubuntu',
+                '/opt/occamengine/pxe/images/ubuntu',
                 '/var/log/occam',
                 '/var/run/occam'
               ]
@@ -209,26 +213,74 @@ class profile::occamengine (
                   ]
   }
 
-  file { '/opt/occamengine/pxe/default/templates/preseed.erb':
+  file { '/opt/occamengine/pxe/templates/ubuntu/preseed.erb':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     content => template('profile/occamengine/preseed.erb.erb'),
     require => File[$oe_dirs]
-
   }
 
-  file { '/opt/occamengine/pxe/default/templates/boot_install.erb':
+  file { '/opt/occamengine/pxe/templates/ubuntu/boot_install.erb':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    source  => 'puppet:///modules/profile/occamengine/boot_install.erb',
+    source  => 'puppet:///modules/profile/occamengine/ubuntu_install.erb',
     require => File[$oe_dirs]
   }
 
-  file { '/opt/occamengine/pxe/default/templates/boot_local.erb':
+  staging::file { 'netboot-precise-linux':
+    target  => '/opt/occamengine/pxe/images/ubuntu/linux',
+    source  => 'http://archive.ubuntu.com/ubuntu/dists/precise-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux',
+    require => [
+      File[$oe_dirs]
+    ],
+  }
+  staging::file { 'netboot-precise-initrd':
+    target  => '/opt/occamengine/pxe/images/ubuntu/initrd.gz',
+    source  => 'http://archive.ubuntu.com/ubuntu/dists/precise-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz',
+    require => [
+      File[$oe_dirs]
+    ],
+  }
+
+  file { '/opt/occamengine/pxe/templates/fedora/kickstart.erb':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/occamengine/kickstart.erb.erb'),
+    require => File[$oe_dirs]
+  }
+
+  file { '/opt/occamengine/pxe/templates/fedora/boot_install.erb':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/profile/occamengine/fedora_install.erb',
+    require => File[$oe_dirs]
+  }
+
+  staging::file { 'netboot-fedora-vmlinuz':
+    target  => '/opt/occamengine/pxe/images/fedora/vmlinuz',
+    source  => 'http://mirrors.kernel.org/fedora/releases/19/Fedora/x86_64/os/images/pxeboot/vmlinuz',
+    require => [
+      File[$oe_dirs]
+    ],
+  }
+
+  staging::file { 'netboot-fedora-initrd':
+    target  => '/opt/occamengine/pxe/images/fedora/initrd.img',
+    source  => 'http://mirrors.kernel.org/fedora/releases/19/Fedora/x86_64/os/images/pxeboot/initrd.img',
+    require => [
+      File[$oe_dirs]
+    ],
+  }
+
+  file { '/opt/occamengine/pxe/templates/boot_local.erb':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
@@ -237,7 +289,7 @@ class profile::occamengine (
     require => File[$oe_dirs]
   }
 
-  file { '/opt/occamengine/pxe/default/templates/puppetconf.erb':
+  file { '/opt/occamengine/pxe/templates/puppetconf.erb':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
@@ -252,22 +304,6 @@ class profile::occamengine (
     group   => 'root',
     mode    => '0644',
     content => template('profile/occamengine/occamengine.ipxe.erb'),
-  }
-
-  staging::file { 'netboot-precise-linux':
-    target  => '/opt/occamengine/pxe/default/image/linux',
-    source  => 'http://archive.ubuntu.com/ubuntu/dists/precise-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux',
-    require => [
-      File[$oe_dirs]
-    ],
-  }
-
-  staging::file { 'netboot-precise-initrd':
-    target  => '/opt/occamengine/pxe/default/image/initrd.gz',
-    source  => 'http://archive.ubuntu.com/ubuntu/dists/precise-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz',
-    require => [
-      File[$oe_dirs]
-    ],
   }
 
   file { '/opt/occamengine/tftp/undionly.kpxe':

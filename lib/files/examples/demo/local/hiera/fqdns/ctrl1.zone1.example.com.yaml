@@ -1,7 +1,6 @@
-br-ex:
-  family: 'inet'
-  method: 'static'
-  auto: 1
-  address: "192.168.4.11"
-  netmask: "255.255.255.0"
-  gateway: "192.168.4.1"
+profile::network::interfaces:
+  br-ex:
+   method: 'static'
+   ipaddress: "192.168.4.11"
+   netmask: "255.255.255.0"
+   gateway: "192.168.4.1"

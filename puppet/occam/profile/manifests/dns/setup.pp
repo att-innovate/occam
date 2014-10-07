@@ -37,13 +37,15 @@
 # === Authors
 #
 # James Kyle <james@jameskyle.org>
+# Ari Saha <as754m@att.com>
 #
 # === Copyright
 #
 # Copyright 2013 AT&T Foundry, unless otherwise noted.
 
 class profile::dns::setup (
-  $hostnames  = []
+  $hostnames  = [],
+  $ip = $::ipaddress_eth0,
 ) {
 
   $host_aliases = flatten([$::hostname, $hostnames])
@@ -51,7 +53,7 @@ class profile::dns::setup (
   host { $::fqdn:
     ensure       => present,
     host_aliases => $host_aliases,
-    ip           => $::ipaddress_eth0
+    ip           => $ip,
   }
 
   exec { 'remove 127.0.1.1 line':
