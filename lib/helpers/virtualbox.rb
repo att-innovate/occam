@@ -67,9 +67,19 @@ module VirtualBox
 
   def self.create_hostonlyif(ip, netmask)
     output = `#{self.command} hostonlyif create 2>&1`
+    raise output if not $?.exitstatus.eql? 0
+
     m = /.* '(vboxnet\d+)' was/.match output
+    raise "Failed to determine virtual box network from output: #{output}" if m.nil?
+
     network = m[1]
-    `VBoxManage hostonlyif ipconfig #{network} --ip #{ip} --netmask #{netmask} 2>&1`
+
+    output = `VBoxManage hostonlyif ipconfig #{network} --ip #{ip} --netmask #{netmask} 2>&1`
+    if not $?.exitstatus.eql? 0
+      raise "Failed to modify network: #{output}"
+    else
+      puts "Successfully configured: #{output}"
+    end
     self.disable_dhcp network
     network
   end
@@ -80,6 +90,7 @@ module VirtualBox
 
   def self.add_box(box)
     output = `vagrant box add --provider virtualbox #{box} 2>&1`
+
     exit_code = $?.exitstatus
     if exit_code.eql? 1 and
       /.*The box you're attempting to add already exists.*/.match output then
