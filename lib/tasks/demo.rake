@@ -33,8 +33,15 @@ namespace :demo do
     require 'colorize'
   end
 
+  task :intro, [:zone] do |t, args|
+    zone = args[:zone] || ZONEFILE
+    puts "Running Demo configuration using zone '#{zone}'...".colorize(:green)
+
+  end
+
   desc 'Initialize the demo environment.'
   task :init, [:zone, :disks_directory] => [:load_requires,
+                                            :intro,
                                             :copy_demo_local,
                                             "occam:init",
                                             "apps:init",
@@ -54,7 +61,6 @@ namespace :demo do
                                             :setup_ops_root,
                                             :deploy_ops,
   ] do
-
     puts "Warning!! Your firewall settings may block the forwarding rules".colorize(:red)
     puts "Warning!! This is a known issue particularly on OS X.".colorize(:red)
   end
