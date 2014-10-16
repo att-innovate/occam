@@ -103,19 +103,9 @@ namespace :demo do
       end
   end
 
-  desc "Destroys the vagrant ops node"
-  task :ops_destroy do
-    sh "vagrant destroy -f ops1"
-  end
-
   desc "Starts the vagrant ctrl node"
   task :ctrl_up do
     sh "vagrant up ctrl1 --provider=virtualbox"
-  end
-
-  desc "Destroys the vagrant ctrl node"
-  task :ctrl_destroy do
-    sh "vagrant destroy -f ctrl1"
   end
 
   file "#{ROOT}/Vagrantfile", [:zone, :disks_directory] => "#{ROOT}/lib/templates/Vagrantfile.erb" do |task, args|
@@ -266,11 +256,11 @@ namespace :demo do
     zone = "#{ROOT}/local/hiera/zones/#{zone_name}.yaml"
 
     DEMO_VMS.each do |vm|
-      puts "vagrant destroy --force #{vm}"
-      `vagrant destroy --force #{vm}`
+      puts "vagrant destroy --force #{vm} > /dev/null 2>&1"
+      `vagrant destroy --force #{vm} > /dev/null 2>&1`
     end
     sh "rm -rf #{DISKS_DIR}"
-    sh "rm Vagrantfile"
+    sh "rm -f Vagrantfile"
 
     config = YAML.load_file zone
     ['cloud_public_net_gateway', 'mgmt_gateway'].each do |net|
