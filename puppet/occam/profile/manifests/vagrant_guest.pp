@@ -36,7 +36,7 @@
 
 class profile::vagrant_guest {
 
-  network::interfaces {'eth7':
+  network::interface {'eth7':
     interface => 'eth7',
     method  => 'dhcp',
   }
