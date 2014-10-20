@@ -34,14 +34,15 @@
 # Copyright 2014 AT&T Foundry, unless otherwise noted.
 class profile::network (
   $hostname                  = undef,
-  $interfaces                = undef,
   $routes                    = undef,
   $gateway                   = undef,
   $hiera_merge               = false,
 ){
+  $interfaces = hiera_hash('interfaces', {})
+  create_resources('network::interface', $interfaces)
+
   class { '::network':
     hostname                  => $hostname,
-    interfaces_hash           => $interfaces,
     routes_hash               => $routes,
     gateway                   => $gateway,
     hiera_merge               => $hiera_merge,
