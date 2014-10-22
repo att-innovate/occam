@@ -36,10 +36,8 @@
 
 class profile::vagrant_guest {
 
-  interfaces::iface {'eth7':
-    family  => 'inet',
+  profile::network::interfaces {'eth7':
     method  => 'dhcp',
-    auto    => 1,
   }
 
   profile::users::managed {'vagrant':

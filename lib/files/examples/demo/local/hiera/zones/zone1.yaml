@@ -115,6 +115,7 @@ roles:
     :priority: 10
     :minimum: 1
     :maximum: 1
+    :os: 'ubuntu'
     :macs:
       - 'b8:ca:3a:5b:c1:60'
   monit:
@@ -122,6 +123,7 @@ roles:
     :priority: 20
     :minimum: 1
     :maximum: 1
+    :os: 'ubuntu'
     :macs:
       - '52:54:00:c2:88:60'
   comp:
@@ -129,6 +131,7 @@ roles:
     :priority: 30
     :minimum: 3
     :maximum: 10
+    :os: 'ubuntu'
 
 
 networks:

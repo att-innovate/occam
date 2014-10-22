@@ -1,17 +1,12 @@
-interfaces:
+profile::network::interfaces:
   lo:
-    family: 'inet'
-    method: 'loopback'
-    auto: 1
+   method: 'loopback'
+
   eth0:
-    family: 'inet'
-    method: 'dhcp'
-    auto: 1
+   method: 'dhcp'
+
   eth1:
-    family: 'inet'
-    method: 'manual'
-    auto: 1
-    options:
-      - "pre-up ifconfig $IFACE 0.0.0.0 up"
-      - "up ip link set $IFACE promisc on"
-      - "post-down ifconfig $IFACE down"
+   method: 'manual'
+   pre_up: "ifconfig $IFACE 0.0.0.0 up"
+   up: "up ip link set $IFACE promisc on"
+   post_down: "ifconfig $IFACE down"

@@ -27,13 +27,13 @@
 #
 # Kamil Swiatkowski <kswiatkowski@mirantis.com>
 # Damian Szeluga <dszeluga@mirantis.com>
+# Ari Saha <as754m@att.com>
 #
 # === Copyright
 #
 # Copyright 2014 AT&T Foundry, unless otherwise noted.
 #
 #$0 = 'OccamEngine'
-
 require 'rubygems'
 require 'sinatra'
 require 'sequel'
@@ -63,6 +63,7 @@ def create_db_schema
     primary_key :id
     String :role, :unique=>true
     String :puppet_class, :unique=>true
+    String :os
     Fixnum :max
     Fixnum :min
     Fixnum :count, :default=>0
@@ -145,7 +146,7 @@ class Configuration
   attr_reader :loghttp
 
   def initialize
-    
+
     #set config and init from command line opts
     @config = '/etc/occam/occamengine.yaml'
     @init = false
@@ -165,7 +166,7 @@ class Configuration
     else
       @zone = `hostname -f `.split(".")[1]
     end
-    
+
     # set environment
     if File.exists?('/etc/occam/environment')
       @environment = File.read('/etc/occam/environment').chop
@@ -197,7 +198,7 @@ class Configuration
     if @node_template.nil?
       @node_template = 'default'
     end
-    
+
     if @occamengine_dir.nil?
       @occamengine_dir = '/opt/ocamengine'
     end
@@ -205,7 +206,7 @@ class Configuration
     if @domain.nil?
       @domain = ''
     end
-    
+
     if @db_uri.nil?
       @db_uri = "sqlite://#{@occamengine_dir}/db/occamengine.db"
     end
@@ -220,11 +221,11 @@ class Configuration
       @puppet_initial_runs = 5
     end
 
-    @template_dir = "#{@occamengine_dir}/pxe/#{@node_template}/templates"
-    @image_dir = "#{@occamengine_dir}/pxe/#{@node_template}/image"
+    @template_dir = "#{@occamengine_dir}/pxe/templates"
+    @image_dir = "#{@occamengine_dir}/pxe/images"
 
     if @roles['ops'] == nil
-      @roles['ops'] = {:maximum => 1, :minimum => 1, :macs => @ops_mac, :priority => 1}
+      @roles['ops'] = {:maximum => 1, :minimum => 1, :macs => @ops_mac, :priority => 1, :os => 'ubuntu'}
     end
 
     @log, @loghttp = configure_logger
@@ -251,7 +252,7 @@ class Configuration
     #puts merged_yaml.inspect
     return merged_yaml
   end
-  
+
   def configure_logger
     Logger.class_eval { alias :write :'<<' }
     if STDOUT.tty?
@@ -440,13 +441,14 @@ class DataBase
       end
       begin
         role = Role.first!(:role => k)
-        role.min = v[:maximum]
+        role.min = v[:minimum]
         role.max = v[:maximum]
+        role.os = v[:os]
         role.priority = v[:priority]
         role.puppet_class = role_puppet_class
         role.save_changes
       rescue Exception => e 
-        role = Role.new(:role => k, :priority => v[:priority], :max => v[:maximum], :min => v[:minimum], :puppet_class => role_puppet_class)
+        role = Role.new(:role => k, :priority => v[:priority], :os => v[:os], :max => v[:maximum], :min => v[:minimum], :puppet_class => role_puppet_class)
         role.save
       end
     end
@@ -603,7 +605,13 @@ class Provisioner
     node.save
     b = node.get_binding
     b.eval("#{:http_endpoint} = '#{$conf.http_endpoint}'")
-    return ERB.new(File.new("#{$conf.template_dir}/boot_install.erb").read).result(b)
+    if node.role.os == 'ubuntu'
+      return ERB.new(File.new("#{$conf.template_dir}/ubuntu/boot_install.erb").read).result(b)
+    elsif node.role.os == 'fedora'
+      return ERB.new(File.new("#{$conf.template_dir}/fedora/boot_install.erb").read).result(b)
+    else
+      $conf.log.debug "os flavor is not supported"
+    end
   end
 
   def boot_local(node)
@@ -619,7 +627,22 @@ class Provisioner
       b.eval("#{:http_endpoint} = '#{$conf.http_endpoint}'")
       b.eval("#{:root_password} = '#{$conf.root_password}'")
       b.eval("#{:ops_ip} = '#{$conf.ops_ip}'")
-      return ERB.new(File.new("#{$conf.template_dir}/preseed.erb").read).result(b)
+      return ERB.new(File.new("#{$conf.template_dir}/ubuntu/preseed.erb").read).result(b)
+    rescue Exception => e 
+      $conf.log.debug e.message
+      return nil
+    end
+  end
+
+  def kickstart(hostname)
+    begin
+      $conf.log.debug "Serving kickstart for #{hostname}"
+      node = Node.first!(:hostname => hostname)
+      b = node.get_binding
+      b.eval("#{:http_endpoint} = '#{$conf.http_endpoint}'")
+      b.eval("#{:root_password} = '#{$conf.root_password}'")
+      b.eval("#{:ops_ip} = '#{$conf.ops_ip}'")
+      return ERB.new(File.new("#{$conf.template_dir}/fedora/kickstart.erb").read).result(b)
     rescue Exception => e 
       $conf.log.debug e.message
       return nil
@@ -728,7 +751,7 @@ class Provisioner
     end
   end
 
-end #class Pxe
+end #class Provisioner
 
 
 $prov = Provisioner.new()
@@ -792,6 +815,15 @@ get '/api/deploy/preseed/:hostname' do
   end
 end
 
+get '/api/deploy/kickstart/:hostname' do
+  response = $prov.kickstart(params[:hostname])
+  if ! response.nil?
+    return response
+  else
+    status 404
+  end
+end
+
 get '/api/deploy/callback/:hostname/:signal' do
   response = $prov.callback(params[:hostname], params[:signal], '')
   if ! response.nil?
@@ -811,8 +843,14 @@ post '/api/deploy/callback/:hostname/deployed' do
   end
 end
 
-get '/image/default/:file' do
-  file = File.join($conf.image_dir, params[:file])
+get '/image/ubuntu/:file' do
+  file = File.join("#{$conf.image_dir}/ubuntu", params[:file])
+  puts file
+  send_file( file )
+end
+
+get '/image/fedora/:file' do
+  file = File.join("#{$conf.image_dir}/fedora", params[:file])
   puts file
   send_file( file )
 end

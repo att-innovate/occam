@@ -27,67 +27,23 @@
 #
 # === Authors
 #
-# James Kyle <james@jameskyle.org>
 # Ari Saha <as754m@att.com>
 #
 # === Copyright
 #
-# Copyright 2013 AT&T Foundry, unless otherwise noted.
-class profile::network {
-  case $::osfamily {
-    'Debian':   {
-      include interfaces
-      $interfaces = hiera_hash('interfaces', {})
-      create_resources('interfaces::iface', $interfaces)
-
-      package { 'ifenslave-2.6':
-        ensure => latest,
-      }
-      package { 'vlan':
-        ensure => latest,
-      }
-      package { 'ethtool':
-        ensure => latest,
-      }
-      file { '/etc/modules':
-        ensure => present
-      }->
-      file_line { 'bonding':
-        line   => 'bonding',
-        path   => '/etc/modules',
-      }->
-      file_line { '8021q':
-        line   => '8021q',
-        path   => '/etc/modules',
-      }
-      exec {'restart-networking':
-        command     => '/sbin/ifdown -a && /sbin/ifup -a && sleep 10',
-        subscribe   => File['/etc/network/interfaces'],
-        refreshonly => true,
-      }
-      exec {'bonding':
-        command    => '/sbin/modprobe bonding',
-        unless     => '/sbin/lsmod | /bin/grep bonding',
-      }
-      exec {'vlan':
-        command    => '/sbin/modprobe 8021q',
-        unless     => '/sbin/lsmod | /bin/grep 8021q',
-      }
-    }
-    'RedHat':   {
-      include interfaces
-      $interfaces = hiera_hash('interfaces', {})
-      create_resources('interfaces::iface', $interfaces)
-
-      exec {'restart-networking':
-        command     => '/sbin/ifdown -a && /sbin/ifup -a && sleep 10',
-        subscribe   => File['/etc/network/interfaces'],
-        refreshonly => true,
-      }
-    }
-    default: {
-      alert("Interface configuration on ${::osfamily} systems\
-not yet supported by occam!")
-    }
+# Copyright 2014 AT&T Foundry, unless otherwise noted.
+class profile::network (
+  $hostname                  = undef,
+  $interfaces                = undef,
+  $routes                    = undef,
+  $gateway                   = undef,
+  $hiera_merge               = false,
+){
+  class { '::network':
+    hostname                  => $hostname,
+    interfaces_hash           => $interfaces,
+    routes_hash               => $routes,
+    gateway                   => $gateway,
+    hiera_merge               => $hiera_merge,
   }
 }
