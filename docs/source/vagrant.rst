@@ -13,13 +13,31 @@ Requirements
 
 For the script to work you will need:
 
-* notebook with at least 8GB of RAM (16GB recommended)
-* Virtualbox 4.3
+* Notebook with at least 8GB of RAM (16GB recommended)
+* Virtualbox 4.3 with the VirtualBox Guest Additions 
 * Vagrant 1.6 installed
+* gpg
 * Occam repository
 
 Other versions may work, but these are the latest versions as of the writing of
 this document.
+
+.. Note::
+
+    If you are using VirtualBox, you will need to make sure that you have the VirtualBox Guest Additions installed. You can do so by 
+    running this command in a terminal. 
+
+    .. code-block:: bash
+
+      vagrant plugin install vagrant-vbguest
+
+.. Note::
+
+    If you do not have gpg installed, you need to install it. On a Mac you can for instance do so by using *HomeBrew*:
+
+    .. code-block:: bash
+
+      brew install gpg
 
 
 Obtain the Occam Source & Dependencies
