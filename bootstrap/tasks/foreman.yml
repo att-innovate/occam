@@ -1,0 +1,29 @@
+- name: Install Foreman
+  script: foreman-install.sh creates=/etc/foreman/install_success.txt
+
+- name: Create Testing Domain
+  script: foreman-configure.sh creates=/etc/foreman/configure_success.txt
+
+- name: Create TFTPBoot Directory
+  file: path=/var/lib/tftpboot/boot
+        state=directory
+        mode=0755
+        owner=foreman-proxy
+        group=root
+
+- name: Fetch Discovery Installation Media
+  get_url: url="{{ item.url }}"
+           dest="{{ item.dest }}"
+           sha256sum="{{ item.sha256sum }}"
+
+  with_items:
+    - {
+        url: 'http://downloads.theforeman.org/discovery/releases/latest/foreman-discovery-image-latest.el6.iso-img',
+        dest: '/var/lib/tftpboot/boot/discovery-initrd.img',
+        sha256sum: '6b8e64a97573cba17872d288344372ac3379eb866a4ccf00b6320a11b048d795'
+      }
+    - {
+        url: 'http://downloads.theforeman.org/discovery/releases/latest/foreman-discovery-image-latest.el6.iso-vmlinuz',
+        dest: '/var/lib/tftpboot/boot/discover-vmlinuz',
+        sha256sum: '8d10b2174da46e05ddc1074e6450bd103c6dd571f3c1c8c43892c356e4d8e716'
+      }

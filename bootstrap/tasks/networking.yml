@@ -1,0 +1,27 @@
+- name: Set /etc/hosts
+  lineinfile: dest=/etc/hosts line="192.168.100.10 ops1.zone1.example.com ops1"
+
+- name: Remove Management Interface from Public Zone
+  command: /bin/firewall-cmd --zone=public --remove-interface=eth1 --permanent
+  notify:
+    - restart firewalld
+
+- name: Add Management Interface to Internal Zone
+  command: /bin/firewall-cmd --zone=internal --add-interface=eth1 --permanent
+  notify:
+    - restart firewalld
+
+- name: Configure Internal Firewalld
+  firewalld: service={{ item }} zone=internal permanent=true state=enabled
+  with_items:
+    - https
+    - tftp
+
+  notify:
+    - restart firewalld
+
+- meta: flush_handlers
+
+- name: Wait for networking...
+  command: /bin/sleep 10
+  async: 45

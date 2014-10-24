@@ -1,0 +1,23 @@
+- name: Install r10k
+  gem: name=r10k state=present
+
+- name: Deploy r10k Configuration
+  template: src=r10k.yaml
+            dest=/etc/r10k.yaml
+            owner=root
+            group=root
+            mode=0644
+
+- file: path=/root/bin state=directory owner=root group=root mode=0700
+- file: src=/root/.gem/ruby/gems/r10k-1.3.4/bin/r10k
+        dest=/root/bin/r10k state=link
+
+- name: Wait for networking...
+  command: /bin/sleep 10
+  async: 45
+
+- name: Clear Out Old Environments
+  shell: /bin/rm -rf /etc/puppet/environments/* creates=/etc/puppet/environments/testing
+  
+- name: Fetch Occam Modules And Environments
+  command: /root/.gem/ruby/gems/r10k-1.3.4/bin/r10k deploy environment -p

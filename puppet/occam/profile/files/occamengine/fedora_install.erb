@@ -1,9 +1,0 @@
-#!ipxe
-echo Node: <%= "#{hostname} (#{mac})" %>
-echo Role: <%= role.role %>
-echo State: <%= state %>
-
-sleep 3
-kernel <%= http_endpoint %>/image/fedora/vmlinuz BOOTIF=<%= mac %> ks=<%= http_endpoint %>/api/deploy/kickstart/<%= hostname %> load_ramdisk=1 netcfg/choose_interface=auto priority=critical || goto error
-initrd <%= http_endpoint %>/image/fedora/initrd.img || goto error
-boot

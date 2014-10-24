@@ -1,0 +1,9 @@
+- command: /usr/bin/puppet agent -t
+
+- name: Assign OPS to testing environment
+  command: /bin/hammer host update --name ops1.zone1.example.com --environment testing
+
+- name: Admin Password for Foreman
+  command: /bin/awk '/admin_password/{print $2}' /etc/foreman/foreman-installer-answers.yaml
+  register: foreman_password
+- debug: var=foreman_password.stdout_lines

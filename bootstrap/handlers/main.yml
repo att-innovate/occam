@@ -1,0 +1,4 @@
+---
+# handlers file for bootstrap
+- name: restart firewalld
+  service:  name=firewalld state=restarted

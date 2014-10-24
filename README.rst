@@ -28,60 +28,15 @@ Occam consists of many components, from which most prominent are:
 Where is the documentation?
 ===========================
 
-You can generate exhaustive documentation by running the following commands:
+The full stable branch documentation is available online_. You can generate the most current documentation with sphinx.
 
-1. Install rvm if you do not have it:
+.. code:: bash
 
-   .. code:: bash
+  % pip install -r requirements.txt
+  % make html
+  % open docs/build/html/index.html
 
-     % curl -sSL https://get.rvm.io | bash
 
-2. Install the right ruby version:
-
-   .. code:: bash
-
-     % rvm install ruby-1.8.7
-
-3. Install the necessary gems
-
-   .. code:: bash
-
-     % bundle install
-
-4. Install dependencies for compiling documentation. You can do this globally,
-   but I *strongly* suggest using a virtualenvwrapper_. It's a great way to 
-   keep  your python modules isolated and version pegged. I also recommend pip
-   as it allows you to uninstall packages, install from requirements files, etc.
-
-   Installing virtualenvwrapper:
-
-   .. code:: bash
-
-      % sudo easy_install virtualenvwrapper && pip install virtualenvwrapper
-
-   You'll also need to add something like the following to your shell
-   environment.
-
-   .. code:: bash
-
-      export WORKON_HOME=$HOME/.virtualenvs
-      export PROJECT_HOME=$HOME/Devel
-      source /usr/local/bin/virtualenvwrapper.sh
-
-   Create a virtualenv for occam and install doc dependencies.
-
-   .. code:: bash
-
-      % mkvirtualenv occam
-      % pip install -r doc-requirements.txt
-
-5. Generate the latest documentation
-
-   .. code:: bash
-
-     % rake doc:build
-
-This will generate two HTML files under the *docs* directory: *readme.html* and *quickstart.html*. Please refer to the sections below for details on what you will find in these two files. 
 
 What is in the readme.html?
 ---------------------------

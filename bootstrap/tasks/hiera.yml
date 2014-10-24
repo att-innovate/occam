@@ -1,0 +1,9 @@
+- name: Hiera Configuration
+  copy: src=hiera.yaml
+        dest=/etc/hiera.yaml
+        owner=root
+        group=root
+        mode=0644
+
+- name: Link Hiera Config to Puppet
+  file: src=/etc/hiera.yaml dest=/etc/puppet/hiera.yaml state=link
