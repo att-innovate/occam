@@ -1,8 +1,0 @@
-filter {
-  if [type] == "libvirt" {
-    grok {
-      match => ["message", "%{TIMESTAMP_ISO8601:timestamp}: %{NUMBER:code}: %{LOGLEVEL} : %{GREEDYDATA:message}"]
-      patterns_dir => ['/etc/logstash/patterns']
-    }
-  }
-}

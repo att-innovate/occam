@@ -1,0 +1,29 @@
+- name: Set /etc/hosts
+  lineinfile: dest=/etc/hosts line="{{ management.ip }} ops1.zone1.example.com ops1"
+
+- name: Configure Iptables
+  template: src=iptables.rules
+            dest=/etc/sysconfig/iptables
+            mode=0600
+            owner=root
+            group=root
+  notify:
+    - restart iptables
+
+- name: Enable Iptables Service
+  service: name=iptables state=started enabled=true
+
+- name: Configure Management Interface
+  template: src=ifcfg-mgmt
+            dest="/etc/sysconfig/network-scripts/ifcfg-{{ management.interface }}"
+            mode=0644
+            owner=root
+            group=root
+  notify:
+    - restart networking
+
+- meta: flush_handlers
+
+- name: Wait for networking...
+  command: /bin/sleep 10
+  async: 45

@@ -1,0 +1,13 @@
+- include: repos.yml
+- name: Installing Packages
+  yum: name={{ item.name }} state={{ item.state }}
+  with_items:
+    - { name: 'foreman-installer',      state: 'present' }
+    - { name: 'vim',                    state: 'present' }
+    - { name: 'lsof',                   state: 'present' }
+    - { name: 'git',                    state: 'present' }
+    - { name: 'iptables' ,              state: 'present' }
+    - { name: 'iptables-services',      state: 'present' }
+    - { name: 'libnetfilter_conntrack', state: 'present' }
+    - { name: 'NetworkManager',         state: 'absent' }
+    - { name: 'firewalld',              state: 'absent' }

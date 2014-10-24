@@ -1,0 +1,7 @@
+NM_CONTROLLED=no
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR={{ management.ip }}
+NETMASK={{ management.netmask }}
+DEVICE={{ management.interface }}
+PEERDNS=no

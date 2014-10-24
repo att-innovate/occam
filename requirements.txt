@@ -1,0 +1,3 @@
+Sphinx
+sphinx-rtd-theme
+git+https://github.com/ansible/ansible.git@devel

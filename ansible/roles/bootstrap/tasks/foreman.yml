@@ -1,0 +1,9 @@
+- name: Create Installation Script
+  template: src=foreman-install.sh
+            dest=/usr/local/bin/foreman-install.sh
+            mode=0700
+            owner=root
+            group=root
+
+- name: Install Foreman
+  command: /usr/local/bin/foreman-install.sh creates=/etc/foreman/install_success.txt

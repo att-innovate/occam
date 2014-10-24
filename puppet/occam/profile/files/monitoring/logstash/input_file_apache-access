@@ -1,7 +1,0 @@
-input {
- file {
-  path => ['/var/log/apache2/access.log', '/var/log/nginx/access.log', '/var/log/apache2/other_vhosts_access.log']
-  start_position => "beginning"
-  type => "apache-access"
- }
-}

@@ -12,7 +12,6 @@ tmp
 docs/*.html
 puppet/modules/*
 puppet/apps/*
-Vagrantfile
 junit.xml
 puppet/hiera/apps/*.yaml
 *.tgz

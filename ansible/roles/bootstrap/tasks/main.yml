@@ -1,0 +1,19 @@
+---
+- name: Set selinux to Permissive, cause it breaks all the things
+  command: /sbin/setenforce Permissive
+
+
+# tasks file for bootstrap
+- include: packages.yml
+- include: networking.yml
+- include: foreman.yml
+- include: hiera.yml
+- include: r10k.yml
+- include: finish.yml
+
+
+# - irc: server=irc.freenode.net
+#        channel="#occam"
+#        msg="jkyle finished Occam Test Run"
+#        color="green"
+#        nick="EvilRobotOverlord"

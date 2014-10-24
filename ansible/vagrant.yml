@@ -1,0 +1,4 @@
+# file: playbook.yml
+- hosts: all
+  roles:
+    - bootstrap

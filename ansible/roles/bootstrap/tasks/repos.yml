@@ -1,0 +1,59 @@
+# Configure Repos for theforeman
+
+- name: Configure EPEL Repositories
+  ini_file: dest='{{ item.dest }}'
+            section='{{ item.section}}'
+            option='{{ item.option }}'
+            value='{{ item.value }}'
+  with_items:
+    - {
+        dest: '/etc/yum.repos.d/rhscl-ruby193-epel-7-x86_64.repo',
+        section: 'rhscl-ruby193-epel-7-x86_64',
+        option: 'name',
+        value: 'Ruby193 - epel-7-x86_64'
+      }
+    - {
+        dest: '/etc/yum.repos.d/rhscl-ruby193-epel-7-x86_64.repo',
+        section: 'rhscl-ruby193-epel-7-x86_64',
+        option: 'baseurl',
+        value: 'https://www.softwarecollections.org/repos/rhscl/ruby193/epel-7-x86_64'
+      }
+    - {
+        dest: '/etc/yum.repos.d/rhscl-ruby193-epel-7-x86_64.repo',
+        section: 'rhscl-ruby193-epel-7-x86_64',
+        option: 'enabled',
+        value: 1
+      }
+    - {
+        dest: '/etc/yum.repos.d/rhscl-ruby193-epel-7-x86_64.repo',
+        section: 'rhscl-ruby193-epel-7-x86_64',
+        option: 'gpgcheck',
+        value: 0
+      }
+    - {
+        dest: '/etc/yum.repos.d/rhscl-v8314-epel-7-x86_64.repo',
+        section: 'rhscl-v8314-epel-7-x86_64',
+        option: 'name',
+        value: 'V8314 - epel-7-x86_64'
+      }
+    - {
+        dest: '/etc/yum.repos.d/rhscl-v8314-epel-7-x86_64.repo',
+        section: 'rhscl-v8314-epel-7-x86_64',
+        option: 'baseurl',
+        value: 'https://www.softwarecollections.org/repos/rhscl/v8314/epel-7-x86_64'
+      }
+    - {
+        dest: '/etc/yum.repos.d/rhscl-v8314-epel-7-x86_64.repo',
+        section: 'rhscl-v8314-epel-7-x86_64',
+        option: 'enabled',
+        value: 1
+      }
+    - {
+        dest: '/etc/yum.repos.d/rhscl-v8314-epel-7-x86_64.repo',
+        section: 'rhscl-v8314-epel-7-x86_64',
+        option: 'gpgcheck',
+        value: 0
+      }
+
+- name: Install The Foreman Repo RPM
+  yum: name=http://yum.theforeman.org/releases/1.6/el7/x86_64/foreman-release.rpm

@@ -1,0 +1,13 @@
+- name: Hiera Configuration
+  copy: src=hiera.yaml
+        dest=/etc/hiera.yaml
+        owner=root
+        group=root
+        mode=0644
+
+- name: Puppet Hiera Configuration
+  copy: src=hiera.yaml
+        dest=/etc/puppet/hiera.yaml
+        owner=root
+        group=root
+        mode=0644

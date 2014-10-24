@@ -1,0 +1,24 @@
+---
+# defaults file for bootstrap
+git_repo: "https://github.com/jameskyle/occam-reboot.git"
+domain: zone1.example.com
+puppet_environment: testing
+default_password: drac-ic-vi-un
+
+management:
+  ip: 192.168.100.10
+  forwarder: 172.16.101.2
+  reverse: 100.168.192
+  netmask: 255.255.255.0
+  gateway: 192.168.100.2
+  interface: eth1
+  dns: 192.168.100.10
+  dhcp_begin: 192.168.100.100
+  dhcp_end: 192.168.100.200
+  network: 192.168.100.0
+
+hosts:
+  - name: ctrl1
+    mac: 00:50:56:26:29:68
+    ip: 192.168.100.11
+    subnet: Management
