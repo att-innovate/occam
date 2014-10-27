@@ -1,3 +1,6 @@
+- name: Set selinux to Permissive, cause it breaks all the things
+  command: /sbin/setenforce Permissive
+  
 - command: /usr/bin/puppet agent -t
 
 - name: Assign OPS to testing environment
@@ -6,4 +9,8 @@
 - name: Admin Password for Foreman
   command: /bin/awk '/admin_password/{print $2}' /etc/foreman/foreman-installer-answers.yaml
   register: foreman_password
+  
 - debug: var=foreman_password.stdout_lines
+
+- name: Report what is broken with selinux
+  command: /bin/audit2allow -w -a
