@@ -1,6 +1,13 @@
 - name: Install Foreman
   script: foreman-install.sh creates=/etc/foreman/install_success.txt
 
+- name: Copy Global PXE Template
+  copy: src=pxelinux_global.erb 
+        dest=/tmp/pxelinux_global.erb
+        mode=0644
+        owner=root
+        group=root
+        
 - name: Create Testing Domain
   script: foreman-configure.sh creates=/etc/foreman/configure_success.txt
 
@@ -19,7 +26,7 @@
   with_items:
     - {
         url: 'http://downloads.theforeman.org/discovery/releases/latest/foreman-discovery-image-latest.el6.iso-img',
-        dest: '/var/lib/tftpboot/boot/discovery-initrd.img',
+        dest: '/var/lib/tftpboot/boot/discover-initrd.img',
         sha256sum: '6b8e64a97573cba17872d288344372ac3379eb866a4ccf00b6320a11b048d795'
       }
     - {
