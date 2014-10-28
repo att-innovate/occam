@@ -1,6 +1,7 @@
 - name: Installing Packages
   yum: name={{ item }}
   with_items:
+    - puppet
     - foreman-installer
     - vim
     - lsof
