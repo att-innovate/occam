@@ -12,13 +12,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     t.vm.network "private_network", ip: "192.168.100.10"
 
     t.vm.provider "virtualbox" do |v|
-      v.vm.gui = true
+      v.gui = true
+      v.memory = 4096
+      v.cpus = 4
     end
 
     t.vm.provider "vmware_fusion" do |v|
-      v.vm.gui = true
-      v.vmx["memsize"] = "4096"
-      v.vmx["numvcpus"] = "4"
+      v.gui = true
+      v.memory = 4096
+      v.cpus = 4
     end
 
     config.vm.provision :ansible do |ansible|
