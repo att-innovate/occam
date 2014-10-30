@@ -2,7 +2,6 @@
   yum: name={{ item }}
   with_items:
     - foreman-installer
-    - ruby193-rubygem-foreman_discovery
     - vim
     - lsof
     - git

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <service>
- <short>PuppetMaster</short>
- <description>Puppet Master Service</description>
- <port protocol="tcp" port="8140"/>
+  <short>Puppet Master Service</short>
+  <description>Provides the puppet master service for puppet clients to register and retrieve puppet modules from</description>
+  <port protocol="tcp" port="8140"/>
 </service>

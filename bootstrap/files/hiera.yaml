@@ -1,6 +1,6 @@
 # /etc/hiera.yaml
 # This file created by Ansible.
-#
+# Disable gpg and puppetdb for first run
 ---
 :hierarchy:
   - "secrets/zone1"
@@ -9,15 +9,15 @@
   - "hostgroups/%{::hostgroup}"
   - "common"
 
-:gpg:
-  :key_dir: /etc/puppet/keyrings
-  :datadir: "/etc/puppet/environments/%{::environment}/hiera"
+# :gpg:
+#   :key_dir: /etc/puppet/keyrings
+#   :datadir: "/etc/puppet/environments/%{::environment}/hiera"
 
 :yaml:
   :datadir: "/etc/puppet/environments/%{::environment}/hiera"
 
 
 :backends:
-  - gpg
   - yaml
-  - puppetdb
+  # - gpg
+  # - puppetdb

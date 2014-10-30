@@ -22,7 +22,6 @@
   get_url: url="{{ item.url }}"
            dest="{{ item.dest }}"
            sha256sum="{{ item.sha256sum }}"
-
   with_items:
     - {
         url: 'http://downloads.theforeman.org/discovery/releases/latest/foreman-discovery-image-latest.el6.iso-img',

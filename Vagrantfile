@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     t.vm.provider "vmware_fusion" do |v|
-      v.gui = true
+      v.gui = false
       v.memory = 4096
       v.cpus = 4
     end
