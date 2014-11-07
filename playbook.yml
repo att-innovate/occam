@@ -2,3 +2,5 @@
 - hosts: all
   roles:
     - bootstrap
+  vars_files:
+    - vars_file.yaml

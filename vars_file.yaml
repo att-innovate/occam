@@ -1,0 +1,10 @@
+zone: zone1
+domain: example.com
+ops_mgmt_interface: eth1
+ops_ip: 192.168.122.10
+reverse_dns: 100.168.192.in-addr.arpa
+proxy_dns_forwarder: 172.16.101.2
+mgmt_subnet: 192.168.122.0
+mgmt_gateway: 192.168.122.1
+mgmt_dhcp_range: "192.168.122.100 192.168.122.200"
+puppet_env: testing

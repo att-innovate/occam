@@ -1,5 +1,5 @@
 - name: Set /etc/hosts
-  lineinfile: dest=/etc/hosts line="192.168.100.10 ops1.zone1.example.com ops1"
+  lineinfile: dest=/etc/hosts line="{{  ops_ip }} ops1.{{ zone }}.{{ domain }} ops1"
 
 - name: Copy puppet master service description
   copy: src=puppetmaster.xml 
@@ -12,12 +12,12 @@
 - meta: flush_handlers
 
 - name: Remove Management Interface from Public Zone
-  command: /bin/firewall-cmd --zone=public --remove-interface=eth1 --permanent
+  command: /bin/firewall-cmd --zone=public --remove-interface={{ ops_mgmt_interface }} --permanent
   notify:
     - restart firewalld
 
 - name: Add Management Interface to Internal Zone
-  command: /bin/firewall-cmd --zone=internal --add-interface=eth1 --permanent
+  command: /bin/firewall-cmd --zone=internal --add-interface={{ ops_mgmt_interface }} --permanent
   notify:
     - restart firewalld
 

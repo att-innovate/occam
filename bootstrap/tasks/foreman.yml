@@ -1,5 +1,13 @@
+- name: Get OAuth Secret 
+  shell: awk '/oauth_consumer_secret/{print $2}' /etc/foreman/settings.yaml
+  register: consumer_secret
+
+- name: Get OAuth Key
+  shell: awk '/oauth_consumer_key/{print $2}' /etc/foreman/settings.yaml
+  register: consumer_key
+
 - name: Install Foreman
-  script: foreman-install.sh creates=/etc/foreman/install_success.txt
+  command: foreman-installer --puppet-server-facts=true  --enable-foreman-proxy   --foreman-proxy-tftp=true   --foreman-proxy-tftp-servername={{ ops_ip }}  --foreman-proxy-dhcp=true  --foreman-proxy-dhcp-interface={{ ops_mgmt_interface }}   --foreman-proxy-dhcp-gateway={{ mgmt_gateway }}  --foreman-proxy-dhcp-range="{{ mgmt_dhcp_range }}"   --foreman-proxy-dhcp-nameservers="{{ ops_ip }}"   --foreman-proxy-dns=true   --foreman-proxy-dns-interface={{ ops_mgmt_interface }}  --foreman-proxy-dns-zone={{ zone }}.{{ domain }}   --foreman-proxy-dns-reverse={{ reverse_dns }}  --foreman-proxy-dns-forwarders={{ proxy_dns_forwarder }}  --foreman-proxy-foreman-base-url=https://ops1.{{ zone }}.{{ domain }}  --foreman-proxy-oauth-consumer-key={{ consumer_key.stdout }}  --foreman-proxy-oauth-consumer-secret={{ consumer_secret.stdout }} --puppet-server-environments {{ puppet_env }}
 
 - name: Copy Global PXE Template
   copy: src=pxelinux_global.erb 
