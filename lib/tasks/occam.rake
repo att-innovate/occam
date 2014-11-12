@@ -60,6 +60,7 @@ namespace :occam do
   task :deploy_initial, [:server, :port]  => [
     'tmp',
     'occam:clean',
+    'occam:init',    
     'apps:init',
     'occam:prepare_archive'
   ] do |t, args|

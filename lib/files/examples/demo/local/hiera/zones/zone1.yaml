@@ -63,6 +63,8 @@ mgmt_network: '192.168.3.0/24'
 mgmt_ctrl_ip: '192.168.3.11'
 # Public IP address of controller
 pub_ctrl_ip: '192.168.4.11'
+# MGMT VIP address of controller
+mgmt_ctrl_vip: '192.168.3.12'
 # Hosts allowed to communicate with controller
 profile::openstack::controller::allowed_hosts:
   - '127.0.0.%'
