@@ -87,7 +87,7 @@ mod 'puppi',
 
 mod 'rabbitmq',
   :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
-  :ref => 'a3f136eaf8cce59e63728017a47137e6c9520a6f'
+  :ref => '61991d76cda34c7af5c98ceb53666a0a2b57fda7'
 
 mod 'ruby',
   :git => 'https://github.com/puppetlabs/puppetlabs-ruby',
