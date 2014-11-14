@@ -1,3 +1,6 @@
+- name: Foreman installer (pre-run) 
+  shell: foreman-installer --foreman-configure-scl-repo=false --enable-foreman-plugin-puppetdb
+
 - name: Get OAuth Secret 
   shell: awk '/oauth_consumer_secret/{print $2}' /etc/foreman/settings.yaml
   register: consumer_secret
@@ -16,8 +19,23 @@
         owner=root
         group=root
         
-- name: Create Testing Domain
-  script: foreman-configure.sh creates=/etc/foreman/configure_success.txt
+- name: Discover testing environment
+  shell: /bin/hammer environment info --name testing
+  register: test_env_exists
+  ignore_errors: True
+
+- name: Discover development environment
+  shell: /bin/hammer environment info --name develop
+  register: dev_env_exists
+  ignore_errors: True
+
+- name: Create Testing environment
+  command: /bin/hammer environment create --name testing
+  when: test_env_exists|failed
+
+- name: Create Development environment
+  command: /bin/hammer environment create --name develop
+  when: dev_env_exists|failed
 
 - name: Create TFTPBoot Directory
   file: path=/var/lib/tftpboot/boot
