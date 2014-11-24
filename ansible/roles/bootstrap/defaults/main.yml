@@ -17,6 +17,9 @@ management:
   dhcp_end: 192.168.100.200
   network: 192.168.100.0
 
+
+hosts_model: VMware
+
 hosts:
   - name: ctrl1
     mac: 00:50:56:26:29:68

@@ -1,0 +1,22 @@
+---
+- hosts: ops1.met.tfoundry.com
+  remote_user: root
+  roles:
+    - bootstrap
+  vars:
+    git_repo: "https://github.com/jameskyle/occam-reboot.git"
+    domain: met.tfoundry.com
+    puppet_environment: testing
+    management:
+      ip: 10.250.3.97
+      forwarder: 10.250.3.5
+      reverse: 250.10
+      netmask: 255.255.0.0
+      gateway: 10.250.1.1
+      interface: em1
+      dns: 10.250.3.97
+      dhcp_begin: 10.250.3.200
+      dhcp_end: 10.250.3.250
+      network: 10.250.0.0
+    hosts_model: R720xd
+    hosts: []

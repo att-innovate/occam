@@ -7,13 +7,10 @@
   ignore_errors: yes
 
 - name: Assign OPS to testing environment
-  command: /bin/hammer host update --name ops1.zone1.example.com --environment testing
+  command: /bin/hammer host update --name ops1.{{ domain }} --environment testing
 
 - name: Admin Password for Foreman
   command: /bin/awk '/admin_password/{print $2}' /etc/foreman/foreman-installer-answers.yaml
   register: foreman_password
 
 - debug: var=foreman_password.stdout_lines
-
-- name: Report what is broken with selinux
-  command: /bin/audit2allow -w -a

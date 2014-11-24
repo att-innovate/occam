@@ -1,7 +1,11 @@
 #!/bin/bash
 set -ex
 
-HAMMER=/bin/hammer
+HAMMER=`which hammer`
+
+if [[ -z $HAMMER ]]; then
+    HAMMER=/usr/bin/hammer
+fi
 
 function update_vars() {
     if [ -z $provision ];then
@@ -26,7 +30,7 @@ function update_vars() {
         osid=`${HAMMER} os list | awk '/Ubuntu 12.04/{print $1}'`
     fi
     if [[ -z $model ]]; then
-        model=`${HAMMER} model list | awk '/VMware/{print $1}'`
+        model=`${HAMMER} model list | awk '/{{ hosts_model }}/{print $1}'`
     fi
     if [[ -z $proxy ]]; then
         proxy=`${HAMMER} proxy list | awk '/ops1.{{ domain }}/{print $1}'`
@@ -194,6 +198,14 @@ function install() {
       --foreman-proxy-oauth-consumer-secret=${consumer_secret}
 
     systemctl restart httpd
+    
+    update_vars
+    
+    # Set to production environment for initial checkin
+    host=`hostname`
+    hostid=`get_host_id $host`
+
+    ${HAMMER} host update --id $hostid --environment production
 
     # Initial puppet checkin
     puppet agent -t

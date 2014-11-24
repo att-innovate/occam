@@ -2,6 +2,7 @@
 - name: Installing Packages
   yum: name={{ item.name }} state={{ item.state }}
   with_items:
+    - { name: "http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm", state: 'present' }
     - { name: 'foreman-installer',      state: 'present' }
     - { name: 'vim',                    state: 'present' }
     - { name: 'lsof',                   state: 'present' }
