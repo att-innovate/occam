@@ -1,0 +1,9 @@
+NM_CONTROLLED={{ item.value.nm_controlled }}
+DEVICE="{{ item.key }}"
+ONBOOT={{ item.value.onboot }}
+NETBOOT={{ item.value.netboot }}
+IPV6INIT={{ item.value.ipv6 }}
+PEERDNS={{ item.value.peerdns }}
+BOOTPROTO=dhcp
+TYPE=Ethernet
+NAME="{{ item.key }}"

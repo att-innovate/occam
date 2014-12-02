@@ -11,13 +11,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     t.vm.box = "jkyle/centos-7.0-x86_64"
 
     t.vm.provider "virtualbox" do |v|
-      v.gui = true
+      v.gui = false
       v.memory = 2048
       v.cpus = 2
     end
 
     t.vm.provider "vmware_fusion" do |v|
-      v.gui = true
+      v.gui = false
       v.memory = 2048
       v.cpus = 2
       v.vmx["ethernet1.connectiontype"] = "custom"

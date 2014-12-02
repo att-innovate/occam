@@ -13,12 +13,23 @@
 - name: Enable Iptables Service
   service: name=iptables state=started enabled=true
 
-- name: Configure Management Interface
-  template: src=ifcfg-mgmt
-            dest="/etc/sysconfig/network-scripts/ifcfg-{{ management.interface }}"
+- name: Configure Static Interfaces
+  template: src=ifcfg-static
+            dest="/etc/sysconfig/network-scripts/ifcfg-{{ item.key }}"
             mode=0644
             owner=root
             group=root
+  with_dict: interfaces.static
+  notify:
+    - restart networking
+
+- name: Configure DHCP Interfaces
+  template: src=ifcfg-dhcp
+            dest="/etc/sysconfig/network-scripts/ifcfg-{{ item.key }}"
+            mode=0644
+            owner=root
+            group=root
+  with_dict: interfaces.dhcp
   notify:
     - restart networking
 

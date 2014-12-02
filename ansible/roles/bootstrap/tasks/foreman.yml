@@ -7,3 +7,12 @@
 
 - name: Install Foreman
   command: /usr/local/bin/foreman-install.sh creates=/etc/foreman/install_success.txt
+
+# Use the new dns server
+- name: Set resolv.conf
+  template: src=resolv.conf 
+            dest=/etc/resolv.conf 
+            mode=0644 
+            owner=root 
+            group=root
+

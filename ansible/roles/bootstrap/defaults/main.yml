@@ -5,9 +5,27 @@ domain: zone1.example.com
 puppet_environment: testing
 default_password: drac-ic-vi-un
 
+interfaces:
+  dhcp:
+    eth0:
+      onboot: "yes"
+      netboot: "yes"
+      ipv6: "yes"
+      peerdns: "no"
+      nm_controlled: "no"
+  static:
+    eth1:
+      ip: 192.168.100.10
+      forwarder: 8.8.8.8
+      dns1: 192.168.100.10
+      peerdns: "no"
+      nm_controlled: "no"
+      onboot: "yes"
+      netmask: 255.255.255.0
+      
 management:
   ip: 192.168.100.10
-  forwarder: 172.16.101.2
+  forwarder: 8.8.8.8
   reverse: 100.168.192
   netmask: 255.255.255.0
   gateway: 192.168.100.2

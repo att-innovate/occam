@@ -1,0 +1,11 @@
+NM_CONTROLLED={{ item.value.nm_controlled }}
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR={{ item.value.ip }}
+NETMASK={{ item.value.netmask }}
+DEVICE={{ item.key }}
+PEERDNS={{ item.value.peerdns }}
+{% if item.value.dns1 %}
+DNS1={{ item.value.dns1 }}
+{% endif %}
+DOMAIN={{ domain }}

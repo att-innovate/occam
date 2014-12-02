@@ -1,13 +1,14 @@
 #!/bin/bash
 set -ex
 
-HAMMER=`which hammer`
-
 if [[ -z $HAMMER ]]; then
     HAMMER=/usr/bin/hammer
 fi
 
 function update_vars() {
+    if [[ ! -e $HAMMER ]]; then
+        HAMMER=`which hammer`
+    fi
     if [ -z $provision ];then
         provision=`${HAMMER} template list --search preseed | awk '/Preseed default.*provision/{print $1}'`
     fi
@@ -48,6 +49,7 @@ function environment() {
   if ! ${HAMMER} environment info --name $1 > /dev/null 2>&1 ;then
     echo "Creating $1 environment ...."
     ${HAMMER} environment create --name $1
+    mkdir -p /etc/puppet/environments/$1
   fi
 }
 
@@ -200,15 +202,16 @@ function install() {
     systemctl restart httpd
     
     update_vars
-    
     # Set to production environment for initial checkin
     host=`hostname`
     hostid=`get_host_id $host`
+    
+    if [[ -z $hostid ]]; then
+        # this means the host has not yet checked in
+        # Initial puppet checkin
+        puppet agent -t || true
+    fi
 
-    ${HAMMER} host update --id $hostid --environment production
-
-    # Initial puppet checkin
-    puppet agent -t
 
     sed -i 's|environment\s*= production|environment       = {{ puppet_environment }}|g' /etc/puppet/puppet.conf
     sed -i 's|$confdir/hiera.yaml|/etc/puppet/hiera.yaml|g' /etc/puppet/puppet.conf
@@ -218,8 +221,8 @@ function install() {
 
 
 function main() {
-    update_vars
     install
+    update_vars
     environment develop
     environment {{ puppet_environment }}
     domain

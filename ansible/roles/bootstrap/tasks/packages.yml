@@ -11,4 +11,5 @@
     - { name: 'iptables-services',      state: 'present' }
     - { name: 'libnetfilter_conntrack', state: 'present' }
     - { name: 'NetworkManager',         state: 'absent' }
+    - { name: 'NetworkManager-glib',    state: 'absent' }
     - { name: 'firewalld',              state: 'absent' }
