@@ -1,7 +1,7 @@
 - include: repos.yml
 
 - name: Stop NetworkManager
-  command: /bin/systemctl stop NetworkManager
+  command: /bin/systemctl stop NetworkManager removes=/usr/sbin/NetworkManager
   
 - name: Installing Packages
   yum: name={{ item.name }} state={{ item.state }}
