@@ -14,6 +14,12 @@
     - { name: 'iptables' ,              state: 'present' }
     - { name: 'iptables-services',      state: 'present' }
     - { name: 'libnetfilter_conntrack', state: 'present' }
-    - { name: 'NetworkManager',         state: 'absent' }
-    - { name: 'NetworkManager-glib',    state: 'absent' }
-    - { name: 'firewalld',              state: 'absent' }
+    - { name: 'NetworkManager',         state: 'absent'  }
+    - { name: 'NetworkManager-glib',    state: 'absent'  }
+    - { name: 'firewalld',              state: 'absent'  }
+ 
+- name: Installing Gems
+  gem: name={{ item }} state=present user_install=no
+  with_items:
+    - r10k
+    - hiera-eyaml

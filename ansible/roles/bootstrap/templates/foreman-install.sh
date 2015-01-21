@@ -1,5 +1,8 @@
 #!/bin/bash
 set -ex
+UBUNTU_MAJOR=14
+UBUNTU_MINOR=04
+UBUNTU="Ubuntu ${UBUNTU_MAJOR}.${UBUNTU_MINOR}"
 
 if [[ -z $HAMMER ]]; then
     HAMMER=/usr/bin/hammer
@@ -28,7 +31,8 @@ function update_vars() {
         medium=`${HAMMER} medium list | awk '/Ubuntu mirror/{print $1}'`
     fi
     if [[ -z $osid ]]; then
-        osid=`${HAMMER} os list | awk '/Ubuntu 12.04/{print $1}'`
+        # Trying to use a variable for the awk // just didn't work
+        osid=`${HAMMER} os list | awk '/Ubuntu 14.04/{print $1}'`
     fi
     if [[ -z $model ]]; then
         model=`${HAMMER} model list | awk '/{{ hosts_model }}/{print $1}'`
@@ -85,13 +89,13 @@ function domain() {
 }
 
 function oscreate() {
-    if ! ${HAMMER} os list | grep "Ubuntu 12.04";then
-      ${HAMMER} os create --description "Ubuntu 12.04" \
+    if ! ${HAMMER} os list | grep "${UBUNTU}";then
+      ${HAMMER} os create --description "${UBUNTU}" \
                           --family Debian \
-                          --major 12 \
-                          --minor 04 \
+                          --major ${UBUNTU_MAJOR} \
+                          --minor ${UBUNTU_MINOR} \
                           --name Ubuntu \
-                          --release-name precise
+                          --release-name trusty
     fi
 
     update_vars

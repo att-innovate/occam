@@ -1,10 +1,3 @@
-- name: Install r10k
-  gem: name=r10k version=1.3.4 state=present
-
-- name: Register r10k path
-  shell: gem contents r10k | grep bin
-  register: r10k_path
-
 - name: Deploy r10k Configuration
   template: src=r10k.yaml
             dest=/etc/r10k.yaml
@@ -12,11 +5,8 @@
             group=root
             mode=0644
 
-- file: path=/root/bin state=directory owner=root group=root mode=0700
-- file: src="{{ r10k_path.stdout }}" dest=/root/bin/r10k state=link
-
 - name: Clear Out Old Environments
   shell: /bin/rm -rf /etc/puppet/environments/* creates=/etc/puppet/environments/testing/.git
 
 - name: Fetch Occam Modules And Environments
-  command: "{{ r10k_path.stdout }} deploy environment -p"
+  command: "/usr/local/bin/r10k deploy environment -p"

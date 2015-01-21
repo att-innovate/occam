@@ -1,5 +1,9 @@
 ---
 # defaults file for bootstrap
+rpm_url: http://drop.att.io
+eyaml_rpm: rubygem-hiera-eyaml-2.0.6-1.noarch.rpm
+trollop_rpm: rubygem-trollop-2.1.1-1.noarch.rpm
+
 git_repo: "https://github.com/jameskyle/occam-reboot.git"
 domain: zone1.example.com
 puppet_environment: testing

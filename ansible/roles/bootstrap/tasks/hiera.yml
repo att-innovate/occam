@@ -1,3 +1,23 @@
+- name: Create hiera-eyaml Keys Directory
+  file: path={{ item }}
+        state=directory
+        owner=puppet
+        group=puppet
+        mode=0700
+  with_items:
+    - /etc/puppet/secure
+    - /etc/puppet/secure/keys
+
+- name: Copy Keys
+  copy: src={{ item }}
+        dest=/etc/puppet/secure/keys/{{ item }}
+        owner=puppet
+        group=puppet
+        mode=0600
+  with_items:
+    - public.pem
+    - private.pem
+
 - name: Hiera Configuration
   copy: src=hiera.yaml
         dest=/etc/hiera.yaml
@@ -11,3 +31,5 @@
         owner=root
         group=root
         mode=0644
+  notify:
+    - restart httpd

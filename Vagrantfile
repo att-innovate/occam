@@ -4,6 +4,8 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+HOST_INTERFACE = ENV['VAGRANT_HOST_INTERFACE'] || "vmnet2"
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define :ops1 do |t|
     config.vm.hostname = "ops1.zone1.example.com"
@@ -23,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.vmx["ethernet1.connectiontype"] = "custom"
       v.vmx["ethernet1.present"] = "TRUE"
       v.vmx["ethernet1.virtualdev"] = "e1000"
-      v.vmx["ethernet1.vnet"] = "vmnet2"
+      v.vmx["ethernet1.vnet"] = HOST_INTERFACE
     end
 
     config.vm.provision :ansible do |ansible|
@@ -34,6 +36,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :ctrl1 do |t|
     config.vm.hostname = "ctrl1.zone1.example.com"
+    config.ssh.username = "root"
+    config.ssh.password = "drac-ic-vi-un"
+
     config.vm.boot_timeout = 900
     t.vm.synced_folder ".", "/vagrant"
     t.vm.box = "jkyle/blank-amd64"
@@ -50,7 +55,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.vmx["ethernet1.pciSlotNumber"] = "34"
       v.vmx["ethernet1.present"] = "TRUE"
       v.vmx["ethernet1.virtualDev"] = "e1000"
-      v.vmx["ethernet1.vnet"] = "vmnet2"
+      v.vmx["ethernet1.vnet"] = HOST_INTERFACE
     end
   end
 end

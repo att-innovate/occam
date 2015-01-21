@@ -9,15 +9,17 @@
   - "hostgroups/%{::hostgroup}"
   - "common"
 
-# :gpg:
-#   :key_dir: /etc/puppet/keyrings
-#   :datadir: "/etc/puppet/environments/%{::environment}/hiera"
+:eyaml:
+  :datadir: "/etc/puppet/environments/%{::environment}/hiera"
+  :pkcs7_private_key: /etc/puppet/secure/keys/private.pem
+  :pkcs7_public_key: /etc/puppet/secure/keys/public.pem
+  :extension: 'yaml'
 
 :yaml:
   :datadir: "/etc/puppet/environments/%{::environment}/hiera"
 
 
 :backends:
+  - eyaml
   - yaml
-  # - gpg
-  # - puppetdb
+  - puppetdb
