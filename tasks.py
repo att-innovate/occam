@@ -31,6 +31,7 @@ VAGRANT_VERSION = LooseVersion('1.7.2')
 
 @task
 def build_docs():
+    """Build documentation."""
     old_cwd = os.getcwd()
     os.chdir("docs")
     run("make html")
@@ -38,6 +39,7 @@ def build_docs():
 
 @task
 def clean_docs():
+    """Clean all generated documentation files."""
     old_cwd = os.getcwd()
     os.chdir("docs")
     run("make clean")
@@ -45,6 +47,7 @@ def clean_docs():
 
 @task
 def validate(provider="vmware"):
+    """Validate the working environment."""
     try:
         result = run("vagrant --version", hide=True)
         version = LooseVersion(result.stdout.split()[1].rstrip())
@@ -84,16 +87,35 @@ def validate(provider="vmware"):
         else:
             print("Found VMware version %s....OK" % version)
 
+@task(validate)
+def demo_start():
+    """Create the demo environment."""
+    run("vagrant up ops1")
+
+@task
+def demo_destroy():
+    """Destroy the demo environment."""
+    run("vagrant destroy ops1 --force")
+
 @task
 def test():
+    """Run tests."""
     run("py.test")
 
 
 
 docs = Collection('docs')
+demo = Collection('demo')
+
 docs.add_task(build_docs, 'build')
 docs.add_task(clean_docs, 'clean')
+
+demo.add_task(demo_start, 'start')
+demo.add_task(demo_destroy, 'destroy')
+
 namespace = Collection()
 namespace.add_collection(docs)
+namespace.add_collection(demo)
+
 namespace.add_task(validate)
 namespace.add_task(test)
