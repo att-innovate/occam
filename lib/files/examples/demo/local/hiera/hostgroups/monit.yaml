@@ -1,7 +1,0 @@
-profile::network::interfaces:
-  lo:
-   method: 'loopback'
-
-  eth0:
-   method: 'dhcp'
-

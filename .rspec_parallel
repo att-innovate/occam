@@ -1,2 +1,0 @@
---no-drb -r rspec_junit_formatter --format RspecJunitFormatter
--o junit<%= ENV['TEST_ENV_NUMBER'] %>.xml --format Fuubar --color spec

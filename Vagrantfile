@@ -42,6 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.boot_timeout = 900
     t.vm.synced_folder ".", "/vagrant"
     t.vm.box = "jkyle/blank-amd64"
+    t.vm.network "private_network", ip: "192.168.100.11", auto_config: false
 
     t.vm.provider "vmware_fusion" do |v|
       v.gui = true

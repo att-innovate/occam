@@ -16,3 +16,4 @@ junit.xml
 puppet/hiera/apps/*.yaml
 *.tgz
 docs/build/
+*.pyc
