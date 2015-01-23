@@ -74,8 +74,17 @@ To validate the required tools are installed and can be found
     % inv validate
 
 You should receive an 'OK' or a 'FAIL' for each check. All 'FAIL' returns
-should be resolved or demo environment may not work.
+should be resolved or demo environment may not work. A fully passing validation
+might look something like this
 
+.. code::
+
+    Vagrant is found in path...OK
+    Vagrant version is 1.7.2 or greater...OK
+    Checking for ops1.zone1.example.com /etc/hosts entry...OK
+    Found custom demo net 192.168.100.0...OK
+    Custom net DHCP is disabled...OK
+    Checking VMware version 6.0 or greater...OK
 
 Start a Demo Enviroment
 -----------------------
