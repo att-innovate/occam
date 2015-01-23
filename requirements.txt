@@ -1,7 +1,8 @@
 Sphinx
 sphinx-rtd-theme
 git+https://github.com/ansible/ansible.git@devel
+git+https://github.com/jameskyle/vmfusion-python.git@master
 invoke
 pytest
 PyYAML
-vmfusion
+ansicolors
