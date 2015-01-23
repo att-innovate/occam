@@ -23,11 +23,13 @@
 ###############################################################################
 import os
 from invoke import Collection, run, task
+from invoke.exceptions import Failure
 from distutils.version import LooseVersion
 
 VIRTUALBOX_VERSION = LooseVersion('4.3')
 VMWARE_VERSION = LooseVersion('6.0')
 VAGRANT_VERSION = LooseVersion('1.7.2')
+VMWARE_NETWORK_FILE = "/Library/Preferences/VMware Fusion/networking"
 
 @task
 def build_docs():
@@ -48,16 +50,17 @@ def clean_docs():
 @task
 def validate(provider="vmware"):
     """Validate the working environment."""
+
     try:
-        result = run("vagrant --version", hide=True)
+        result = run("vagrant --version 2>&1", hide=True)
         version = LooseVersion(result.stdout.split()[1].rstrip())
         if VAGRANT_VERSION > version:
             msg = "Detected vagrant %s, suggested %s or greater"
             print(msg % (version, VMWARE_VERSION))
         else:
             print("Found Vagrant version %s....OK" % version)
-    except:
-        print("Could not find vagrant!")
+    except Failure as e:
+        print("Vagrant failed with error: %s" % e.result.stdout)
 
 
     if provider == "virtualbox":
@@ -86,6 +89,7 @@ def validate(provider="vmware"):
             print(msg % (version, VMWARE_VERSION))
         else:
             print("Found VMware version %s....OK" % version)
+
 
 @task(validate)
 def demo_start():
