@@ -34,6 +34,8 @@ VMWARE_VERSION = LooseVersion('6.0')
 VAGRANT_VERSION = LooseVersion('1.7.2')
 VMWARE_NETWORK_FILE = "/Library/Preferences/VMware Fusion/networking"
 DEMO_SUBNET = "192.168.100.0"
+OPS_FQDN = "ops1.zone1.example.com"
+OPS_IP = "192.168.100.10"
 
 @task
 def build_docs():
@@ -118,7 +120,6 @@ def validate_vmware():
     else:
         print(green("OK"))
 
-
 def validate_virtualbox():
     try:
         result = run("VBoxManage --version 2>&1", hide=True)
@@ -131,6 +132,25 @@ def validate_virtualbox():
     except:
         print(red("Could not find VBoxManage command!"))
 
+def check_hosts():
+    msg = "Checking for {0} /etc/hosts entry...".format(OPS_FQDN)
+    sys.stdout.write(green(msg))
+    failed = True
+
+    try:
+        cmd = "awk '/{0}/{{print $1}}' /etc/hosts".format(OPS_FQDN)
+        result = run(cmd, hide=True)
+        if result.stdout.rstrip() == OPS_IP:
+            print(green("OK"))
+            failed = False
+        else:
+            print(red("FAIL"))
+    except:
+        print(red("FAIL"))
+
+    if failed:
+        print(red("Please create a /etc/hosts entry: "))
+        print("\t{0} {1}".format(OPS_IP, OPS_FQDN))
 
 def rvm_warning():
     path = os.path.join(os.path.expanduser("~"), ".rvm")
@@ -147,6 +167,7 @@ def validate(provider="vmware"):
     """Validate the working environment."""
     rvm_warning()
     validate_vagrant()
+    check_hosts()
 
     if provider == "virtualbox":
         validate_virtualbox()

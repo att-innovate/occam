@@ -1,63 +1,108 @@
-==============
-What is Occam?
-==============
+================
+Occam Quickstart
+================
 
-*Last updated:* 2014-09-05
+:Authors: James A. Kyle
+:Date: 2015-01-23
 
-The AT&T Foundry currently runs a number of diverse infrastructure projects in various sections - such as Compute, Storage, and PaaS frameworks - which all have vastly varying demands. To be able meet these demands, it was necessary to develop our own solution for automation, orchestration, hardware abstraction and provisioning. 
+Introduction
+============
 
-Our ultimate goal was to build a framework with excellent code quality, inline with industry standards and includes the obligatory abstraction layers. It was essential to make sure our development process introduces best practices for how all services included in the framework as we test various compositions as well as evaluate various underlying technologies. The result of this work is a framework called *Occam*, which is a complete automation, orchestration, and development framework to manage your infrastructure and services you run on top. 
+Occam is a framework for deploying `Foreman`_ manged puppet infrastructure. It
+uses `Ansible`_ for the initial bootstrapping of a Foreman ops server and
+`r10k`_ for managing puppet environments.
 
-Occam has been confirmed to be working with a number of infrastructure applications. These applications are self-contained entities that can be easily installed inside the Occam core. You can for instance, using the `OpenStack Havana Cloud Application`_ and `Occam`_, deploy many separated Havana clouds - so called *zones* - with completely different configurations. 
+By default, the project is configured to deploy the occam openstack
+environments, but is easily configured for any arbitrary set of puppet modules.
 
-Occam is built using Puppet and using the proven development workflow consisting of Gitflow, continuous integration and Test-Driven Development (puppet-lint, spec). We wanted to make sure that the various zones have been brought up with integrity why Tempest was also introduced. To properly monitor and test performance irrespectively of configuration of the zone we also introduced benchmark tests.
+Dependencies
+============
 
-The Puppet orchestration layer is following the well-known role/profile paradigm, which allows us to abstract all local changes and keep the original modules unmodified and intact. This does not only let us take advantage of the efforts within the larger community, but also easily & promptly upgrade all components. It also allows us to introduce new and old components as we evaluate them. 
+Required
+--------
 
-The target deployment zone can easily be configured using Hiera configuration files, which optionally can be encrypted using GPG to allow for better security on deployed versions of the zone, yet allow development to be more seamless. 
+In addition to the dependencies listed in ``requirements.txt``, you also need
+the following if you wish to run the demo environment
 
-We have also included a Vagrant configuration to allow for seamless local development.
+- VMware >= 6.0
+- Vagrant >= 1.7.2
+- VMware Vagrant Plugin
 
-Occam consists of many components, from which most prominent are:
-
-* Puppet + hiera + mcollective for automation and orchestration
-* Occamengine for bare metal provisioning and external node classification (ENC)
-* Logstash + Elasticsearch + Kibana for log collection and analysis
-* Zabbix for monitoring
-
-Where is the documentation?
-===========================
-
-The full stable branch documentation is available online_. You can generate the most current documentation with sphinx.
-
-.. code:: bash
-
-  % pip install -r requirements.txt
-  % make html
-  % open docs/build/html/index.html
+.. note::  Virtualbox support is being worked on.
 
 
+Recommended
+-----------
 
-What is in the readme.html?
----------------------------
+The following tools are recommended, but not required. Their usage is beyond
+the scope of this document, but will make your life easier. Think kittens and
+puppies, cold beer and bbq rather than stubbed toes and hangnails.
 
-The *docs/build/htmls/README.html* file contains an exhaustive documentation of *Occam*. 
+- `pip`_
+- `virtualenvwrapper`_
 
-.. code:: bash
+Installation
+------------
 
-  % open docs/build/html/README.html
-  
-*Note:* If you would like to just try it out locally using Vagrant, you will within this file instructions for how to do so.
+Install all python dependencies.
 
-What is in the quickstart.html?
--------------------------------
+Using pip.
 
-The *docs/build/htmls/quickstart.html* file contains a quickstart tutorial for how to get an Havana cloud up and running on bare metal nodes using *Occam*. 
+.. code::
 
-.. code:: bash
+    % pip install -r requirements.txt
 
-  % open docs/build/htmls/quickstart.html
+Using easy_install.
 
+.. code::
+    
+    % easy_install `cat requirements.txt`
+
+.. note:: Depending on your setup, you may need to run as administrator.
+    
+
+Demo Environment
+================
+
+Validate
+--------
+
+To validate the required tools are installed and can be found
+
+.. code::
+
+    % inv validate
+
+You should receive an 'OK' or a 'FAIL' for each check. All 'FAIL' returns
+should be resolved or demo environment may not work.
+
+
+Start a Demo Enviroment
+-----------------------
+
+To start the demo environment.
+
+.. code::
+
+    % inv demo.start
+
+
+When the ops node has finished provisioning, the password to the foreman server
+is printed to stdout. It should look something like
+
+.. code::
+
+    TASK: [bootstrap | debug var=foreman_password.stdout_lines] *******************
+    ok: [ops1] => {
+        "var": {
+            "foreman_password.stdout_lines": [
+                "fwmKPmVrpZn2AKoX"
+            ]
+        }
+    }
+
+Username `admin` and this password can be used to login to the foreman server at 
+`https://ops1.zone1.example.com`_.
 
 Community, discussion and support
 =================================
@@ -83,4 +128,9 @@ Authors & Contributors
 .. _`OpenStack Havana Cloud Application`: http://github.com/att-innovate/occam-havana-cloud
 .. _`Occam`: http://github.com/att-innovate/occam
 .. _`#occam`: http://webchat.freenode.net/?channels=occam
-.. _virtualenvwrapper: http://virtualenvwrapper.readthedocs.org/en/latest/
+.. _`Foreman`: http://theforeman.org/
+.. _`Ansible`: http://www.ansible.com/home
+.. _`r10k`: https://github.com/adrienthebo/r10k
+.. _`pip`: https://pip.pypa.io/en/latest/
+.. _`virtualenvwrapper`: https://virtualenvwrapper.readthedocs.org/en/latest/
+.. _`https://ops1.zone1.example.com`: https://ops1.zone1.example.com
