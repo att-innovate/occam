@@ -13,4 +13,11 @@
   command: /bin/awk '/admin_password/{print $2}' /etc/foreman/foreman-installer-answers.yaml
   register: foreman_password
 
-- debug: var=foreman_password.stdout_lines
+# This probably needs to determine the proxy id, but for current env.s there's
+# only one proxy
+- name: Import Puppet Classes from Proxy
+  command: /bin/curl -k --user 'admin:{{ foreman_password.stdout }}' -X POST https://ops1.{{ domain }}/api/smart_proxies/1/import_puppetclasses
+  async: 600
+  poll: 30
+
+- debug: var=foreman_password.stdout

@@ -223,6 +223,16 @@ function install() {
 
 }
 
+function ignore_puppet_facts_for_provisioning() {
+    answers=/etc/foreman/foreman-installer-answers.yaml
+    password=`/bin/awk '/admin_password/{print $2}' $answers`
+    url="https://ops1.{{ domain }}/api/settings/31?setting%5Bvalue%5D=true&id=setting_31" 
+    curl --user "admin:$password" -X PUT -k $url
+}
+
+function configure_ops() {
+    ${HAMMER} host update --hostgroup ops1.{{ domain }} --name ops1.{{ domain }}
+}
 
 function main() {
     install
@@ -237,6 +247,9 @@ function main() {
     {% for host in hosts %}
     create_host {{ host.name }} {{ host.mac }} {{ host.ip }} {{ host.subnet }}
     {% endfor %}
+    
+    ignore_puppet_facts_for_provisioning
+    configure_ops
 
     touch /etc/foreman/install_success.txt
 }
