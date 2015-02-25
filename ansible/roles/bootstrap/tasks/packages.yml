@@ -6,17 +6,19 @@
 - name: Installing Packages
   yum: name={{ item.name }} state={{ item.state }}
   with_items:
-    - { name: "http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm", state: 'present' }
-    - { name: 'foreman-installer',      state: 'present' }
-    - { name: 'vim',                    state: 'present' }
-    - { name: 'lsof',                   state: 'present' }
-    - { name: 'git',                    state: 'present' }
-    - { name: 'iptables' ,              state: 'present' }
-    - { name: 'iptables-services',      state: 'present' }
-    - { name: 'libnetfilter_conntrack', state: 'present' }
-    - { name: 'NetworkManager',         state: 'absent'  }
-    - { name: 'NetworkManager-glib',    state: 'absent'  }
-    - { name: 'firewalld',              state: 'absent'  }
+  #- { name: "http://yum.theforeman.org/releases/1.6/el7/x86_64/foreman-release.rpm", state: 'present' }
+    - { name: "http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm",          state: 'present' }
+    - { name: "epel-release",               state: 'present' }
+    - { name: 'foreman-installer',          state: 'present' }
+    - { name: 'vim',                        state: 'present' }
+    - { name: 'lsof',                       state: 'present' }
+    - { name: 'git',                        state: 'present' }
+    - { name: 'iptables' ,                  state: 'present' }
+    - { name: 'iptables-services',          state: 'present' }
+    - { name: 'libnetfilter_conntrack',     state: 'present' }
+    - { name: 'NetworkManager',             state: 'absent'  }
+    - { name: 'NetworkManager-glib',        state: 'absent'  }
+    - { name: 'firewalld',                  state: 'absent'  }
  
 - name: Installing Gems
   gem: name={{ item }} state=present user_install=no

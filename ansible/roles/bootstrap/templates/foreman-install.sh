@@ -2,7 +2,8 @@
 set -ex
 UBUNTU_MAJOR=14
 UBUNTU_MINOR=04
-UBUNTU="Ubuntu ${UBUNTU_MAJOR}.${UBUNTU_MINOR}"
+UBUNTU_RELEASE=trusty
+UBUNTU_DESCRIPTION="Ubuntu ${UBUNTU_MAJOR}.${UBUNTU_MINOR}"
 
 if [[ -z $HAMMER ]]; then
     HAMMER=/usr/bin/hammer
@@ -21,8 +22,8 @@ function update_vars() {
     if [[ -z $pxe ]]; then
         pxe=`${HAMMER} template list --search preseed | awk '/Preseed default PXELinux/{print $1}'`
     fi 
-    if [[ -z $x86 ]]; then
-        x86=`${HAMMER} architecture list | awk '/x86_64/{print $1}'`
+    if [[ -z $archid ]]; then
+        archid=`${HAMMER} architecture list | awk '/x86_64/{print $1}'`
     fi
     if [[ -z $part ]]; then
         part=`${HAMMER} partition-table list | awk '/Preseed default/{print $1}'`
@@ -32,7 +33,7 @@ function update_vars() {
     fi
     if [[ -z $osid ]]; then
         # Trying to use a variable for the awk // just didn't work
-        osid=`${HAMMER} os list | awk '/Ubuntu 14.04/{print $1}'`
+        osid=`${HAMMER} os list | awk -vrelease="${UBUNTU_RELEASE}" 'index($0,release){print $1}'`
     fi
     if [[ -z $model ]]; then
         model=`${HAMMER} model list | awk '/{{ hosts_model }}/{print $1}'`
@@ -46,7 +47,7 @@ function update_vars() {
 }
 
 function get_host_id() {
-    ${HAMMER} host list | awk "/$1/{print \$1}"
+    ${HAMMER} host list | awk -vhost="$1" 'index($0,host){print $1}'
 }
 
 function environment() {
@@ -89,19 +90,19 @@ function domain() {
 }
 
 function oscreate() {
-    if ! ${HAMMER} os list | grep "${UBUNTU}";then
-      ${HAMMER} os create --description "${UBUNTU}" \
+    if ! ${HAMMER} os list | grep "${UBUNTU_RELEASE}";then
+      ${HAMMER} os create --description "${UBUNTU_DESCRIPTION}" \
                           --family Debian \
                           --major ${UBUNTU_MAJOR} \
                           --minor ${UBUNTU_MINOR} \
                           --name Ubuntu \
-                          --release-name trusty
+                          --release-name ${UBUNTU_RELEASE}
     fi
 
     update_vars
 
     ${HAMMER} os update --id $osid \
-                        --architecture-ids $x86 \
+                        --architecture-ids $archid \
                         --ptable-ids $part \
                         --medium-ids $medium \
                         --config-template-ids $provision,$finish,$pxe
@@ -114,7 +115,7 @@ function oscreate() {
 function hostgroup() {
     if ! ${HAMMER} hostgroup list | grep ops1.{{ domain }};then
       ${HAMMER} hostgroup create --name ops1.{{ domain }} \
-                                 --architecture-id $x86 \
+                                 --architecture-id $archid \
                                  --domain {{ domain }} \
                                  --environment {{ puppet_environment }} \
                                  --medium-id $medium \
@@ -136,7 +137,7 @@ function create_host() {
 
     if ! ${HAMMER} host list | grep $1;then
         ${HAMMER} host create --name $1 \
-                              --architecture-id $x86 \
+                              --architecture-id $archid \
                               --ask-root-password false \
                               --domain {{ domain }} \
                               --environment {{ puppet_environment }} \
@@ -154,7 +155,7 @@ function create_host() {
     else
         hostid=`get_host_id $1`
         ${HAMMER} host update --id $hostid \
-                              --architecture-id $x86 \
+                              --architecture-id $archid \
                               --ask-root-password false \
                               --domain {{ domain }} \
                               --environment {{ puppet_environment }} \
@@ -236,6 +237,8 @@ function configure_ops() {
 
 function main() {
     install
+    # sleep for a while, let the installation build it's metadata
+    sleep 60
     update_vars
     environment develop
     environment {{ puppet_environment }}
