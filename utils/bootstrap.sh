@@ -20,6 +20,7 @@ function install() {
                     curl \
                     ruby-sqlite3 \
                     ruby-stomp -y >> $LOG
+    gem install hiera --no-ri --no-rdoc -v 1.3.4 >> $LOG
     gem install hiera-gpg --no-ri --no-rdoc >> $LOG
     gem install systemu --no-ri --no-rdoc  -v 2.6.4 >> $LOG
     gem install ruby-puppetdb --no-ri --no-rdoc >> $LOG
